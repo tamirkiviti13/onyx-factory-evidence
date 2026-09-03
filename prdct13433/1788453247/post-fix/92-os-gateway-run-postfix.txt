@@ -1,0 +1,46 @@
+S3 (real gateway leg) — `openclaw gateway run` loads onyx-guard AFTER the vFix skip-path grant
+================================================================================
+This is the literal "through the real gateway" leg, and the exact post-fix MIRROR of setup's pre-fix
+baseline. On the buggy base the skip path never wrote plugins.entries.onyx-guard, so OpenClaw's gateway
+never discovered the plugin. The vFix skip-path run adds that grant (see 80/90-*-c1-postfix.txt); a real
+bounded `openclaw gateway run` now DISCOVERS and AUTO-LOADS onyx-guard from ~/.openclaw/extensions.
+Each gateway run migrates identity/device.json into SQLite and DELETES it (env §F.2) → backed up before,
+re-placed after, on both hosts.
+
+================= BASELINE (setup, PRE-FIX, buggy base, no grant) =================
+(evidence/pre-fix/62-windows-s3-drivability.txt, gw4; and 71-mac-s3-drivability.txt)
+  Windows gw4: "[gateway] http server listening (13 plugins: anthropic, browser, canvas, cua-computer,
+    device-pair, file-transfer, geolocation, linux-node, memory-core, ollama, openai, talk-voice, xai; 39.3s)"
+    → onyx-guard NOT loaded (openclaw.json has NO plugins.entries entry).
+  mac: same shape — gateway up, onyx-guard absent, because the buggy skip path wrote no grant.
+
+================= macOS — POST-FIX (vFix, grant present) =================
+Host: i-0b4a40ab2a55ca2b7, macOS 14.8.9 arm64. Bounded 90s `openclaw gateway run --allow-unconfigured`.
+device.json backed up (383 bytes) → run → CONSUMED (migrated+deleted) → re-placed len=383.
+verbatim gateway log:
+  [gateway] starting...
+  [gateway] starting HTTP server...
+  [plugins] plugins.allow is empty; discovered non-bundled plugins may auto-load: onyx-guard
+    (/Users/ec2-user/.openclaw/extensions/onyx-guard/src/index.ts). ...
+  [gateway] http server listening (15 plugins: anthropic, bonjour, browser, canvas, cua-computer,
+    device-pair, file-transfer, geolocation, linux-node, memory-core, onyx-guard, openai, talk-voice, xai; 0.7s)
+  → onyx-guard LOADED (delta vs the pre-fix 13-plugin baseline is onyx-guard).
+
+================= Windows — POST-FIX (vFix, grant present) =================
+Host: i-0776d26f4e79a657d, Windows Server 2022, hostname EC2AMAZ-I43CDS0. Bounded 110s gateway run.
+device.json backed up (383 bytes) → run → CONSUMED → re-placed len=383.
+verbatim gateway log:
+  [plugins] plugins.allow is empty; discovered non-bundled plugins may auto-load: onyx-guard
+    (C:\Users\Administrator\.openclaw\extensions\onyx-guard\src\index.ts). ...
+  [gateway] http server listening (14 plugins: anthropic, browser, canvas, cua-computer, device-pair,
+    file-transfer, geolocation, linux-node, memory-core, ollama, onyx-guard, openai, talk-voice, xai; 5.2s)
+  → onyx-guard LOADED (delta vs the pre-fix 13-plugin gw4 baseline is exactly onyx-guard).
+
+--------------------------------------------------------------------------------
+VERDICT (S3 real-gateway leg, both OSes): the fix's grant is what makes OpenClaw's OWN gateway discover
+and load the onyx-guard plugin. Pre-fix (setup): gateway up, onyx-guard ABSENT from the loaded-plugin
+list. Post-fix (this engineer run): the same real `openclaw gateway run` explicitly reports
+"discovered non-bundled plugins may auto-load: onyx-guard" and lists onyx-guard among the loaded plugins
+on BOTH Windows and macOS. Combined with the node launch-chain harness (83/91-*), this proves the full
+OpenClaw→scanner enforcement path is live end-to-end on both real OSes under the fix — and was silently
+dead on the buggy skip path. device.json fixture consumed-and-re-placed on both hosts per §F.2.

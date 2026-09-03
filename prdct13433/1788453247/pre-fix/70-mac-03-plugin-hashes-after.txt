@@ -1,0 +1,25 @@
+=== PRDCT-13433 macOS lab host — pre-fix host state AFTER the vBase skip-path run (the bug, on macOS) ===
+captured_at: 2026-09-03T19:10:50Z  instance: i-0b4a40ab2a55ca2b7
+expected: 4 plugin files byte-identical (vOld bytes, mtimes 19:09:45Z untouched); binary refreshed to vBase sha 2cab1e26…; grant STILL absent
+--- plugin files sha256 + mtime (AFTER) ---
+package.json  sha256=9b0466c00a81263e47aa0d461753d81b794772425f23e9f5a651252d2482d164  mtime=2026-09-03T19:09:45Z
+openclaw.plugin.json  sha256=8464f03a421d371eb73fb35b269a70237f95ad84d68099690c267398fa720c78  mtime=2026-09-03T19:09:45Z
+src/index.ts  sha256=e13c9f32838e94694b4b7476306412800cb63d1f79c66fd0c41b9fbbae680b14  mtime=2026-09-03T19:09:45Z
+src/scanner-bridge.ts  sha256=2d747aa1d921aa3c18bd8ccf8090a2f38e85aacd40d0a32fc4eae324757e211b  mtime=2026-09-03T19:09:45Z
+onyx/onyx-scanner  sha256=2cab1e26a8a590e8b706d5ad349201cb756bfa104b209f2004deab06d22748a0  mtime=2026-09-03T19:10:27Z
+onyx/onyx-config.json  sha256=13ac839924954360e59d67b0e6c48c5bbff7872427d6bb3efd792ec985e80c80  mtime=2026-09-03T19:10:27Z
+--- grep counts (must still be 0/0) ---
+src/index.ts  tool_result_persist=0  evaluateSync=0
+src/scanner-bridge.ts  tool_result_persist=0  evaluateSync=0
+--- openclaw.json (grant still ABSENT) ---
+{
+  "gateway": {
+    "mode": "local"
+  },
+  "meta": {
+    "migrations": {
+      "modelPolicyAllowlist": true
+    },
+    "lastTouchedVersion": "2026.8.2"
+  }
+}

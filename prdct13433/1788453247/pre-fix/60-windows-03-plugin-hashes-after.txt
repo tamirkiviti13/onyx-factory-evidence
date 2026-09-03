@@ -1,0 +1,25 @@
+=== PRDCT-13433 Windows lab host — pre-fix host state AFTER the vBase skip-path runs (the bug, on Windows) ===
+captured_at: 2026-09-03T19:08:35Z  instance: i-0776d26f4e79a657d
+expected: 4 plugin files BYTE-IDENTICAL to before (vOld bytes, mtimes 19:05:23Z untouched) while vBase embeds different index.ts/scanner-bridge.ts; binary refreshed to vBase sha b65df816…; grant STILL absent
+--- plugin files sha256 + mtime (AFTER) ---
+package.json  sha256=9B0466C00A81263E47AA0D461753D81B794772425F23E9F5A651252D2482D164  mtime=2026-09-03T19:05:23.8353358Z
+openclaw.plugin.json  sha256=8464F03A421D371EB73FB35B269A70237F95AD84D68099690C267398FA720C78  mtime=2026-09-03T19:05:23.8368023Z
+src\index.ts  sha256=E13C9F32838E94694B4B7476306412800CB63D1F79C66FD0C41B9FBBAE680B14  mtime=2026-09-03T19:05:23.8373218Z
+src\scanner-bridge.ts  sha256=2D747AA1D921AA3C18BD8CCF8090A2F38E85AACD40D0A32FC4EAE324757E211B  mtime=2026-09-03T19:05:23.8373218Z
+onyx\onyx-scanner.exe  sha256=B65DF816AD0DE288DA356610A103114A6544291ADDCF84D1725C90C4383D6DD7  mtime=2026-09-03T19:07:48.0568756Z
+onyx\onyx-config.json  sha256=13AC839924954360E59D67B0E6C48C5BBFF7872427D6BB3EFD792EC985E80C80  mtime=2026-09-03T19:07:48.1295242Z
+--- grep counts (must still be 0/0 = stale response-leg enforcement hole) ---
+src\index.ts  tool_result_persist=0  evaluateSync=0
+src\scanner-bridge.ts  tool_result_persist=0  evaluateSync=0
+--- openclaw.json (grant still ABSENT on the buggy base) ---
+{
+  "gateway": {
+    "mode": "local"
+  },
+  "meta": {
+    "migrations": {
+      "modelPolicyAllowlist": true
+    },
+    "lastTouchedVersion": "2026.8.2"
+  }
+}

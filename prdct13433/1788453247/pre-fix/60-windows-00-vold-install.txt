@@ -1,0 +1,203 @@
+=== PRDCT-13433 Windows lab host — vOld FULL install (lays down genuine pre-#11638 plugin state) ===
+captured_at: 2026-09-03T19:05:22Z   instance: i-0776d26f4e79a657d (3.227.234.67)   via: SSH (PowerShell), reverse tunnel to box Kong :8080
+HOST: EC2AMAZ-I43CDS0  USER: administrator
+OS:  Microsoft Windows [Version 10.0.20348.5499]
+onyx-scanner version 0.0.1-vold-13bab571
+2026-09-03T19:05:23.4878832Z	INFO	Scanner starting	{"version": "0.0.1-vold-13bab571", "environment": "dev", "command": "onyx-scanner install openclaw", "trigger_method": "", "invocation_source": "", "executable": "C:\\onyx\\onyx-scanner-vold.exe", "pid": 4344, "ppid": 1488, "username": "EC2AMAZ-I43CDS0\\Administrator", "user_id": "S-1-5-21-2999353483-4220551370-3572615367-500", "group_id": "S-1-5-21-2999353483-4220551370-3572615367-513", "euid": -1, "home_dir": "C:\\Users\\Administrator", "hostname": "EC2AMAZ-I43CDS0", "os": "windows", "platform": "Microsoft Windows Server 2022 Datacenter", "platform_family": "Server", "os_version": "10.0.20348.5499 Build 20348.5499", "kernel_version": "10.0.20348.5499 Build 20348.5499", "kernel_arch": "x86_64", "architecture": "amd64", "go_version": "go1.25.8", "working_dir": "C:\\Users\\Administrator"}
+2026-09-03T19:05:23.5782428Z	INFO	Starting OpenClaw installation
+2026-09-03T19:05:23.5782428Z	DEBUG	openclaw_install_flags: dry_run=false, verbose=true, force=false, endpoint=http://onyx-ai-firewall.onyxd.svc.cluster.local:8080
+2026-09-03T19:05:23.7519522Z	INFO	install_context	{"event": "install_context", "cycle_id": "a82fae10", "caller": "openclaw_hooks", "platform": "windows", "parent_process_name": "powershell.exe", "parent_pid": 1488, "euid": -1, "is_privileged_context": false, "active_console_sessions": 0}
+2026-09-03T19:05:23.7524813Z	INFO	Installing OpenClaw integration
+2026-09-03T19:05:23.7524813Z	INFO	Starting OpenClaw hooks installation
+2026-09-03T19:05:23.7772718Z	INFO	keychain_outcome	{"event": "keychain_outcome", "op": "put", "outcome": "success", "reason": "ok", "caller": "openclaw_hooks", "cycle_id": "a82fae10", "platform": "windows", "target_home_set": false, "target_home_tail": "all-users", "target_index": 0, "total_targets": 1}
+2026-09-03T19:05:23.8354456Z	DEBUG	Wrote plugin file	{"path": "C:\\Users\\Administrator\\.openclaw\\extensions\\onyx-guard\\package.json"}
+2026-09-03T19:05:23.8368023Z	DEBUG	Wrote plugin file	{"path": "C:\\Users\\Administrator\\.openclaw\\extensions\\onyx-guard\\openclaw.plugin.json"}
+2026-09-03T19:05:23.8373218Z	DEBUG	Wrote plugin file	{"path": "C:\\Users\\Administrator\\.openclaw\\extensions\\onyx-guard\\src\\index.ts"}
+2026-09-03T19:05:23.8373218Z	DEBUG	Wrote plugin file	{"path": "C:\\Users\\Administrator\\.openclaw\\extensions\\onyx-guard\\src\\scanner-bridge.ts"}
+2026-09-03T19:05:23.9922828Z	DEBUG	Scanner binary installed	{"path": "C:\\Users\\Administrator\\.openclaw\\extensions\\onyx-guard\\onyx\\onyx-scanner.exe"}
+2026-09-03T19:05:23.9935827Z	DEBUG	Config file installed	{"path": "C:\\Users\\Administrator\\.openclaw\\extensions\\onyx-guard\\onyx\\onyx-config.json"}
+2026-09-03T19:05:23.9935827Z	INFO	openclaw_conversation_access	{"event": "openclaw_conversation_access", "op": "grant", "outcome": "success", "platform": "windows", "configPath": "C:\\Users\\Administrator\\.openclaw\\openclaw.json", "pluginId": "onyx-guard"}
+2026-09-03T19:05:23.9935827Z	INFO	OpenClaw plugin installed for user	{"pluginDir": "C:\\Users\\Administrator\\.openclaw\\extensions\\onyx-guard"}
+2026-09-03T19:05:23.9935827Z	INFO	OpenClaw hooks installation complete. Restart the OpenClaw gateway for changes to take effect.
+📊 Installation summary:
+plugin_dir: C:\Users\Administrator\.openclaw\extensions\onyx-guard
+already_installed: false
+Installed:
+  - before_tool_call hook: Onyx AI Guard tool execution evaluation
+  - Scanner binary: <plugin_dir>/onyx-scanner
+  - Config: <plugin_dir>/onyx-config.json
+
+OpenClaw plugin installed successfully!
+Restart the OpenClaw gateway for changes to take effect.
+
+To update credentials, run: onyx-scanner install openclaw --api-key=<new-key> --force
+2026-09-03T19:05:24.0688525Z	DEBUG	post_scan_started	{"event": "post_scan_started", "platform": "windows", "caller": "post-operation (openclaw)", "endpoint": "http://ingest-onyx.onyxd.svc.cluster.local:8080/mcp-scanner"}
+2026-09-03T19:05:24.0846719Z	DEBUG	Scan run starting	{"scan_run_id": "d7a4e61c-f69b-4c7f-a4ee-656bb9ac3030", "timestamp": "2026-09-03T19:05:24.0688525Z", "full_scan": false, "dry_run": false, "project_walk_timeout": "0s", "session_lookback_window": "0s"}
+2026-09-03T19:05:24.0846719Z	DEBUG	Step start: enumerate user contexts	{"scan_run_id": "d7a4e61c-f69b-4c7f-a4ee-656bb9ac3030", "include_other_users": true}
+2026-09-03T19:05:24.1306641Z	DEBUG	Step done: enumerate user contexts	{"scan_run_id": "d7a4e61c-f69b-4c7f-a4ee-656bb9ac3030", "users_found": 1, "usernames": ["Administrator"], "include_other_users": true, "duration_ms": 45}
+2026-09-03T19:05:24.1318362Z	INFO	Scanning users	{"users": 1, "scan_run_id": "d7a4e61c-f69b-4c7f-a4ee-656bb9ac3030"}
+2026-09-03T19:05:24.1348179Z	DEBUG	Step start: scan user	{"username": "Administrator", "home_dir": "C:\\Users\\Administrator", "scan_run_id": "d7a4e61c-f69b-4c7f-a4ee-656bb9ac3030"}
+2026-09-03T19:05:24.1354928Z	DEBUG	Scanning agents for user	{"username": "Administrator", "home_dir": "C:\\Users\\Administrator"}
+2026-09-03T19:05:24.1354928Z	DEBUG	Phase 1 start: scan static/desktop agents	{"username": "Administrator", "detectors_count": 44}
+2026-09-03T19:05:24.1861903Z	DEBUG	MCP config path missing	{"detector": "cursor", "username": "Administrator", "path": "C:\\Users\\Administrator\\.cursor\\mcp.json"}
+2026-09-03T19:05:24.1892256Z	INFO	agent_detection	{"event": "agent_detection", "platform": "windows", "agent": "cursor", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "Administrator"}
+2026-09-03T19:05:24.1892256Z	DEBUG	Detector scanned	{"detector": "cursor", "username": "Administrator", "outcome": "not_installed", "paths_checked": ["C:\\Users\\Administrator\\.cursor\\mcp.json"], "instances": [], "mcp_servers_total": 0, "duration_ms": 3}
+2026-09-03T19:05:24.2406988Z	DEBUG	MCP config path missing	{"detector": "claude-code", "username": "Administrator", "path": "C:\\Users\\Administrator\\.claude.json"}
+2026-09-03T19:05:24.2406988Z	DEBUG	MCP config path missing	{"detector": "claude-code", "username": "Administrator", "path": "C:\\Users\\Administrator\\.claude\\settings.json"}
+2026-09-03T19:05:24.2412256Z	DEBUG	MCP config path missing	{"detector": "claude-code", "username": "Administrator", "path": "C:\\Users\\Administrator\\.claude\\settings.local.json"}
+2026-09-03T19:05:24.2414591Z	DEBUG	MCP config path missing	{"detector": "claude-code", "username": "Administrator", "path": "C:\\Program Files\\ClaudeCode\\managed-mcp.json"}
+2026-09-03T19:05:24.2414591Z	DEBUG	MCP config path missing	{"detector": "claude-code", "username": "Administrator", "path": "C:\\Program Files\\ClaudeCode\\managed-settings.json"}
+2026-09-03T19:05:24.2460886Z	INFO	agent_detection	{"event": "agent_detection", "platform": "windows", "agent": "claude-code", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "Administrator"}
+2026-09-03T19:05:24.2460886Z	DEBUG	Detector scanned	{"detector": "claude-code", "username": "Administrator", "outcome": "not_installed", "paths_checked": ["C:\\Users\\Administrator\\.claude.json", "C:\\Users\\Administrator\\.claude\\settings.json", "C:\\Users\\Administrator\\.claude\\settings.local.json", "C:\\Program Files\\ClaudeCode\\managed-mcp.json", "C:\\Program Files\\ClaudeCode\\managed-settings.json"], "instances": [], "mcp_servers_total": 0, "duration_ms": 5}
+2026-09-03T19:05:24.297196Z	DEBUG	MCP config path missing	{"detector": "claude", "username": "Administrator", "path": "C:\\Users\\Administrator\\AppData\\Roaming\\Claude\\claude_desktop_config.json"}
+2026-09-03T19:05:24.297717Z	INFO	agent_detection	{"event": "agent_detection", "platform": "windows", "agent": "claude", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "Administrator"}
+2026-09-03T19:05:24.2979753Z	DEBUG	Detector scanned	{"detector": "claude", "username": "Administrator", "outcome": "not_installed", "paths_checked": ["C:\\Users\\Administrator\\AppData\\Roaming\\Claude\\claude_desktop_config.json"], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:05:24.3488143Z	DEBUG	MCP config path missing	{"detector": "claude-cowork", "username": "Administrator", "path": "C:\\Users\\Administrator\\AppData\\Roaming\\Claude\\claude_desktop_config.json"}
+2026-09-03T19:05:24.3488143Z	DEBUG	Detector scanned	{"detector": "claude-cowork", "username": "Administrator", "outcome": "not_installed", "paths_checked": ["C:\\Users\\Administrator\\AppData\\Roaming\\Claude\\claude_desktop_config.json"], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:05:24.4000801Z	DEBUG	MCP config path missing	{"detector": "copilot", "username": "Administrator", "path": "C:\\Users\\Administrator\\AppData\\Roaming\\Code\\User\\mcp.json"}
+2026-09-03T19:05:24.4068515Z	DEBUG	Detector scanned	{"detector": "copilot", "username": "Administrator", "outcome": "not_installed", "paths_checked": ["C:\\Users\\Administrator\\AppData\\Roaming\\Code\\User\\mcp.json"], "instances": [], "mcp_servers_total": 0, "duration_ms": 6}
+2026-09-03T19:05:24.4575101Z	DEBUG	MCP config path missing	{"detector": "copilot-cli", "username": "Administrator", "path": "C:\\Users\\Administrator\\.copilot\\mcp-config.json"}
+2026-09-03T19:05:24.460591Z	INFO	agent_detection	{"event": "agent_detection", "platform": "windows", "agent": "copilot-cli", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "Administrator"}
+2026-09-03T19:05:24.460591Z	DEBUG	Detector scanned	{"detector": "copilot-cli", "username": "Administrator", "outcome": "not_installed", "paths_checked": ["C:\\Users\\Administrator\\.copilot\\mcp-config.json"], "instances": [], "mcp_servers_total": 0, "duration_ms": 3}
+2026-09-03T19:05:24.5110409Z	DEBUG	MCP config path missing	{"detector": "codex", "username": "Administrator", "path": "C:\\Users\\Administrator\\.codex\\config.toml"}
+2026-09-03T19:05:24.5134592Z	INFO	agent_detection	{"event": "agent_detection", "platform": "windows", "agent": "codex", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "Administrator"}
+2026-09-03T19:05:24.5139766Z	DEBUG	Detector scanned	{"detector": "codex", "username": "Administrator", "outcome": "not_installed", "paths_checked": ["C:\\Users\\Administrator\\.codex\\config.toml"], "instances": [], "mcp_servers_total": 0, "duration_ms": 3}
+2026-09-03T19:05:24.5649836Z	DEBUG	MCP config path missing	{"detector": "windsurf", "username": "Administrator", "path": "C:\\Users\\Administrator\\.codeium\\windsurf\\mcp_config.json"}
+2026-09-03T19:05:24.5692582Z	INFO	agent_detection	{"event": "agent_detection", "platform": "windows", "agent": "windsurf", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "Administrator"}
+2026-09-03T19:05:24.5697761Z	DEBUG	Detector scanned	{"detector": "windsurf", "username": "Administrator", "outcome": "not_installed", "paths_checked": ["C:\\Users\\Administrator\\.codeium\\windsurf\\mcp_config.json"], "instances": [], "mcp_servers_total": 0, "duration_ms": 5}
+2026-09-03T19:05:24.6202909Z	DEBUG	MCP config path missing	{"detector": "junie", "username": "Administrator", "path": "C:\\Users\\Administrator\\.junie\\mcp\\mcp.json"}
+2026-09-03T19:05:24.6515764Z	INFO	agent_detection	{"event": "agent_detection", "platform": "windows", "agent": "junie", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "Administrator"}
+2026-09-03T19:05:24.6515764Z	DEBUG	Detector scanned	{"detector": "junie", "username": "Administrator", "outcome": "not_installed", "paths_checked": ["C:\\Users\\Administrator\\.junie\\mcp\\mcp.json"], "instances": [], "mcp_servers_total": 0, "duration_ms": 31}
+2026-09-03T19:05:24.7023694Z	DEBUG	MCP config path missing	{"detector": "gemini_cli", "username": "Administrator", "path": "C:\\Users\\Administrator\\.gemini\\settings.json"}
+2026-09-03T19:05:24.70487Z	INFO	agent_detection	{"event": "agent_detection", "platform": "windows", "agent": "gemini_cli", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "Administrator"}
+2026-09-03T19:05:24.7053894Z	DEBUG	Detector scanned	{"detector": "gemini_cli", "username": "Administrator", "outcome": "not_installed", "paths_checked": ["C:\\Users\\Administrator\\.gemini\\settings.json"], "instances": [], "mcp_servers_total": 0, "duration_ms": 3}
+2026-09-03T19:05:24.7562128Z	DEBUG	MCP config path missing	{"detector": "opencode", "username": "Administrator", "path": "C:\\Users\\Administrator\\AppData\\Roaming\\opencode\\opencode.json"}
+2026-09-03T19:05:24.7562128Z	DEBUG	MCP config path missing	{"detector": "opencode", "username": "Administrator", "path": "C:\\Users\\Administrator\\AppData\\Roaming\\opencode\\opencode.jsonc"}
+2026-09-03T19:05:24.7567382Z	DEBUG	MCP config path missing	{"detector": "opencode", "username": "Administrator", "path": "C:\\Users\\Administrator\\.config\\opencode\\opencode.json"}
+2026-09-03T19:05:24.7569306Z	DEBUG	MCP config path missing	{"detector": "opencode", "username": "Administrator", "path": "C:\\Users\\Administrator\\.config\\opencode\\opencode.jsonc"}
+2026-09-03T19:05:24.7569306Z	DEBUG	MCP config path missing	{"detector": "opencode", "username": "Administrator", "path": "C:\\ProgramData\\opencode\\opencode.json"}
+2026-09-03T19:05:24.7569306Z	DEBUG	MCP config path missing	{"detector": "opencode", "username": "Administrator", "path": "C:\\ProgramData\\opencode\\opencode.jsonc"}
+2026-09-03T19:05:24.7613078Z	INFO	agent_detection	{"event": "agent_detection", "platform": "windows", "agent": "opencode", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "Administrator"}
+2026-09-03T19:05:24.7613078Z	DEBUG	Detector scanned	{"detector": "opencode", "username": "Administrator", "outcome": "not_installed", "paths_checked": ["C:\\Users\\Administrator\\AppData\\Roaming\\opencode\\opencode.json", "C:\\Users\\Administrator\\AppData\\Roaming\\opencode\\opencode.jsonc", "C:\\Users\\Administrator\\.config\\opencode\\opencode.json", "C:\\Users\\Administrator\\.config\\opencode\\opencode.jsonc", "C:\\ProgramData\\opencode\\opencode.json", "C:\\ProgramData\\opencode\\opencode.jsonc"], "instances": [], "mcp_servers_total": 0, "duration_ms": 5}
+2026-09-03T19:05:24.8431373Z	INFO	agent_detection	{"event": "agent_detection", "platform": "windows", "agent": "jetbrains-ide", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "Administrator"}
+2026-09-03T19:05:24.8431373Z	DEBUG	Detector scanned	{"detector": "jetbrains-ide", "username": "Administrator", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 31}
+2026-09-03T19:05:24.8937819Z	DEBUG	MCP config path missing	{"detector": "jetbrains-copilot", "username": "Administrator", "path": "C:\\Users\\Administrator\\AppData\\Local\\github-copilot\\intellij\\mcp.json"}
+2026-09-03T19:05:24.9240081Z	INFO	agent_detection	{"event": "agent_detection", "platform": "windows", "agent": "jetbrains-copilot", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "Administrator"}
+2026-09-03T19:05:24.9240938Z	DEBUG	Detector scanned	{"detector": "jetbrains-copilot", "username": "Administrator", "outcome": "not_installed", "paths_checked": ["C:\\Users\\Administrator\\AppData\\Local\\github-copilot\\intellij\\mcp.json"], "instances": [], "mcp_servers_total": 0, "duration_ms": 30}
+2026-09-03T19:05:24.9747058Z	DEBUG	MCP config path missing	{"detector": "amp", "username": "Administrator", "path": "C:\\Users\\Administrator\\AppData\\Roaming\\amp\\settings.json"}
+2026-09-03T19:05:24.9771072Z	INFO	agent_detection	{"event": "agent_detection", "platform": "windows", "agent": "amp", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "Administrator"}
+2026-09-03T19:05:24.9771072Z	DEBUG	Detector scanned	{"detector": "amp", "username": "Administrator", "outcome": "not_installed", "paths_checked": ["C:\\Users\\Administrator\\AppData\\Roaming\\amp\\settings.json"], "instances": [], "mcp_servers_total": 0, "duration_ms": 2}
+2026-09-03T19:05:25.028036Z	DEBUG	MCP config path missing	{"detector": "vscode-amp", "username": "Administrator", "path": "C:\\Users\\Administrator\\AppData\\Roaming\\Code\\User\\settings.json"}
+2026-09-03T19:05:25.0359575Z	INFO	agent_detection	{"event": "agent_detection", "platform": "windows", "agent": "vscode-amp", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "Administrator"}
+2026-09-03T19:05:25.0366462Z	DEBUG	Detector scanned	{"detector": "vscode-amp", "username": "Administrator", "outcome": "not_installed", "paths_checked": ["C:\\Users\\Administrator\\AppData\\Roaming\\Code\\User\\settings.json"], "instances": [], "mcp_servers_total": 0, "duration_ms": 8}
+2026-09-03T19:05:25.0870857Z	DEBUG	MCP config path missing	{"detector": "crush", "username": "Administrator", "path": "C:\\Users\\Administrator\\AppData\\Roaming\\crush\\crush.json"}
+2026-09-03T19:05:25.0895878Z	INFO	agent_detection	{"event": "agent_detection", "platform": "windows", "agent": "crush", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "Administrator"}
+2026-09-03T19:05:25.0901731Z	DEBUG	Detector scanned	{"detector": "crush", "username": "Administrator", "outcome": "not_installed", "paths_checked": ["C:\\Users\\Administrator\\AppData\\Roaming\\crush\\crush.json"], "instances": [], "mcp_servers_total": 0, "duration_ms": 3}
+2026-09-03T19:05:25.141006Z	DEBUG	MCP config path exists	{"detector": "openclaw", "username": "Administrator", "path": "C:\\Users\\Administrator\\.openclaw\\openclaw.json"}
+2026-09-03T19:05:25.1434675Z	INFO	agent_detection	{"event": "agent_detection", "platform": "windows", "agent": "openclaw", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "Administrator"}
+2026-09-03T19:05:25.1434675Z	DEBUG	Detector scanned	{"detector": "openclaw", "username": "Administrator", "outcome": "not_installed", "paths_checked": ["C:\\Users\\Administrator\\.openclaw\\openclaw.json"], "instances": [], "mcp_servers_total": 0, "duration_ms": 2}
+2026-09-03T19:05:25.1945067Z	DEBUG	MCP config path missing	{"detector": "kiro", "username": "Administrator", "path": "C:\\Users\\Administrator\\.kiro\\settings\\mcp.json"}
+2026-09-03T19:05:25.1974765Z	INFO	agent_detection	{"event": "agent_detection", "platform": "windows", "agent": "kiro", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "Administrator"}
+2026-09-03T19:05:25.1974765Z	DEBUG	Detector scanned	{"detector": "kiro", "username": "Administrator", "outcome": "not_installed", "paths_checked": ["C:\\Users\\Administrator\\.kiro\\settings\\mcp.json"], "instances": [], "mcp_servers_total": 0, "duration_ms": 3}
+2026-09-03T19:05:25.2480469Z	DEBUG	Detector scanned	{"detector": "chatgpt", "username": "Administrator", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:05:25.2985792Z	DEBUG	Detector scanned	{"detector": "notion", "username": "Administrator", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:05:25.3492655Z	DEBUG	Detector scanned	{"detector": "perplexity", "username": "Administrator", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:05:25.4001961Z	DEBUG	Detector scanned	{"detector": "superhuman", "username": "Administrator", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:05:25.4507612Z	DEBUG	Detector scanned	{"detector": "replit", "username": "Administrator", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:05:25.501945Z	DEBUG	Detector scanned	{"detector": "granola", "username": "Administrator", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:05:25.5526532Z	DEBUG	Detector scanned	{"detector": "superwhisper", "username": "Administrator", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:05:25.6032428Z	DEBUG	Detector scanned	{"detector": "clickup-brain", "username": "Administrator", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:05:25.6539565Z	DEBUG	Detector scanned	{"detector": "genspark", "username": "Administrator", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:05:25.7046932Z	DEBUG	Detector scanned	{"detector": "postman", "username": "Administrator", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:05:25.7549392Z	DEBUG	Detector scanned	{"detector": "krisp", "username": "Administrator", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:05:25.8052384Z	DEBUG	Detector scanned	{"detector": "scribe", "username": "Administrator", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:05:25.8559548Z	DEBUG	Detector scanned	{"detector": "manus", "username": "Administrator", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:05:25.9068565Z	DEBUG	Detector scanned	{"detector": "zoom", "username": "Administrator", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:05:25.9576195Z	DEBUG	Detector scanned	{"detector": "figma", "username": "Administrator", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:05:26.0079381Z	DEBUG	Detector scanned	{"detector": "gemini_desktop", "username": "Administrator", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:05:26.0704268Z	DEBUG	Detector scanned	{"detector": "box_drive", "username": "Administrator", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:05:26.1208643Z	DEBUG	Detector scanned	{"detector": "tableau", "username": "Administrator", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:05:26.1714025Z	INFO	agent_detection	{"event": "agent_detection", "platform": "windows", "agent": "microsoft_copilot", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "Administrator"}
+2026-09-03T19:05:26.1720952Z	DEBUG	Detector scanned	{"detector": "microsoft_copilot", "username": "Administrator", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:05:26.2225904Z	INFO	agent_detection	{"event": "agent_detection", "platform": "windows", "agent": "github_copilot", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "Administrator"}
+2026-09-03T19:05:26.223263Z	DEBUG	Detector scanned	{"detector": "github_copilot", "username": "Administrator", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:05:26.2741182Z	DEBUG	Detector scanned	{"detector": "onyx-browser-extension", "username": "Administrator", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:05:26.3246862Z	DEBUG	MCP config path missing	{"detector": "microsoft_scout", "username": "Administrator", "path": "C:\\Users\\Administrator\\.copilot\\mcp-config.json"}
+2026-09-03T19:05:26.3253395Z	INFO	agent_detection	{"event": "agent_detection", "platform": "windows", "agent": "microsoft_scout", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "Administrator"}
+2026-09-03T19:05:26.3253395Z	DEBUG	Detector scanned	{"detector": "microsoft_scout", "username": "Administrator", "outcome": "not_installed", "paths_checked": ["C:\\Users\\Administrator\\.copilot\\mcp-config.json"], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:05:26.376066Z	DEBUG	MCP config path missing	{"detector": "antigravity_desktop", "username": "Administrator", "path": "C:\\Users\\Administrator\\.gemini\\config\\mcp_config.json"}
+2026-09-03T19:05:26.3767389Z	INFO	agent_detection	{"event": "agent_detection", "platform": "windows", "agent": "antigravity_desktop", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "Administrator"}
+2026-09-03T19:05:26.3767389Z	DEBUG	Detector scanned	{"detector": "antigravity_desktop", "username": "Administrator", "outcome": "not_installed", "paths_checked": ["C:\\Users\\Administrator\\.gemini\\config\\mcp_config.json"], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:05:26.4272348Z	DEBUG	MCP config path missing	{"detector": "antigravity-cli", "username": "Administrator", "path": "C:\\Users\\Administrator\\.gemini\\config\\mcp_config.json"}
+2026-09-03T19:05:26.4272348Z	DEBUG	MCP config path missing	{"detector": "antigravity-cli", "username": "Administrator", "path": "C:\\Users\\Administrator\\.gemini\\antigravity-cli\\mcp_config.json"}
+2026-09-03T19:05:26.4297766Z	INFO	agent_detection	{"event": "agent_detection", "platform": "windows", "agent": "antigravity-cli", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "Administrator"}
+2026-09-03T19:05:26.4302947Z	DEBUG	Detector scanned	{"detector": "antigravity-cli", "username": "Administrator", "outcome": "not_installed", "paths_checked": ["C:\\Users\\Administrator\\.gemini\\config\\mcp_config.json", "C:\\Users\\Administrator\\.gemini\\antigravity-cli\\mcp_config.json"], "instances": [], "mcp_servers_total": 0, "duration_ms": 3}
+2026-09-03T19:05:26.4809841Z	DEBUG	MCP config path missing	{"detector": "antigravity-ide", "username": "Administrator", "path": "C:\\Users\\Administrator\\.gemini\\config\\mcp_config.json"}
+2026-09-03T19:05:26.4809841Z	DEBUG	MCP config path missing	{"detector": "antigravity-ide", "username": "Administrator", "path": "C:\\Users\\Administrator\\.gemini\\antigravity-ide\\mcp_config.json"}
+2026-09-03T19:05:26.4817955Z	INFO	agent_detection	{"event": "agent_detection", "platform": "windows", "agent": "antigravity-ide", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "Administrator"}
+2026-09-03T19:05:26.4817955Z	DEBUG	Detector scanned	{"detector": "antigravity-ide", "username": "Administrator", "outcome": "not_installed", "paths_checked": ["C:\\Users\\Administrator\\.gemini\\config\\mcp_config.json", "C:\\Users\\Administrator\\.gemini\\antigravity-ide\\mcp_config.json"], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:05:26.5424488Z	DEBUG	Detector scanned	{"detector": "cline", "username": "Administrator", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 10}
+2026-09-03T19:05:26.5424488Z	DEBUG	Phase 1 done: scan static/desktop agents	{"username": "Administrator", "agents_detected": 0, "agent_names": [], "duration_ms": 2406}
+2026-09-03T19:05:26.5429675Z	DEBUG	Step start: collect session events	{"username": "Administrator", "lookback_window": "0s", "detectors_considered": 44, "detectors_with_sessions": [], "detectors_skipped_not_detected": ["cursor", "claude-code", "claude", "claude-cowork", "copilot", "copilot-cli", "codex", "windsurf", "junie", "gemini_cli", "opencode", "jetbrains-ide", "jetbrains-copilot", "amp", "vscode-amp", "crush", "openclaw", "kiro", "chatgpt", "notion", "perplexity", "superhuman", "replit", "granola", "superwhisper", "clickup-brain", "genspark", "postman", "krisp", "scribe", "manus", "zoom", "figma", "gemini_desktop", "box_drive", "tableau", "microsoft_copilot", "github_copilot", "onyx-browser-extension", "microsoft_scout", "antigravity_desktop", "antigravity-cli", "antigravity-ide", "cline"], "detectors_skipped_no_sources": []}
+2026-09-03T19:05:26.5429675Z	DEBUG	Session substep skipped	{"agent": "cursor", "username": "Administrator", "reason": "no_detected_agent"}
+2026-09-03T19:05:26.5429675Z	DEBUG	Session substep skipped	{"agent": "claude-code", "username": "Administrator", "reason": "no_detected_agent"}
+2026-09-03T19:05:26.5429675Z	DEBUG	Session substep skipped	{"agent": "claude", "username": "Administrator", "reason": "no_detected_agent"}
+2026-09-03T19:05:26.5429675Z	DEBUG	Session substep skipped	{"agent": "claude-cowork", "username": "Administrator", "reason": "no_detected_agent"}
+2026-09-03T19:05:26.5429675Z	DEBUG	Session substep skipped	{"agent": "copilot", "username": "Administrator", "reason": "no_detected_agent"}
+2026-09-03T19:05:26.5429675Z	DEBUG	Session substep skipped	{"agent": "copilot-cli", "username": "Administrator", "reason": "no_detected_agent"}
+2026-09-03T19:05:26.5429675Z	DEBUG	Session substep skipped	{"agent": "codex", "username": "Administrator", "reason": "no_detected_agent"}
+2026-09-03T19:05:26.5429675Z	DEBUG	Session substep skipped	{"agent": "windsurf", "username": "Administrator", "reason": "no_detected_agent"}
+2026-09-03T19:05:26.5429675Z	DEBUG	Session substep skipped	{"agent": "junie", "username": "Administrator", "reason": "no_detected_agent"}
+2026-09-03T19:05:26.5429675Z	DEBUG	Session substep skipped	{"agent": "gemini_cli", "username": "Administrator", "reason": "no_detected_agent"}
+2026-09-03T19:05:26.5429675Z	DEBUG	Session substep skipped	{"agent": "opencode", "username": "Administrator", "reason": "no_detected_agent"}
+2026-09-03T19:05:26.5429675Z	DEBUG	Session substep skipped	{"agent": "jetbrains-ide", "username": "Administrator", "reason": "no_detected_agent"}
+2026-09-03T19:05:26.5429675Z	DEBUG	Session substep skipped	{"agent": "jetbrains-copilot", "username": "Administrator", "reason": "no_detected_agent"}
+2026-09-03T19:05:26.5429675Z	DEBUG	Session substep skipped	{"agent": "amp", "username": "Administrator", "reason": "no_detected_agent"}
+2026-09-03T19:05:26.5429675Z	DEBUG	Session substep skipped	{"agent": "vscode-amp", "username": "Administrator", "reason": "no_detected_agent"}
+2026-09-03T19:05:26.5429675Z	DEBUG	Session substep skipped	{"agent": "crush", "username": "Administrator", "reason": "no_detected_agent"}
+2026-09-03T19:05:26.5429675Z	DEBUG	Session substep skipped	{"agent": "openclaw", "username": "Administrator", "reason": "no_detected_agent"}
+2026-09-03T19:05:26.5429675Z	DEBUG	Session substep skipped	{"agent": "kiro", "username": "Administrator", "reason": "no_detected_agent"}
+2026-09-03T19:05:26.5429675Z	DEBUG	Session substep skipped	{"agent": "chatgpt", "username": "Administrator", "reason": "no_detected_agent"}
+2026-09-03T19:05:26.5429675Z	DEBUG	Session substep skipped	{"agent": "notion", "username": "Administrator", "reason": "no_detected_agent"}
+2026-09-03T19:05:26.5429675Z	DEBUG	Session substep skipped	{"agent": "perplexity", "username": "Administrator", "reason": "no_detected_agent"}
+2026-09-03T19:05:26.5429675Z	DEBUG	Session substep skipped	{"agent": "superhuman", "username": "Administrator", "reason": "no_detected_agent"}
+2026-09-03T19:05:26.5429675Z	DEBUG	Session substep skipped	{"agent": "replit", "username": "Administrator", "reason": "no_detected_agent"}
+2026-09-03T19:05:26.5429675Z	DEBUG	Session substep skipped	{"agent": "granola", "username": "Administrator", "reason": "no_detected_agent"}
+2026-09-03T19:05:26.5429675Z	DEBUG	Session substep skipped	{"agent": "superwhisper", "username": "Administrator", "reason": "no_detected_agent"}
+2026-09-03T19:05:26.5429675Z	DEBUG	Session substep skipped	{"agent": "clickup-brain", "username": "Administrator", "reason": "no_detected_agent"}
+2026-09-03T19:05:26.5429675Z	DEBUG	Session substep skipped	{"agent": "genspark", "username": "Administrator", "reason": "no_detected_agent"}
+2026-09-03T19:05:26.5429675Z	DEBUG	Session substep skipped	{"agent": "postman", "username": "Administrator", "reason": "no_detected_agent"}
+2026-09-03T19:05:26.5429675Z	DEBUG	Session substep skipped	{"agent": "krisp", "username": "Administrator", "reason": "no_detected_agent"}
+2026-09-03T19:05:26.5429675Z	DEBUG	Session substep skipped	{"agent": "scribe", "username": "Administrator", "reason": "no_detected_agent"}
+2026-09-03T19:05:26.5429675Z	DEBUG	Session substep skipped	{"agent": "manus", "username": "Administrator", "reason": "no_detected_agent"}
+2026-09-03T19:05:26.5429675Z	DEBUG	Session substep skipped	{"agent": "zoom", "username": "Administrator", "reason": "no_detected_agent"}
+2026-09-03T19:05:26.5429675Z	DEBUG	Session substep skipped	{"agent": "figma", "username": "Administrator", "reason": "no_detected_agent"}
+2026-09-03T19:05:26.5429675Z	DEBUG	Session substep skipped	{"agent": "gemini_desktop", "username": "Administrator", "reason": "no_detected_agent"}
+2026-09-03T19:05:26.5429675Z	DEBUG	Session substep skipped	{"agent": "box_drive", "username": "Administrator", "reason": "no_detected_agent"}
+2026-09-03T19:05:26.5429675Z	DEBUG	Session substep skipped	{"agent": "tableau", "username": "Administrator", "reason": "no_detected_agent"}
+2026-09-03T19:05:26.5429675Z	DEBUG	Session substep skipped	{"agent": "microsoft_copilot", "username": "Administrator", "reason": "no_detected_agent"}
+2026-09-03T19:05:26.5429675Z	DEBUG	Session substep skipped	{"agent": "github_copilot", "username": "Administrator", "reason": "no_detected_agent"}
+2026-09-03T19:05:26.5429675Z	DEBUG	Session substep skipped	{"agent": "onyx-browser-extension", "username": "Administrator", "reason": "no_detected_agent"}
+2026-09-03T19:05:26.5429675Z	DEBUG	Session substep skipped	{"agent": "microsoft_scout", "username": "Administrator", "reason": "no_detected_agent"}
+2026-09-03T19:05:26.5454396Z	DEBUG	Session substep skipped	{"agent": "antigravity_desktop", "username": "Administrator", "reason": "no_detected_agent"}
+2026-09-03T19:05:26.5454396Z	DEBUG	Session substep skipped	{"agent": "antigravity-cli", "username": "Administrator", "reason": "no_detected_agent"}
+2026-09-03T19:05:26.5454396Z	DEBUG	Session substep skipped	{"agent": "antigravity-ide", "username": "Administrator", "reason": "no_detected_agent"}
+2026-09-03T19:05:26.5454396Z	DEBUG	Session substep skipped	{"agent": "cline", "username": "Administrator", "reason": "no_detected_agent"}
+2026-09-03T19:05:26.5454396Z	DEBUG	Step done: collect session events	{"username": "Administrator", "session_files_examined": 0, "conversations_sent": 0, "chunks_sent": 0, "agents_with_sessions_sent": 0, "duration_ms": 2}
+2026-09-03T19:05:26.5454396Z	DEBUG	Phase 2 skipped: root home (no user repos here)	{"username": "Administrator", "home_dir": "C:\\Users\\Administrator"}
+2026-09-03T19:05:26.5460344Z	DEBUG	Step done: scan user	{"username": "Administrator", "home_dir": "C:\\Users\\Administrator", "payloads_sent": 0, "duration_ms": 2410, "scan_run_id": "d7a4e61c-f69b-4c7f-a4ee-656bb9ac3030"}
+2026-09-03T19:05:26.5460344Z	DEBUG	Step start: send scan summary	{"scan_run_id": "d7a4e61c-f69b-4c7f-a4ee-656bb9ac3030"}
+2026-09-03T19:05:26.5657912Z	DEBUG	payload sent to backend	{"payload_id": "scanner-summary-af976737-3632-4855-8561-56bb20ffe10f", "size_bytes": 1328}
+2026-09-03T19:05:26.5663893Z	DEBUG	Step done: send scan summary	{"scan_run_id": "d7a4e61c-f69b-4c7f-a4ee-656bb9ac3030", "duration_ms": 20}
+2026-09-03T19:05:26.5663893Z	DEBUG	Step start: send scan logs	{"scan_run_id": "d7a4e61c-f69b-4c7f-a4ee-656bb9ac3030"}
+2026-09-03T19:05:26.5934862Z	DEBUG	payload sent to backend	{"payload_id": "scanner-logs-d7a4e61c-f69b-4c7f-a4ee-656bb9ac3030", "size_bytes": 36177}
+2026-09-03T19:05:26.5943149Z	DEBUG	Step done: send scan logs	{"scan_run_id": "d7a4e61c-f69b-4c7f-a4ee-656bb9ac3030", "duration_ms": 27}
+2026-09-03T19:05:26.5943149Z	INFO	Scan run completed	{"payloads_sent": 0, "users": 1, "agents_detected_total": 0, "mcp_servers_total": 0, "projects_total": 0, "skills_total": 0, "duration_ms": 2476, "scan_run_id": "d7a4e61c-f69b-4c7f-a4ee-656bb9ac3030"}
+2026-09-03T19:05:26.5943149Z	DEBUG	post_scan_outcome	{"event": "post_scan_outcome", "platform": "windows", "caller": "post-operation (openclaw)", "outcome": "success"}
+
+Administrator (C:\Users\Administrator)
+
+No agents found.
+
+2026-09-03T19:05:26.5943149Z	INFO	OpenClaw install command completed successfully
+EXIT_CODE=0

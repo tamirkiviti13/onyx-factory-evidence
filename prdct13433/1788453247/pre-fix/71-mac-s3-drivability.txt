@@ -1,0 +1,32 @@
+=== PRDCT-13433 macOS lab host — S3 launch-chain DRIVABILITY probe + plugin-activation contract ===
+captured_at: 2026-09-03T19:23:07Z  instance: i-0b4a40ab2a55ca2b7  (macOS 14.8.9 arm64, mac2-m2.metal dedicated host h-0b373cdd49ef9101d)
+
+Leg 2 (bridge-spawned scanner leg): plugin's own binary, bridge argv, from pluginDir:
+LEG2_EXIT_CODE=0
+
+Plugin-activation contract (probed with the REAL openclaw CLI, config restored to fixture after):
+(1) buggy-base state — NO plugins.entries in openclaw.json -> onyx-guard NOT discovered:
+0
+no plugins key
+0
+onyx-guard NOT in plugins list
+(2) vFix-shaped grant alone (plugins.entries.onyx-guard.hooks.allowConversationAccess=true) -> plugin discovered AND enabled from the global root (~/.openclaw/extensions):
+Config warnings: plugins.entries.onyx-guard: plugin not found: onyx-guard (stale config entry ignored; remove it from plugins config)
+│ Onyx AI Guard                  │ onyx-guard        │ openclaw │ enabled  │ global:onyx-guard/src/index.ts │ 1.0.0    │
+│                                │                   │          │          │ Real-time security protection  │          │
+--
+config RESTORED to fixture (no grant):
+{
+  "gateway": {
+    "mode": "local"
+  },
+  "meta": {
+    "migrations": {
+      "modelPolicyAllowlist": true
+    },
+    "lastTouchedVersion": "2026.8.2"
+  }
+}
+
+fixture check: device.json present:
+-rw-r--r--  1 ec2-user  staff  383 Sep  3 19:09 /Users/ec2-user/.openclaw/identity/device.json

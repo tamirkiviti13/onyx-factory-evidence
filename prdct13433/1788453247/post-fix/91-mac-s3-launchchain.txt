@@ -1,0 +1,58 @@
+S3 — real OpenClaw → scanner launch chain on macOS (executed through node loading the REAL plugin TS,
+      not static greps); darwin resolves the extensionless onyx-scanner (no .exe leg)
+================================================================================
+Host: i-0b4a40ab2a55ca2b7, macOS 14.8.9 arm64, hostname ip-172-31-41-109.ec2.internal, user ec2-user
+Plugin dir: /Users/ec2-user/.openclaw/extensions/onyx-guard  (post vFix — fixed index.ts + scanner-bridge.ts on disk, grant present)
+Runner: node v24.15.0  --experimental-transform-types  launch-harness.ts
+  (loads the REAL plugin TypeScript unmodified; only warning on stderr is node's ExperimentalWarning)
+
+Plugin-activation precondition (activation contract, env §F.1) proven live:
+  $ openclaw plugins list  →  "Onyx AI Guard  onyx-guard  openclaw  enabled  global:onyx-guard/src/index.ts  1.0.0"
+  onyx-guard is ENABLED and sourced from the fixed global:onyx-guard/src/index.ts — OpenClaw discovers the
+  extension because the vFix skip-path grant wrote plugins.entries.onyx-guard (see 90-mac-c1-postfix.txt).
+  The buggy base had no grant entry → OpenClaw would not have discovered onyx-guard at all.
+  (plugins list does NOT consume identity/device.json — it is not an `openclaw gateway run`.)
+
+VERBATIM harness stdout:
+  PLUGIN_DIR=/Users/ec2-user/.openclaw/extensions/onyx-guard
+  LEG1 platform=darwin
+  LEG1 resolved_scanner_path=/Users/ec2-user/.openclaw/extensions/onyx-guard/onyx/onyx-scanner
+  LEG1 resolved_exists=true
+  LEG1 extensionless_variant_exists=true
+  LEG0 registered_events=before_tool_call,tool_result_persist,llm_input,llm_output
+  LEG0 tool_result_persist_registered=true
+  LEG0 before_tool_call_registered=true
+  LEG0 loadPluginConfig(exec-relative onyx-config.json)={"timeout":10000,"mcpGuardHooks":true}
+  LEG2 real_handler_return=null (undefined/null = allow verdict, block object = block)
+  LEG2 real_handler_elapsed_ms=451
+  LEG2 spawn_exit_status=0
+  LEG2 spawn_stdout(verdict)=
+  LEG2 spawn_stderr(scanner logs)=
+  HARNESS_EXIT=0
+
+--- Leg 1: bridge binary resolution (getScannerBinaryPath, darwin branch) ---
+platform = darwin → binName = "onyx-scanner" (no .exe)
+resolved scannerPath = /Users/ec2-user/.openclaw/extensions/onyx-guard/onyx/onyx-scanner
+existsSync(scannerPath) = true    <-- darwin extensionless binary resolves to a real file
+(this is the platform mirror of the Windows win32 .exe leg in 83-windows-s3-launchchain.txt)
+
+--- Leg 0: plugin.register(api) wiring + config read (exec-relative) ---
+registered_events = before_tool_call, tool_result_persist, llm_input, llm_output   <-- all 4 hooks; PostTool armed
+loadPluginConfig() = { timeout: 10000, mcpGuardHooks: true }   <-- mcp-guard-hooks:true read exec-relative → hooks armed
+
+--- Leg 2: fire the registered handler → real evaluateSync → real scanner spawn ---
+invoked handlers['tool_result_persist'](event, ctx) with a realistic PostTool event (probe__echo tool result):
+  scanner-bridge.evaluateSync(HookType.PostTool, data):
+    execFileSync spawned: .../onyx/onyx-scanner hooks --source=openclaw --type=post_tool
+    child exit status = 0
+    real handler elapsed = 451 ms
+    stdout = "" → bridge returns ALLOW_RESPONSE (benign probe → genuine allow)
+  handler returned: null (allow)
+
+--------------------------------------------------------------------------------
+VERDICT (S3, macOS): the full launch chain runs on real macOS through the fixed plugin — OpenClaw
+discovers onyx-guard (grant entry present, plugins list = enabled) → the PostTool hook registers because
+mcp-guard-hooks:true is read exec-relative → the bridge resolves the darwin extensionless onyx-scanner →
+a real tool event drives a real execFileSync spawn of the vFix scanner (exit 0, 451 ms) returning a genuine
+allow. Every leg executed through node loading the REAL plugin TypeScript — no static grep, no mock scanner.
+The enforcement path the buggy skip path left un-refreshed is live end-to-end on macOS.

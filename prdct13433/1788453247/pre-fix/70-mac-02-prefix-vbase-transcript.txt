@@ -1,0 +1,433 @@
+=== PRDCT-13433 macOS lab host — at1 PRE-FIX: vBase (frozen buggy base) no-force skip-path run ===
+captured_at: 2026-09-03T19:10:26Z  instance: i-0b4a40ab2a55ca2b7 (18.234.37.146)  binary: /tmp/onyx-scanner-vbase sha256=2cab1e26a8a590e8b706d5ad349201cb756bfa104b209f2004deab06d22748a0
+HOST: ip-172-31-41-109.ec2.internal  USER: ec2-user
+Darwin ip-172-31-41-109.ec2.internal 23.6.0 Darwin Kernel Version 23.6.0: Tue Jul 21 22:00:04 PDT 2026; root:xnu-10063.141.1.713.39~1/RELEASE_ARM64_T8112 arm64
+ProductName:		macOS
+ProductVersion:		14.8.9
+BuildVersion:		23J631
+onyx-scanner version 0.0.2-vbase-6965aa72
+2026-09-03T19:10:27.3772Z	INFO	Scanner starting	{"version": "0.0.2-vbase-6965aa72", "environment": "dev", "command": "onyx-scanner install openclaw", "trigger_method": "", "invocation_source": "", "executable": "/tmp/onyx-scanner-vbase", "pid": 1074, "ppid": 1068, "username": "ec2-user", "user_id": "501", "group_id": "20", "euid": 501, "home_dir": "/Users/ec2-user", "hostname": "ip-172-31-41-109.ec2.internal", "os": "darwin", "platform": "darwin", "platform_family": "Standalone Workstation", "os_version": "14.8.9", "kernel_version": "23.6.0", "kernel_arch": "arm64", "architecture": "arm64", "go_version": "go1.25.8", "working_dir": "/Users/ec2-user"}
+2026-09-03T19:10:27.377463Z	INFO	Starting OpenClaw installation
+2026-09-03T19:10:27.377481Z	DEBUG	openclaw_install_flags: dry_run=false, verbose=true, force=false, endpoint=http://onyx-ai-firewall.onyxd.svc.cluster.local:8080
+2026-09-03T19:10:27.380394Z	INFO	install_context	{"event": "install_context", "cycle_id": "62396d59", "caller": "openclaw_hooks", "platform": "darwin", "parent_process_name": "bash", "parent_pid": 1068, "euid": 501, "is_privileged_context": false, "active_console_sessions": 0}
+2026-09-03T19:10:27.380461Z	INFO	Installing OpenClaw integration
+2026-09-03T19:10:27.380471Z	INFO	Starting OpenClaw hooks installation
+2026-09-03T19:10:27.406606Z	WARN	keychain_outcome	{"event": "keychain_outcome", "op": "put", "outcome": "fallback_env", "reason": "other", "caller": "openclaw_hooks", "cycle_id": "62396d59", "platform": "darwin", "target_home_set": false, "target_home_tail": "current-user", "target_index": 0, "total_targets": 1, "error": "security add-generic-password: exit status 152 (output: security: SecKeychainItemCreateFromContent (<default>): Unable to obtain authorization for this operation.\nadd-generic-password: returned -60008)"}
+2026-09-03T19:10:27.475608Z	DEBUG	Scanner binary installed	{"path": "/Users/ec2-user/.openclaw/extensions/onyx-guard/onyx/onyx-scanner"}
+2026-09-03T19:10:27.475632Z	INFO	Plugin already installed - scanner binary refreshed	{"pluginDir": "/Users/ec2-user/.openclaw/extensions/onyx-guard"}
+2026-09-03T19:10:27.475828Z	DEBUG	Config file installed	{"path": "/Users/ec2-user/.openclaw/extensions/onyx-guard/onyx/onyx-config.json", "content_changed": true}
+2026-09-03T19:10:27.475842Z	INFO	Plugin already installed - onyx-config.json refreshed with new settings	{"pluginDir": "/Users/ec2-user/.openclaw/extensions/onyx-guard"}
+2026-09-03T19:10:27.475859Z	INFO	OpenClaw hooks installation complete. Restart the OpenClaw gateway for changes to take effect.
+📊 Installation summary:
+plugin_dir: /Users/ec2-user/.openclaw/extensions/onyx-guard
+already_installed: true
+Installed:
+  - before_tool_call hook: Onyx AI Guard tool execution evaluation
+  - Scanner binary: <plugin_dir>/onyx-scanner
+  - Config: <plugin_dir>/onyx-config.json
+
+OpenClaw plugin installed successfully!
+Restart the OpenClaw gateway for changes to take effect.
+
+To update credentials, run: onyx-scanner install openclaw --api-key=<new-key> --force
+2026-09-03T19:10:27.486286Z	DEBUG	post_scan_started	{"event": "post_scan_started", "platform": "darwin", "caller": "post-operation (openclaw)", "endpoint": "http://ingest-onyx.onyxd.svc.cluster.local:8080/mcp-scanner"}
+2026-09-03T19:10:27.501831Z	DEBUG	Scan run starting	{"scan_run_id": "568a3dd7-595b-4049-b4ab-7964d1297eb6", "timestamp": "2026-09-03T19:10:27.486323Z", "full_scan": false, "dry_run": false, "project_walk_timeout": "0s", "session_lookback_window": "0s"}
+2026-09-03T19:10:27.501894Z	DEBUG	Step start: enumerate user contexts	{"scan_run_id": "568a3dd7-595b-4049-b4ab-7964d1297eb6", "include_other_users": true}
+2026-09-03T19:10:27.501919Z	DEBUG	Step done: enumerate user contexts	{"scan_run_id": "568a3dd7-595b-4049-b4ab-7964d1297eb6", "users_found": 1, "usernames": ["ec2-user"], "include_other_users": true, "duration_ms": 0}
+2026-09-03T19:10:27.501949Z	INFO	Scanning users	{"users": 1, "scan_run_id": "568a3dd7-595b-4049-b4ab-7964d1297eb6"}
+2026-09-03T19:10:27.522582Z	INFO	email_source_resolved	{"event": "email_source_resolved", "outcome": "not_found", "candidate_count": 0, "email_sources": [], "platform": "darwin", "target_home_tail": "ec2-user", "cycle_id": "568a3dd7-595b-4049-b4ab-7964d1297eb6", "scan_run_id": "568a3dd7-595b-4049-b4ab-7964d1297eb6", "target_index": 0, "total_targets": 1}
+2026-09-03T19:10:27.522617Z	INFO	email_candidates_resolved	{"event": "email_candidates_resolved", "outcome": "not_found", "candidate_count": 0, "email_sources": [], "platform": "darwin", "target_home_tail": "ec2-user", "cycle_id": "568a3dd7-595b-4049-b4ab-7964d1297eb6", "scan_run_id": "568a3dd7-595b-4049-b4ab-7964d1297eb6", "target_index": 0, "total_targets": 1}
+2026-09-03T19:10:27.522632Z	INFO	app_identity_resolved	{"event": "app_identity_resolved", "outcome": "not_found", "candidate_count": 0, "email_sources": [], "browsers_read": [], "platform": "darwin", "target_home_tail": "ec2-user", "cycle_id": "568a3dd7-595b-4049-b4ab-7964d1297eb6", "scan_run_id": "568a3dd7-595b-4049-b4ab-7964d1297eb6", "target_index": 0, "total_targets": 1}
+2026-09-03T19:10:27.522645Z	DEBUG	Step start: scan user	{"username": "ec2-user", "home_dir": "/Users/ec2-user", "scan_run_id": "568a3dd7-595b-4049-b4ab-7964d1297eb6"}
+2026-09-03T19:10:27.522887Z	DEBUG	Scanning agents for user	{"username": "ec2-user", "home_dir": "/Users/ec2-user"}
+2026-09-03T19:10:27.522903Z	DEBUG	Phase 1 start: scan static/desktop agents	{"username": "ec2-user", "detectors_count": 83}
+2026-09-03T19:10:27.575006Z	DEBUG	MCP config path missing	{"detector": "cursor", "username": "ec2-user", "path": "/Users/ec2-user/.cursor/mcp.json"}
+2026-09-03T19:10:27.575261Z	INFO	agent_detection	{"event": "agent_detection", "platform": "darwin", "agent": "cursor", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "ec2-user"}
+2026-09-03T19:10:27.575288Z	DEBUG	Detector scanned	{"detector": "cursor", "username": "ec2-user", "outcome": "not_installed", "paths_checked": ["/Users/ec2-user/.cursor/mcp.json"], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:10:27.627372Z	DEBUG	MCP config path missing	{"detector": "claude", "username": "ec2-user", "path": "/Users/ec2-user/Library/Application Support/Claude/claude_desktop_config.json"}
+2026-09-03T19:10:27.627524Z	INFO	agent_detection	{"event": "agent_detection", "platform": "darwin", "agent": "claude", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "ec2-user"}
+2026-09-03T19:10:27.627562Z	DEBUG	Detector scanned	{"detector": "claude", "username": "ec2-user", "outcome": "not_installed", "paths_checked": ["/Users/ec2-user/Library/Application Support/Claude/claude_desktop_config.json"], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:10:27.679644Z	DEBUG	MCP config path missing	{"detector": "claude-cowork", "username": "ec2-user", "path": "/Users/ec2-user/Library/Application Support/Claude/claude_desktop_config.json"}
+2026-09-03T19:10:27.679812Z	DEBUG	Detector scanned	{"detector": "claude-cowork", "username": "ec2-user", "outcome": "not_installed", "paths_checked": ["/Users/ec2-user/Library/Application Support/Claude/claude_desktop_config.json"], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:10:27.731972Z	DEBUG	MCP config path missing	{"detector": "copilot", "username": "ec2-user", "path": "/Users/ec2-user/Library/Application Support/Code/User/mcp.json"}
+2026-09-03T19:10:27.733734Z	DEBUG	Detector scanned	{"detector": "copilot", "username": "ec2-user", "outcome": "not_installed", "paths_checked": ["/Users/ec2-user/Library/Application Support/Code/User/mcp.json"], "instances": [], "mcp_servers_total": 0, "duration_ms": 1}
+2026-09-03T19:10:27.785963Z	DEBUG	MCP config path missing	{"detector": "copilot-cli", "username": "ec2-user", "path": "/Users/ec2-user/.copilot/mcp-config.json"}
+2026-09-03T19:10:27.786424Z	INFO	agent_detection	{"event": "agent_detection", "platform": "darwin", "agent": "copilot-cli", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "ec2-user"}
+2026-09-03T19:10:27.786524Z	DEBUG	Detector scanned	{"detector": "copilot-cli", "username": "ec2-user", "outcome": "not_installed", "paths_checked": ["/Users/ec2-user/.copilot/mcp-config.json"], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:10:27.83941Z	INFO	agent_detection	{"event": "agent_detection", "platform": "darwin", "agent": "code-puppy", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "ec2-user"}
+2026-09-03T19:10:27.839583Z	DEBUG	Detector scanned	{"detector": "code-puppy", "username": "ec2-user", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:10:27.891758Z	DEBUG	MCP config path missing	{"detector": "snowflake_coco", "username": "ec2-user", "path": "/Users/ec2-user/.snowflake/cortex/mcp.json"}
+2026-09-03T19:10:27.892212Z	INFO	agent_detection	{"event": "agent_detection", "platform": "darwin", "agent": "snowflake_coco", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "ec2-user"}
+2026-09-03T19:10:27.892304Z	DEBUG	Detector scanned	{"detector": "snowflake_coco", "username": "ec2-user", "outcome": "not_installed", "paths_checked": ["/Users/ec2-user/.snowflake/cortex/mcp.json"], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:10:27.944528Z	DEBUG	MCP config path missing	{"detector": "wibey", "username": "ec2-user", "path": "/Users/ec2-user/.wibey/.mcp.json"}
+2026-09-03T19:10:27.94483Z	DEBUG	MCP config path missing	{"detector": "wibey", "username": "ec2-user", "path": "/Users/ec2-user/.wibey/wibey-vscode/mcp.json"}
+2026-09-03T19:10:27.944959Z	DEBUG	MCP config path missing	{"detector": "wibey", "username": "ec2-user", "path": "/Users/ec2-user/.wibey/wibey-jetbrains/mcp.json"}
+2026-09-03T19:10:27.945217Z	INFO	agent_detection	{"event": "agent_detection", "platform": "darwin", "agent": "wibey", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "ec2-user"}
+2026-09-03T19:10:27.945331Z	DEBUG	Detector scanned	{"detector": "wibey", "username": "ec2-user", "outcome": "not_installed", "paths_checked": ["/Users/ec2-user/.wibey/.mcp.json", "/Users/ec2-user/.wibey/wibey-vscode/mcp.json", "/Users/ec2-user/.wibey/wibey-jetbrains/mcp.json"], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:10:27.997587Z	DEBUG	MCP config path missing	{"detector": "windsurf", "username": "ec2-user", "path": "/Users/ec2-user/.codeium/windsurf/mcp_config.json"}
+2026-09-03T19:10:27.99848Z	INFO	agent_detection	{"event": "agent_detection", "platform": "darwin", "agent": "windsurf", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "ec2-user"}
+2026-09-03T19:10:27.998608Z	DEBUG	Detector scanned	{"detector": "windsurf", "username": "ec2-user", "outcome": "not_installed", "paths_checked": ["/Users/ec2-user/.codeium/windsurf/mcp_config.json"], "instances": [], "mcp_servers_total": 0, "duration_ms": 1}
+2026-09-03T19:10:28.050856Z	DEBUG	MCP config path missing	{"detector": "junie", "username": "ec2-user", "path": "/Users/ec2-user/.junie/mcp/mcp.json"}
+2026-09-03T19:10:28.056505Z	INFO	agent_detection	{"event": "agent_detection", "platform": "darwin", "agent": "junie", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "ec2-user"}
+2026-09-03T19:10:28.05665Z	DEBUG	Detector scanned	{"detector": "junie", "username": "ec2-user", "outcome": "not_installed", "paths_checked": ["/Users/ec2-user/.junie/mcp/mcp.json"], "instances": [], "mcp_servers_total": 0, "duration_ms": 5}
+2026-09-03T19:10:28.108887Z	DEBUG	MCP config path missing	{"detector": "gemini_cli", "username": "ec2-user", "path": "/Users/ec2-user/.gemini/settings.json"}
+2026-09-03T19:10:28.109404Z	INFO	agent_detection	{"event": "agent_detection", "platform": "darwin", "agent": "gemini_cli", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "ec2-user"}
+2026-09-03T19:10:28.10951Z	DEBUG	Detector scanned	{"detector": "gemini_cli", "username": "ec2-user", "outcome": "not_installed", "paths_checked": ["/Users/ec2-user/.gemini/settings.json"], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:10:28.161766Z	DEBUG	MCP config path missing	{"detector": "opencode", "username": "ec2-user", "path": "/Users/ec2-user/.config/opencode/opencode.json"}
+2026-09-03T19:10:28.161922Z	DEBUG	MCP config path missing	{"detector": "opencode", "username": "ec2-user", "path": "/Users/ec2-user/.config/opencode/opencode.jsonc"}
+2026-09-03T19:10:28.162101Z	DEBUG	MCP config path missing	{"detector": "opencode", "username": "ec2-user", "path": "/Library/Application Support/opencode/opencode.json"}
+2026-09-03T19:10:28.162191Z	DEBUG	MCP config path missing	{"detector": "opencode", "username": "ec2-user", "path": "/Library/Application Support/opencode/opencode.jsonc"}
+2026-09-03T19:10:28.16259Z	INFO	agent_detection	{"event": "agent_detection", "platform": "darwin", "agent": "opencode", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "ec2-user"}
+2026-09-03T19:10:28.162696Z	DEBUG	Detector scanned	{"detector": "opencode", "username": "ec2-user", "outcome": "not_installed", "paths_checked": ["/Users/ec2-user/.config/opencode/opencode.json", "/Users/ec2-user/.config/opencode/opencode.jsonc", "/Library/Application Support/opencode/opencode.json", "/Library/Application Support/opencode/opencode.jsonc"], "instances": [], "mcp_servers_total": 0, "duration_ms": 1}
+2026-09-03T19:10:28.219121Z	INFO	agent_detection	{"event": "agent_detection", "platform": "darwin", "agent": "jetbrains-ide", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "ec2-user"}
+2026-09-03T19:10:28.219281Z	DEBUG	Detector scanned	{"detector": "jetbrains-ide", "username": "ec2-user", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 4}
+2026-09-03T19:10:28.271474Z	DEBUG	MCP config path missing	{"detector": "jetbrains-copilot", "username": "ec2-user", "path": "/Users/ec2-user/.config/github-copilot/intellij/mcp.json"}
+2026-09-03T19:10:28.275726Z	INFO	agent_detection	{"event": "agent_detection", "platform": "darwin", "agent": "jetbrains-copilot", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "ec2-user"}
+2026-09-03T19:10:28.275825Z	DEBUG	Detector scanned	{"detector": "jetbrains-copilot", "username": "ec2-user", "outcome": "not_installed", "paths_checked": ["/Users/ec2-user/.config/github-copilot/intellij/mcp.json"], "instances": [], "mcp_servers_total": 0, "duration_ms": 4}
+2026-09-03T19:10:28.328036Z	DEBUG	MCP config path missing	{"detector": "amp", "username": "ec2-user", "path": "/Users/ec2-user/.config/amp/settings.json"}
+2026-09-03T19:10:28.328228Z	DEBUG	MCP config path missing	{"detector": "amp", "username": "ec2-user", "path": "/Users/ec2-user/.amp/settings.json"}
+2026-09-03T19:10:28.328564Z	INFO	agent_detection	{"event": "agent_detection", "platform": "darwin", "agent": "amp", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "ec2-user"}
+2026-09-03T19:10:28.328669Z	DEBUG	Detector scanned	{"detector": "amp", "username": "ec2-user", "outcome": "not_installed", "paths_checked": ["/Users/ec2-user/.config/amp/settings.json", "/Users/ec2-user/.amp/settings.json"], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:10:28.380833Z	DEBUG	MCP config path missing	{"detector": "vscode-amp", "username": "ec2-user", "path": "/Users/ec2-user/Library/Application Support/Code/User/settings.json"}
+2026-09-03T19:10:28.381864Z	INFO	agent_detection	{"event": "agent_detection", "platform": "darwin", "agent": "vscode-amp", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "ec2-user"}
+2026-09-03T19:10:28.381958Z	DEBUG	Detector scanned	{"detector": "vscode-amp", "username": "ec2-user", "outcome": "not_installed", "paths_checked": ["/Users/ec2-user/Library/Application Support/Code/User/settings.json"], "instances": [], "mcp_servers_total": 0, "duration_ms": 1}
+2026-09-03T19:10:28.434155Z	DEBUG	MCP config path missing	{"detector": "vscode-continue", "username": "ec2-user", "path": "/Users/ec2-user/.continue/config.yaml"}
+2026-09-03T19:10:28.43433Z	DEBUG	MCP config path missing	{"detector": "vscode-continue", "username": "ec2-user", "path": "/Users/ec2-user/.continue/config.json"}
+2026-09-03T19:10:28.435132Z	INFO	agent_detection	{"event": "agent_detection", "platform": "darwin", "agent": "vscode-continue", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "ec2-user"}
+2026-09-03T19:10:28.435251Z	DEBUG	Detector scanned	{"detector": "vscode-continue", "username": "ec2-user", "outcome": "not_installed", "paths_checked": ["/Users/ec2-user/.continue/config.yaml", "/Users/ec2-user/.continue/config.json"], "instances": [], "mcp_servers_total": 0, "duration_ms": 1}
+2026-09-03T19:10:28.487517Z	DEBUG	MCP config path missing	{"detector": "crush", "username": "ec2-user", "path": "/Users/ec2-user/.config/crush/crush.json"}
+2026-09-03T19:10:28.487679Z	DEBUG	MCP config path missing	{"detector": "crush", "username": "ec2-user", "path": "/Users/ec2-user/.crush/crush.json"}
+2026-09-03T19:10:28.48803Z	INFO	agent_detection	{"event": "agent_detection", "platform": "darwin", "agent": "crush", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "ec2-user"}
+2026-09-03T19:10:28.488122Z	DEBUG	Detector scanned	{"detector": "crush", "username": "ec2-user", "outcome": "not_installed", "paths_checked": ["/Users/ec2-user/.config/crush/crush.json", "/Users/ec2-user/.crush/crush.json"], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:10:28.540336Z	DEBUG	MCP config path exists	{"detector": "openclaw", "username": "ec2-user", "path": "/Users/ec2-user/.openclaw/openclaw.json"}
+2026-09-03T19:10:28.540905Z	INFO	agent_detection	{"event": "agent_detection", "platform": "darwin", "agent": "openclaw", "detected": true, "evidence_type": "binary_on_path", "evidence_path": "/Users/ec2-user/.npm-global/bin/openclaw", "username": "ec2-user"}
+2026-09-03T19:10:28.689491Z	DEBUG	Skills attached	{"agent": "openclaw", "username": "ec2-user", "global_skills_count": 51, "registered_skills_count": 0, "project_skills_count": 0, "total_skills": 51, "static_paths": ["/Users/ec2-user/.openclaw/skills", "/Users/ec2-user/.agents/skills", "/Users/ec2-user/.openclaw/workspace/skills", "/Users/ec2-user/.npm-global/lib/node_modules/openclaw/skills"], "static_skill_dirs": []}
+2026-09-03T19:10:28.689577Z	DEBUG	Detector scanned	{"detector": "openclaw", "username": "ec2-user", "outcome": "config_parsed", "paths_checked": ["/Users/ec2-user/.openclaw/openclaw.json"], "instances": [{"path":"/Users/ec2-user/.openclaw/openclaw.json","config_exists":true,"mcp_servers":0}], "mcp_servers_total": 0, "duration_ms": 149}
+2026-09-03T19:10:28.741691Z	DEBUG	MCP config path missing	{"detector": "kiro", "username": "ec2-user", "path": "/Users/ec2-user/.kiro/settings/mcp.json"}
+2026-09-03T19:10:28.742058Z	INFO	agent_detection	{"event": "agent_detection", "platform": "darwin", "agent": "kiro", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "ec2-user"}
+2026-09-03T19:10:28.742128Z	DEBUG	Detector scanned	{"detector": "kiro", "username": "ec2-user", "outcome": "not_installed", "paths_checked": ["/Users/ec2-user/.kiro/settings/mcp.json"], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:10:28.794563Z	INFO	agent_detection	{"event": "agent_detection", "platform": "darwin", "agent": "chatgpt", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "ec2-user"}
+2026-09-03T19:10:28.794746Z	DEBUG	Detector scanned	{"detector": "chatgpt", "username": "ec2-user", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:10:28.84723Z	INFO	agent_detection	{"event": "agent_detection", "platform": "darwin", "agent": "notion", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "ec2-user"}
+2026-09-03T19:10:28.847405Z	DEBUG	Detector scanned	{"detector": "notion", "username": "ec2-user", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:10:28.899822Z	INFO	agent_detection	{"event": "agent_detection", "platform": "darwin", "agent": "perplexity", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "ec2-user"}
+2026-09-03T19:10:28.90001Z	DEBUG	Detector scanned	{"detector": "perplexity", "username": "ec2-user", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:10:28.952582Z	INFO	agent_detection	{"event": "agent_detection", "platform": "darwin", "agent": "superhuman", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "ec2-user"}
+2026-09-03T19:10:28.952771Z	DEBUG	Detector scanned	{"detector": "superhuman", "username": "ec2-user", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:10:29.00518Z	INFO	agent_detection	{"event": "agent_detection", "platform": "darwin", "agent": "replit", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "ec2-user"}
+2026-09-03T19:10:29.005346Z	DEBUG	Detector scanned	{"detector": "replit", "username": "ec2-user", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:10:29.057819Z	INFO	agent_detection	{"event": "agent_detection", "platform": "darwin", "agent": "granola", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "ec2-user"}
+2026-09-03T19:10:29.057953Z	DEBUG	Detector scanned	{"detector": "granola", "username": "ec2-user", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:10:29.110345Z	INFO	agent_detection	{"event": "agent_detection", "platform": "darwin", "agent": "superwhisper", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "ec2-user"}
+2026-09-03T19:10:29.110526Z	DEBUG	Detector scanned	{"detector": "superwhisper", "username": "ec2-user", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:10:29.162992Z	INFO	agent_detection	{"event": "agent_detection", "platform": "darwin", "agent": "clickup-brain", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "ec2-user"}
+2026-09-03T19:10:29.163152Z	DEBUG	Detector scanned	{"detector": "clickup-brain", "username": "ec2-user", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:10:29.215182Z	INFO	agent_detection	{"event": "agent_detection", "platform": "darwin", "agent": "genspark", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "ec2-user"}
+2026-09-03T19:10:29.215347Z	DEBUG	Detector scanned	{"detector": "genspark", "username": "ec2-user", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:10:29.267779Z	INFO	agent_detection	{"event": "agent_detection", "platform": "darwin", "agent": "postman", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "ec2-user"}
+2026-09-03T19:10:29.267972Z	DEBUG	Detector scanned	{"detector": "postman", "username": "ec2-user", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:10:29.320335Z	INFO	agent_detection	{"event": "agent_detection", "platform": "darwin", "agent": "krisp", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "ec2-user"}
+2026-09-03T19:10:29.320481Z	DEBUG	Detector scanned	{"detector": "krisp", "username": "ec2-user", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:10:29.372869Z	INFO	agent_detection	{"event": "agent_detection", "platform": "darwin", "agent": "scribe", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "ec2-user"}
+2026-09-03T19:10:29.373026Z	DEBUG	Detector scanned	{"detector": "scribe", "username": "ec2-user", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:10:29.425442Z	INFO	agent_detection	{"event": "agent_detection", "platform": "darwin", "agent": "manus", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "ec2-user"}
+2026-09-03T19:10:29.425577Z	DEBUG	Detector scanned	{"detector": "manus", "username": "ec2-user", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:10:29.477989Z	INFO	agent_detection	{"event": "agent_detection", "platform": "darwin", "agent": "zoom", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "ec2-user"}
+2026-09-03T19:10:29.478161Z	DEBUG	Detector scanned	{"detector": "zoom", "username": "ec2-user", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:10:29.530319Z	INFO	agent_detection	{"event": "agent_detection", "platform": "darwin", "agent": "figma", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "ec2-user"}
+2026-09-03T19:10:29.530475Z	DEBUG	Detector scanned	{"detector": "figma", "username": "ec2-user", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:10:29.582907Z	INFO	agent_detection	{"event": "agent_detection", "platform": "darwin", "agent": "gemini_desktop", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "ec2-user"}
+2026-09-03T19:10:29.58307Z	DEBUG	Detector scanned	{"detector": "gemini_desktop", "username": "ec2-user", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:10:29.634828Z	INFO	agent_detection	{"event": "agent_detection", "platform": "darwin", "agent": "box_drive", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "ec2-user"}
+2026-09-03T19:10:29.635035Z	DEBUG	Detector scanned	{"detector": "box_drive", "username": "ec2-user", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:10:29.687703Z	INFO	agent_detection	{"event": "agent_detection", "platform": "darwin", "agent": "tableau", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "ec2-user"}
+2026-09-03T19:10:29.687844Z	DEBUG	Detector scanned	{"detector": "tableau", "username": "ec2-user", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:10:29.740487Z	INFO	agent_detection	{"event": "agent_detection", "platform": "darwin", "agent": "microsoft_copilot", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "ec2-user"}
+2026-09-03T19:10:29.740637Z	DEBUG	Detector scanned	{"detector": "microsoft_copilot", "username": "ec2-user", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:10:29.793101Z	INFO	agent_detection	{"event": "agent_detection", "platform": "darwin", "agent": "github_copilot", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "ec2-user"}
+2026-09-03T19:10:29.793256Z	DEBUG	Detector scanned	{"detector": "github_copilot", "username": "ec2-user", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:10:29.845685Z	DEBUG	Detector scanned	{"detector": "onyx-browser-extension", "username": "ec2-user", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:10:29.897949Z	DEBUG	MCP config path missing	{"detector": "microsoft_scout", "username": "ec2-user", "path": "/Users/ec2-user/.copilot/mcp-config.json"}
+2026-09-03T19:10:29.898345Z	INFO	agent_detection	{"event": "agent_detection", "platform": "darwin", "agent": "microsoft_scout", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "ec2-user"}
+2026-09-03T19:10:29.898432Z	DEBUG	Detector scanned	{"detector": "microsoft_scout", "username": "ec2-user", "outcome": "not_installed", "paths_checked": ["/Users/ec2-user/.copilot/mcp-config.json"], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:10:29.951031Z	INFO	agent_detection	{"event": "agent_detection", "platform": "darwin", "agent": "ollama", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "ec2-user"}
+2026-09-03T19:10:29.951206Z	DEBUG	Detector scanned	{"detector": "ollama", "username": "ec2-user", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:10:30.003393Z	DEBUG	MCP config path missing	{"detector": "antigravity_desktop", "username": "ec2-user", "path": "/Users/ec2-user/.gemini/config/mcp_config.json"}
+2026-09-03T19:10:30.003801Z	INFO	agent_detection	{"event": "agent_detection", "platform": "darwin", "agent": "antigravity_desktop", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "ec2-user"}
+2026-09-03T19:10:30.003913Z	DEBUG	Detector scanned	{"detector": "antigravity_desktop", "username": "ec2-user", "outcome": "not_installed", "paths_checked": ["/Users/ec2-user/.gemini/config/mcp_config.json"], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:10:30.056109Z	DEBUG	MCP config path missing	{"detector": "antigravity-cli", "username": "ec2-user", "path": "/Users/ec2-user/.gemini/config/mcp_config.json"}
+2026-09-03T19:10:30.056241Z	DEBUG	MCP config path missing	{"detector": "antigravity-cli", "username": "ec2-user", "path": "/Users/ec2-user/.gemini/antigravity-cli/mcp_config.json"}
+2026-09-03T19:10:30.056664Z	INFO	agent_detection	{"event": "agent_detection", "platform": "darwin", "agent": "antigravity-cli", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "ec2-user"}
+2026-09-03T19:10:30.056747Z	DEBUG	Detector scanned	{"detector": "antigravity-cli", "username": "ec2-user", "outcome": "not_installed", "paths_checked": ["/Users/ec2-user/.gemini/config/mcp_config.json", "/Users/ec2-user/.gemini/antigravity-cli/mcp_config.json"], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:10:30.108935Z	DEBUG	MCP config path missing	{"detector": "antigravity-ide", "username": "ec2-user", "path": "/Users/ec2-user/.gemini/config/mcp_config.json"}
+2026-09-03T19:10:30.109227Z	DEBUG	MCP config path missing	{"detector": "antigravity-ide", "username": "ec2-user", "path": "/Users/ec2-user/.gemini/antigravity-ide/mcp_config.json"}
+2026-09-03T19:10:30.109597Z	INFO	agent_detection	{"event": "agent_detection", "platform": "darwin", "agent": "antigravity-ide", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "ec2-user"}
+2026-09-03T19:10:30.109692Z	DEBUG	Detector scanned	{"detector": "antigravity-ide", "username": "ec2-user", "outcome": "not_installed", "paths_checked": ["/Users/ec2-user/.gemini/config/mcp_config.json", "/Users/ec2-user/.gemini/antigravity-ide/mcp_config.json"], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:10:30.161886Z	DEBUG	MCP config path missing	{"detector": "claude-code", "username": "ec2-user", "path": "/Users/ec2-user/.claude.json"}
+2026-09-03T19:10:30.162088Z	DEBUG	MCP config path missing	{"detector": "claude-code", "username": "ec2-user", "path": "/Users/ec2-user/.claude/settings.json"}
+2026-09-03T19:10:30.162171Z	DEBUG	MCP config path missing	{"detector": "claude-code", "username": "ec2-user", "path": "/Users/ec2-user/.claude/settings.local.json"}
+2026-09-03T19:10:30.162239Z	DEBUG	MCP config path missing	{"detector": "claude-code", "username": "ec2-user", "path": "/Users/ec2-user/.config/claude/settings.json"}
+2026-09-03T19:10:30.162305Z	DEBUG	MCP config path missing	{"detector": "claude-code", "username": "ec2-user", "path": "/Users/ec2-user/.config/claude/settings.local.json"}
+2026-09-03T19:10:30.162401Z	DEBUG	MCP config path missing	{"detector": "claude-code", "username": "ec2-user", "path": "/Library/Application Support/ClaudeCode/managed-mcp.json"}
+2026-09-03T19:10:30.162497Z	DEBUG	MCP config path missing	{"detector": "claude-code", "username": "ec2-user", "path": "/Library/Application Support/ClaudeCode/managed-settings.json"}
+2026-09-03T19:10:30.162999Z	INFO	agent_detection	{"event": "agent_detection", "platform": "darwin", "agent": "claude-code", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "ec2-user"}
+2026-09-03T19:10:30.163124Z	DEBUG	Detector scanned	{"detector": "claude-code", "username": "ec2-user", "outcome": "not_installed", "paths_checked": ["/Users/ec2-user/.claude.json", "/Users/ec2-user/.claude/settings.json", "/Users/ec2-user/.claude/settings.local.json", "/Users/ec2-user/.config/claude/settings.json", "/Users/ec2-user/.config/claude/settings.local.json", "/Library/Application Support/ClaudeCode/managed-mcp.json", "/Library/Application Support/ClaudeCode/managed-settings.json"], "instances": [], "mcp_servers_total": 0, "duration_ms": 1}
+2026-09-03T19:10:30.21396Z	DEBUG	MCP config path missing	{"detector": "codex", "username": "ec2-user", "path": "/Users/ec2-user/.codex/config.toml"}
+2026-09-03T19:10:30.214822Z	INFO	agent_detection	{"event": "agent_detection", "platform": "darwin", "agent": "codex", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "ec2-user"}
+2026-09-03T19:10:30.214924Z	DEBUG	Detector scanned	{"detector": "codex", "username": "ec2-user", "outcome": "not_installed", "paths_checked": ["/Users/ec2-user/.codex/config.toml"], "instances": [], "mcp_servers_total": 0, "duration_ms": 1}
+2026-09-03T19:10:30.29266Z	DEBUG	Detector scanned	{"detector": "aider", "username": "ec2-user", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 25}
+2026-09-03T19:10:30.344868Z	DEBUG	Detector scanned	{"detector": "claude-engineer", "username": "ec2-user", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:10:30.398444Z	DEBUG	Detector scanned	{"detector": "claw", "username": "ec2-user", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 1}
+2026-09-03T19:10:30.451106Z	DEBUG	Detector scanned	{"detector": "cline", "username": "ec2-user", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:10:30.503541Z	DEBUG	Detector scanned	{"detector": "Devon", "username": "ec2-user", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:10:30.555863Z	DEBUG	Detector scanned	{"detector": "fastclaw", "username": "ec2-user", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:10:30.608359Z	DEBUG	Detector scanned	{"detector": "freeclaw", "username": "ec2-user", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:10:30.660745Z	DEBUG	Detector scanned	{"detector": "goclaw", "username": "ec2-user", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:10:30.713164Z	DEBUG	Detector scanned	{"detector": "goose", "username": "ec2-user", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:10:30.764451Z	DEBUG	Detector scanned	{"detector": "gptme", "username": "ec2-user", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:10:30.816805Z	DEBUG	Detector scanned	{"detector": "hermes-agent", "username": "ec2-user", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:10:30.869132Z	DEBUG	Detector scanned	{"detector": "ironclaw", "username": "ec2-user", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:10:30.921441Z	DEBUG	Detector scanned	{"detector": "khoj", "username": "ec2-user", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:10:30.973919Z	DEBUG	Detector scanned	{"detector": "kilocode", "username": "ec2-user", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:10:31.026242Z	DEBUG	Detector scanned	{"detector": "kimi-cli", "username": "ec2-user", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:10:31.078546Z	DEBUG	Detector scanned	{"detector": "leon", "username": "ec2-user", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:10:31.130929Z	DEBUG	Detector scanned	{"detector": "mini-swe-agent", "username": "ec2-user", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:10:31.181524Z	DEBUG	Detector scanned	{"detector": "moltis", "username": "ec2-user", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:10:31.233906Z	DEBUG	Detector scanned	{"detector": "nanobot", "username": "ec2-user", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:10:31.286212Z	DEBUG	Detector scanned	{"detector": "nebula", "username": "ec2-user", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:10:31.3386Z	DEBUG	Detector scanned	{"detector": "nullclaw", "username": "ec2-user", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:10:31.389402Z	DEBUG	Detector scanned	{"detector": "open-codex", "username": "ec2-user", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:10:31.441793Z	DEBUG	Detector scanned	{"detector": "open-interpreter", "username": "ec2-user", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:10:31.515978Z	DEBUG	Detector scanned	{"detector": "open-swe", "username": "ec2-user", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 21}
+2026-09-03T19:10:31.568362Z	DEBUG	Detector scanned	{"detector": "openagent", "username": "ec2-user", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:10:31.62085Z	DEBUG	Detector scanned	{"detector": "openfang", "username": "ec2-user", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:10:31.672654Z	DEBUG	Detector scanned	{"detector": "OpenManus", "username": "ec2-user", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:10:31.724999Z	DEBUG	Detector scanned	{"detector": "Personal_AI_Infrastructure", "username": "ec2-user", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:10:31.777353Z	DEBUG	Detector scanned	{"detector": "QClaw", "username": "ec2-user", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:10:31.829722Z	DEBUG	Detector scanned	{"detector": "QwenPaw", "username": "ec2-user", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:10:31.882178Z	DEBUG	Detector scanned	{"detector": "RA.Aid", "username": "ec2-user", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:10:31.935013Z	DEBUG	Detector scanned	{"detector": "Roo Code CLI", "username": "ec2-user", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:10:31.987351Z	DEBUG	Detector scanned	{"detector": "RustyClaw", "username": "ec2-user", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:10:32.039251Z	DEBUG	Detector scanned	{"detector": "tinyclaw", "username": "ec2-user", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:10:32.091624Z	DEBUG	Detector scanned	{"detector": "zeroclaw", "username": "ec2-user", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T19:10:32.091827Z	DEBUG	Phase 1 done: scan static/desktop agents	{"username": "ec2-user", "agents_detected": 1, "agent_names": ["openclaw"], "duration_ms": 4568}
+2026-09-03T19:10:32.091922Z	DEBUG	Preparing to send static payload for agent	{"agent": "openclaw", "username": "ec2-user", "config_path": "/Users/ec2-user/.openclaw/openclaw.json", "mcp_servers_count": 0}
+2026-09-03T19:10:32.991403Z	DEBUG	Creating payload	{"agent": "openclaw", "username": "ec2-user"}
+2026-09-03T19:10:38.034445Z	DEBUG	payload sent to backend	{"payload_id": "scanner-agent-openclaw-80930f48-099e-4d06-829b-43c2b04daa2a", "size_bytes": 455232}
+2026-09-03T19:10:38.034769Z	DEBUG	Step start: collect session events	{"username": "ec2-user", "lookback_window": "0s", "detectors_considered": 83, "detectors_with_sessions": [], "detectors_skipped_not_detected": ["cursor", "claude", "claude-cowork", "copilot", "copilot-cli", "code-puppy", "snowflake_coco", "wibey", "windsurf", "junie", "gemini_cli", "opencode", "jetbrains-ide", "jetbrains-copilot", "amp", "vscode-amp", "vscode-continue", "crush", "kiro", "chatgpt", "notion", "perplexity", "superhuman", "replit", "granola", "superwhisper", "clickup-brain", "genspark", "postman", "krisp", "scribe", "manus", "zoom", "figma", "gemini_desktop", "box_drive", "tableau", "microsoft_copilot", "github_copilot", "onyx-browser-extension", "microsoft_scout", "ollama", "antigravity_desktop", "antigravity-cli", "antigravity-ide", "claude-code", "codex", "aider", "claude-engineer", "claw", "cline", "Devon", "fastclaw", "freeclaw", "goclaw", "goose", "gptme", "hermes-agent", "ironclaw", "khoj", "kilocode", "kimi-cli", "leon", "mini-swe-agent", "moltis", "nanobot", "nebula", "nullclaw", "open-codex", "open-interpreter", "open-swe", "openagent", "openfang", "OpenManus", "Personal_AI_Infrastructure", "QClaw", "QwenPaw", "RA.Aid", "Roo Code CLI", "RustyClaw", "tinyclaw", "zeroclaw"], "detectors_skipped_no_sources": ["openclaw"]}
+2026-09-03T19:10:38.034995Z	DEBUG	Session substep skipped	{"agent": "cursor", "username": "ec2-user", "reason": "no_detected_agent"}
+2026-09-03T19:10:38.035072Z	DEBUG	Session substep skipped	{"agent": "claude", "username": "ec2-user", "reason": "no_detected_agent"}
+2026-09-03T19:10:38.035126Z	DEBUG	Session substep skipped	{"agent": "claude-cowork", "username": "ec2-user", "reason": "no_detected_agent"}
+2026-09-03T19:10:38.035331Z	DEBUG	Session substep skipped	{"agent": "copilot", "username": "ec2-user", "reason": "no_detected_agent"}
+2026-09-03T19:10:38.035396Z	DEBUG	Session substep skipped	{"agent": "copilot-cli", "username": "ec2-user", "reason": "no_detected_agent"}
+2026-09-03T19:10:38.03545Z	DEBUG	Session substep skipped	{"agent": "code-puppy", "username": "ec2-user", "reason": "no_detected_agent"}
+2026-09-03T19:10:38.035565Z	DEBUG	Session substep skipped	{"agent": "snowflake_coco", "username": "ec2-user", "reason": "no_detected_agent"}
+2026-09-03T19:10:38.035666Z	DEBUG	Session substep skipped	{"agent": "wibey", "username": "ec2-user", "reason": "no_detected_agent"}
+2026-09-03T19:10:38.035745Z	DEBUG	Session substep skipped	{"agent": "windsurf", "username": "ec2-user", "reason": "no_detected_agent"}
+2026-09-03T19:10:38.035857Z	DEBUG	Session substep skipped	{"agent": "junie", "username": "ec2-user", "reason": "no_detected_agent"}
+2026-09-03T19:10:38.035933Z	DEBUG	Session substep skipped	{"agent": "gemini_cli", "username": "ec2-user", "reason": "no_detected_agent"}
+2026-09-03T19:10:38.036113Z	DEBUG	Session substep skipped	{"agent": "opencode", "username": "ec2-user", "reason": "no_detected_agent"}
+2026-09-03T19:10:38.036185Z	DEBUG	Session substep skipped	{"agent": "jetbrains-ide", "username": "ec2-user", "reason": "no_detected_agent"}
+2026-09-03T19:10:38.03625Z	DEBUG	Session substep skipped	{"agent": "jetbrains-copilot", "username": "ec2-user", "reason": "no_detected_agent"}
+2026-09-03T19:10:38.036417Z	DEBUG	Session substep skipped	{"agent": "amp", "username": "ec2-user", "reason": "no_detected_agent"}
+2026-09-03T19:10:38.036539Z	DEBUG	Session substep skipped	{"agent": "vscode-amp", "username": "ec2-user", "reason": "no_detected_agent"}
+2026-09-03T19:10:38.036603Z	DEBUG	Session substep skipped	{"agent": "vscode-continue", "username": "ec2-user", "reason": "no_detected_agent"}
+2026-09-03T19:10:38.036658Z	DEBUG	Session substep skipped	{"agent": "crush", "username": "ec2-user", "reason": "no_detected_agent"}
+2026-09-03T19:10:38.036711Z	DEBUG	Session substep skipped	{"agent": "openclaw", "username": "ec2-user", "reason": "no_session_sources"}
+2026-09-03T19:10:38.036892Z	DEBUG	Session substep skipped	{"agent": "kiro", "username": "ec2-user", "reason": "no_detected_agent"}
+2026-09-03T19:10:38.037026Z	DEBUG	Session substep skipped	{"agent": "chatgpt", "username": "ec2-user", "reason": "no_detected_agent"}
+2026-09-03T19:10:38.037138Z	DEBUG	Session substep skipped	{"agent": "notion", "username": "ec2-user", "reason": "no_detected_agent"}
+2026-09-03T19:10:38.037213Z	DEBUG	Session substep skipped	{"agent": "perplexity", "username": "ec2-user", "reason": "no_detected_agent"}
+2026-09-03T19:10:38.037271Z	DEBUG	Session substep skipped	{"agent": "superhuman", "username": "ec2-user", "reason": "no_detected_agent"}
+2026-09-03T19:10:38.037365Z	DEBUG	Session substep skipped	{"agent": "replit", "username": "ec2-user", "reason": "no_detected_agent"}
+2026-09-03T19:10:38.037536Z	DEBUG	Session substep skipped	{"agent": "granola", "username": "ec2-user", "reason": "no_detected_agent"}
+2026-09-03T19:10:38.037659Z	DEBUG	Session substep skipped	{"agent": "superwhisper", "username": "ec2-user", "reason": "no_detected_agent"}
+2026-09-03T19:10:38.037741Z	DEBUG	Session substep skipped	{"agent": "clickup-brain", "username": "ec2-user", "reason": "no_detected_agent"}
+2026-09-03T19:10:38.037804Z	DEBUG	Session substep skipped	{"agent": "genspark", "username": "ec2-user", "reason": "no_detected_agent"}
+2026-09-03T19:10:38.037922Z	DEBUG	Session substep skipped	{"agent": "postman", "username": "ec2-user", "reason": "no_detected_agent"}
+2026-09-03T19:10:38.038019Z	DEBUG	Session substep skipped	{"agent": "krisp", "username": "ec2-user", "reason": "no_detected_agent"}
+2026-09-03T19:10:38.038121Z	DEBUG	Session substep skipped	{"agent": "scribe", "username": "ec2-user", "reason": "no_detected_agent"}
+2026-09-03T19:10:38.038241Z	DEBUG	Session substep skipped	{"agent": "manus", "username": "ec2-user", "reason": "no_detected_agent"}
+2026-09-03T19:10:38.038337Z	DEBUG	Session substep skipped	{"agent": "zoom", "username": "ec2-user", "reason": "no_detected_agent"}
+2026-09-03T19:10:38.038404Z	DEBUG	Session substep skipped	{"agent": "figma", "username": "ec2-user", "reason": "no_detected_agent"}
+2026-09-03T19:10:38.038467Z	DEBUG	Session substep skipped	{"agent": "gemini_desktop", "username": "ec2-user", "reason": "no_detected_agent"}
+2026-09-03T19:10:38.038521Z	DEBUG	Session substep skipped	{"agent": "box_drive", "username": "ec2-user", "reason": "no_detected_agent"}
+2026-09-03T19:10:38.038575Z	DEBUG	Session substep skipped	{"agent": "tableau", "username": "ec2-user", "reason": "no_detected_agent"}
+2026-09-03T19:10:38.038628Z	DEBUG	Session substep skipped	{"agent": "microsoft_copilot", "username": "ec2-user", "reason": "no_detected_agent"}
+2026-09-03T19:10:38.038816Z	DEBUG	Session substep skipped	{"agent": "github_copilot", "username": "ec2-user", "reason": "no_detected_agent"}
+2026-09-03T19:10:38.038878Z	DEBUG	Session substep skipped	{"agent": "onyx-browser-extension", "username": "ec2-user", "reason": "no_detected_agent"}
+2026-09-03T19:10:38.039027Z	DEBUG	Session substep skipped	{"agent": "microsoft_scout", "username": "ec2-user", "reason": "no_detected_agent"}
+2026-09-03T19:10:38.039093Z	DEBUG	Session substep skipped	{"agent": "ollama", "username": "ec2-user", "reason": "no_detected_agent"}
+2026-09-03T19:10:38.039208Z	DEBUG	Session substep skipped	{"agent": "antigravity_desktop", "username": "ec2-user", "reason": "no_detected_agent"}
+2026-09-03T19:10:38.039309Z	DEBUG	Session substep skipped	{"agent": "antigravity-cli", "username": "ec2-user", "reason": "no_detected_agent"}
+2026-09-03T19:10:38.039396Z	DEBUG	Session substep skipped	{"agent": "antigravity-ide", "username": "ec2-user", "reason": "no_detected_agent"}
+2026-09-03T19:10:38.039494Z	DEBUG	Session substep skipped	{"agent": "claude-code", "username": "ec2-user", "reason": "no_detected_agent"}
+2026-09-03T19:10:38.0396Z	DEBUG	Session substep skipped	{"agent": "codex", "username": "ec2-user", "reason": "no_detected_agent"}
+2026-09-03T19:10:38.039687Z	DEBUG	Session substep skipped	{"agent": "aider", "username": "ec2-user", "reason": "no_detected_agent"}
+2026-09-03T19:10:38.039745Z	DEBUG	Session substep skipped	{"agent": "claude-engineer", "username": "ec2-user", "reason": "no_detected_agent"}
+2026-09-03T19:10:38.03981Z	DEBUG	Session substep skipped	{"agent": "claw", "username": "ec2-user", "reason": "no_detected_agent"}
+2026-09-03T19:10:38.039882Z	DEBUG	Session substep skipped	{"agent": "cline", "username": "ec2-user", "reason": "no_detected_agent"}
+2026-09-03T19:10:38.039945Z	DEBUG	Session substep skipped	{"agent": "Devon", "username": "ec2-user", "reason": "no_detected_agent"}
+2026-09-03T19:10:38.039996Z	DEBUG	Session substep skipped	{"agent": "fastclaw", "username": "ec2-user", "reason": "no_detected_agent"}
+2026-09-03T19:10:38.040057Z	DEBUG	Session substep skipped	{"agent": "freeclaw", "username": "ec2-user", "reason": "no_detected_agent"}
+2026-09-03T19:10:38.040127Z	DEBUG	Session substep skipped	{"agent": "goclaw", "username": "ec2-user", "reason": "no_detected_agent"}
+2026-09-03T19:10:38.040312Z	DEBUG	Session substep skipped	{"agent": "goose", "username": "ec2-user", "reason": "no_detected_agent"}
+2026-09-03T19:10:38.040388Z	DEBUG	Session substep skipped	{"agent": "gptme", "username": "ec2-user", "reason": "no_detected_agent"}
+2026-09-03T19:10:38.040432Z	DEBUG	Session substep skipped	{"agent": "hermes-agent", "username": "ec2-user", "reason": "no_detected_agent"}
+2026-09-03T19:10:38.040471Z	DEBUG	Session substep skipped	{"agent": "ironclaw", "username": "ec2-user", "reason": "no_detected_agent"}
+2026-09-03T19:10:38.040526Z	DEBUG	Session substep skipped	{"agent": "khoj", "username": "ec2-user", "reason": "no_detected_agent"}
+2026-09-03T19:10:38.040582Z	DEBUG	Session substep skipped	{"agent": "kilocode", "username": "ec2-user", "reason": "no_detected_agent"}
+2026-09-03T19:10:38.040659Z	DEBUG	Session substep skipped	{"agent": "kimi-cli", "username": "ec2-user", "reason": "no_detected_agent"}
+2026-09-03T19:10:38.040698Z	DEBUG	Session substep skipped	{"agent": "leon", "username": "ec2-user", "reason": "no_detected_agent"}
+2026-09-03T19:10:38.040755Z	DEBUG	Session substep skipped	{"agent": "mini-swe-agent", "username": "ec2-user", "reason": "no_detected_agent"}
+2026-09-03T19:10:38.040799Z	DEBUG	Session substep skipped	{"agent": "moltis", "username": "ec2-user", "reason": "no_detected_agent"}
+2026-09-03T19:10:38.040842Z	DEBUG	Session substep skipped	{"agent": "nanobot", "username": "ec2-user", "reason": "no_detected_agent"}
+2026-09-03T19:10:38.040884Z	DEBUG	Session substep skipped	{"agent": "nebula", "username": "ec2-user", "reason": "no_detected_agent"}
+2026-09-03T19:10:38.040962Z	DEBUG	Session substep skipped	{"agent": "nullclaw", "username": "ec2-user", "reason": "no_detected_agent"}
+2026-09-03T19:10:38.041032Z	DEBUG	Session substep skipped	{"agent": "open-codex", "username": "ec2-user", "reason": "no_detected_agent"}
+2026-09-03T19:10:38.041096Z	DEBUG	Session substep skipped	{"agent": "open-interpreter", "username": "ec2-user", "reason": "no_detected_agent"}
+2026-09-03T19:10:38.04115Z	DEBUG	Session substep skipped	{"agent": "open-swe", "username": "ec2-user", "reason": "no_detected_agent"}
+2026-09-03T19:10:38.041214Z	DEBUG	Session substep skipped	{"agent": "openagent", "username": "ec2-user", "reason": "no_detected_agent"}
+2026-09-03T19:10:38.041261Z	DEBUG	Session substep skipped	{"agent": "openfang", "username": "ec2-user", "reason": "no_detected_agent"}
+2026-09-03T19:10:38.041324Z	DEBUG	Session substep skipped	{"agent": "OpenManus", "username": "ec2-user", "reason": "no_detected_agent"}
+2026-09-03T19:10:38.041423Z	DEBUG	Session substep skipped	{"agent": "Personal_AI_Infrastructure", "username": "ec2-user", "reason": "no_detected_agent"}
+2026-09-03T19:10:38.041485Z	DEBUG	Session substep skipped	{"agent": "QClaw", "username": "ec2-user", "reason": "no_detected_agent"}
+2026-09-03T19:10:38.041552Z	DEBUG	Session substep skipped	{"agent": "QwenPaw", "username": "ec2-user", "reason": "no_detected_agent"}
+2026-09-03T19:10:38.041633Z	DEBUG	Session substep skipped	{"agent": "RA.Aid", "username": "ec2-user", "reason": "no_detected_agent"}
+2026-09-03T19:10:38.041738Z	DEBUG	Session substep skipped	{"agent": "Roo Code CLI", "username": "ec2-user", "reason": "no_detected_agent"}
+2026-09-03T19:10:38.041789Z	DEBUG	Session substep skipped	{"agent": "RustyClaw", "username": "ec2-user", "reason": "no_detected_agent"}
+2026-09-03T19:10:38.041951Z	DEBUG	Session substep skipped	{"agent": "tinyclaw", "username": "ec2-user", "reason": "no_detected_agent"}
+2026-09-03T19:10:38.04201Z	DEBUG	Session substep skipped	{"agent": "zeroclaw", "username": "ec2-user", "reason": "no_detected_agent"}
+2026-09-03T19:10:38.042064Z	DEBUG	Step done: collect session events	{"username": "ec2-user", "session_files_examined": 0, "conversations_sent": 0, "chunks_sent": 0, "agents_with_sessions_sent": 0, "duration_ms": 7}
+2026-09-03T19:10:38.042174Z	INFO	Phase 2 start: scan project-level configs	{"username": "ec2-user", "home_dir": "/Users/ec2-user", "full_scan": false, "skip_home_walk_for_root": false, "project_walk_timeout": "0s"}
+2026-09-03T19:10:38.042276Z	DEBUG	Step done: scan user	{"username": "ec2-user", "home_dir": "/Users/ec2-user", "payloads_sent": 1, "duration_ms": 10519, "scan_run_id": "568a3dd7-595b-4049-b4ab-7964d1297eb6"}
+2026-09-03T19:10:38.042349Z	DEBUG	Step start: send scan summary	{"scan_run_id": "568a3dd7-595b-4049-b4ab-7964d1297eb6"}
+2026-09-03T19:10:38.042593Z	INFO	Built end-of-scan guard aggregate	{"scan_run_id": "568a3dd7-595b-4049-b4ab-7964d1297eb6", "guard_scan_complete": false, "guarded_agents": 1}
+2026-09-03T19:10:38.126677Z	DEBUG	payload sent to backend	{"payload_id": "scanner-summary-389d67d6-fe98-4275-8a8d-7d25a1e728bb", "size_bytes": 455907}
+2026-09-03T19:10:38.126906Z	DEBUG	Step done: send scan summary	{"scan_run_id": "568a3dd7-595b-4049-b4ab-7964d1297eb6", "duration_ms": 84}
+2026-09-03T19:10:38.126981Z	DEBUG	Step start: send scan logs	{"scan_run_id": "568a3dd7-595b-4049-b4ab-7964d1297eb6"}
+2026-09-03T19:10:38.176366Z	DEBUG	payload sent to backend	{"payload_id": "scanner-logs-568a3dd7-595b-4049-b4ab-7964d1297eb6", "size_bytes": 58152}
+2026-09-03T19:10:38.177112Z	DEBUG	Step done: send scan logs	{"scan_run_id": "568a3dd7-595b-4049-b4ab-7964d1297eb6", "duration_ms": 50}
+2026-09-03T19:10:38.177188Z	INFO	Scan run completed	{"payloads_sent": 1, "users": 1, "agents_detected_total": 1, "mcp_servers_total": 0, "projects_total": 0, "skills_total": 51, "duration_ms": 10556, "scan_run_id": "568a3dd7-595b-4049-b4ab-7964d1297eb6"}
+2026-09-03T19:10:38.177282Z	DEBUG	post_scan_outcome	{"event": "post_scan_outcome", "platform": "darwin", "caller": "post-operation (openclaw)", "outcome": "success"}
+
+ec2-user (/Users/ec2-user)
+
+Total: 1 agents, 0 MCP servers, 51 skills
+
+┌──────────┬────────────────────┬────────────┬───────┬─────────────────┬─────────────────┬──────────────┬────────────────────┐
+│  Agent   │      Version       │ Onyx Hooks │ Scope │ MCP Server Name │ MCP Server Type │ Onyx Gateway │ MCP Server Command │
+├──────────┼────────────────────┼────────────┼───────┼─────────────────┼─────────────────┼──────────────┼────────────────────┤
+│ openclaw │ 2026.8.2 (0965053) │ Yes        │ -     │ -               │ -               │ -            │ -                  │
+└──────────┴────────────────────┴────────────┴───────┴─────────────────┴─────────────────┴──────────────┴────────────────────┘
+
+Skills:
+
+┌──────────┬───────────────────────┬──────────────┬─────────┐
+│  Agent   │         Skill         │ Content Hash │ Scripts │
+├──────────┼───────────────────────┼──────────────┼─────────┤
+│ openclaw │ 1password             │ 11d26fd724c5 │ 0       │
+├──────────┼───────────────────────┼──────────────┼─────────┤
+│          │ apple-notes           │ 7aea8d4493c5 │ 0       │
+├──────────┼───────────────────────┼──────────────┼─────────┤
+│          │ apple-reminders       │ 7834337f8b97 │ 0       │
+├──────────┼───────────────────────┼──────────────┼─────────┤
+│          │ bear-notes            │ fc254fba46a7 │ 0       │
+├──────────┼───────────────────────┼──────────────┼─────────┤
+│          │ blogwatcher           │ 7c4e2e51b03b │ 0       │
+├──────────┼───────────────────────┼──────────────┼─────────┤
+│          │ blucli                │ 88bcf3ec39dd │ 0       │
+├──────────┼───────────────────────┼──────────────┼─────────┤
+│          │ camsnap               │ 3470fd7a4501 │ 0       │
+├──────────┼───────────────────────┼──────────────┼─────────┤
+│          │ clawhub               │ 8de4bcd6c736 │ 0       │
+├──────────┼───────────────────────┼──────────────┼─────────┤
+│          │ coding-agent          │ 0e87f3ab6334 │ 0       │
+├──────────┼───────────────────────┼──────────────┼─────────┤
+│          │ diagram-maker         │ 2930136585fd │ 0       │
+├──────────┼───────────────────────┼──────────────┼─────────┤
+│          │ eightctl              │ 4868c3c32a9e │ 0       │
+├──────────┼───────────────────────┼──────────────┼─────────┤
+│          │ gemini                │ d2d885e0dd20 │ 0       │
+├──────────┼───────────────────────┼──────────────┼─────────┤
+│          │ gh-issues             │ cea52813dde7 │ 0       │
+├──────────┼───────────────────────┼──────────────┼─────────┤
+│          │ gifgrep               │ 8caa24c9196c │ 0       │
+├──────────┼───────────────────────┼──────────────┼─────────┤
+│          │ github                │ e1377a244fa4 │ 0       │
+├──────────┼───────────────────────┼──────────────┼─────────┤
+│          │ gog                   │ c67feb073ac3 │ 0       │
+├──────────┼───────────────────────┼──────────────┼─────────┤
+│          │ goplaces              │ 26c8740226f3 │ 0       │
+├──────────┼───────────────────────┼──────────────┼─────────┤
+│          │ healthcheck           │ 2ff53ad129c9 │ 0       │
+├──────────┼───────────────────────┼──────────────┼─────────┤
+│          │ himalaya              │ 38b718a32ca9 │ 0       │
+├──────────┼───────────────────────┼──────────────┼─────────┤
+│          │ mcporter              │ a9f7950eb894 │ 0       │
+├──────────┼───────────────────────┼──────────────┼─────────┤
+│          │ meme-maker            │ cc87ba2f8f4e │ 1       │
+├──────────┼───────────────────────┼──────────────┼─────────┤
+│          │ model-usage           │ 01b0c9a3f0c9 │ 2       │
+├──────────┼───────────────────────┼──────────────┼─────────┤
+│          │ nano-pdf              │ 0ac1bf9e47e2 │ 0       │
+├──────────┼───────────────────────┼──────────────┼─────────┤
+│          │ node-connect          │ f2cf9d1a1848 │ 0       │
+├──────────┼───────────────────────┼──────────────┼─────────┤
+│          │ node-inspect-debugger │ c862d476ab56 │ 0       │
+├──────────┼───────────────────────┼──────────────┼─────────┤
+│          │ notion                │ 2e92d82adcde │ 0       │
+├──────────┼───────────────────────┼──────────────┼─────────┤
+│          │ obsidian              │ 7015b9476b16 │ 0       │
+├──────────┼───────────────────────┼──────────────┼─────────┤
+│          │ openai-whisper        │ 0a144aef994a │ 0       │
+├──────────┼───────────────────────┼──────────────┼─────────┤
+│          │ openai-whisper-api    │ 5317d4e3e0fa │ 1       │
+├──────────┼───────────────────────┼──────────────┼─────────┤
+│          │ openhue               │ cbe686f72997 │ 0       │
+├──────────┼───────────────────────┼──────────────┼─────────┤
+│          │ oracle                │ 63286ee1af76 │ 0       │
+├──────────┼───────────────────────┼──────────────┼─────────┤
+│          │ ordercli              │ 7c9a881d697c │ 0       │
+├──────────┼───────────────────────┼──────────────┼─────────┤
+│          │ peekaboo              │ fcd077f1a890 │ 0       │
+├──────────┼───────────────────────┼──────────────┼─────────┤
+│          │ python-debugpy        │ 12232cf483d9 │ 0       │
+├──────────┼───────────────────────┼──────────────┼─────────┤
+│          │ sag                   │ 1c360501243d │ 0       │
+├──────────┼───────────────────────┼──────────────┼─────────┤
+│          │ session-logs          │ 60ccec702838 │ 0       │
+├──────────┼───────────────────────┼──────────────┼─────────┤
+│          │ sherpa-onnx-tts       │ f651ea95d1cd │ 0       │
+├──────────┼───────────────────────┼──────────────┼─────────┤
+│          │ skill-creator         │ 150c0d7e8652 │ 4       │
+├──────────┼───────────────────────┼──────────────┼─────────┤
+│          │ songsee               │ a369065d13ef │ 0       │
+├──────────┼───────────────────────┼──────────────┼─────────┤
+│          │ sonoscli              │ 47d6333fac55 │ 0       │
+├──────────┼───────────────────────┼──────────────┼─────────┤
+│          │ spike                 │ 7f9c9cf0eae5 │ 0       │
+├──────────┼───────────────────────┼──────────────┼─────────┤
+│          │ spotify-player        │ 15d586269139 │ 0       │
+├──────────┼───────────────────────┼──────────────┼─────────┤
+│          │ summarize             │ 99da0810ecad │ 0       │
+├──────────┼───────────────────────┼──────────────┼─────────┤
+│          │ taskflow              │ 1da6762b9662 │ 0       │
+├──────────┼───────────────────────┼──────────────┼─────────┤
+│          │ taskflow-inbox-triage │ 22d52d225652 │ 0       │
+├──────────┼───────────────────────┼──────────────┼─────────┤
+│          │ things-mac            │ 72a236e161ec │ 0       │
+├──────────┼───────────────────────┼──────────────┼─────────┤
+│          │ tmux                  │ 510923348774 │ 2       │
+├──────────┼───────────────────────┼──────────────┼─────────┤
+│          │ trello                │ 84668920238e │ 0       │
+├──────────┼───────────────────────┼──────────────┼─────────┤
+│          │ video-frames          │ bf581278cdd7 │ 1       │
+├──────────┼───────────────────────┼──────────────┼─────────┤
+│          │ weather               │ c3e01e8c109a │ 0       │
+├──────────┼───────────────────────┼──────────────┼─────────┤
+│          │ xurl                  │ 71044c337d60 │ 0       │
+└──────────┴───────────────────────┴──────────────┴─────────┘
+
+2026-09-03T19:10:38.185977Z	INFO	OpenClaw install command completed successfully
+EXIT_CODE=0

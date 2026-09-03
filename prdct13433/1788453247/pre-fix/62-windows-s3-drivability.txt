@@ -1,0 +1,31 @@
+=== PRDCT-13433 Windows lab host — S3 launch-chain DRIVABILITY probe (pre-fix vBase-refreshed binary) ===
+captured_at: 2026-09-03T19:12:26Z  instance: i-0776d26f4e79a657d
+Leg 2 (bridge-spawned scanner leg): run the PLUGIN's own onyx-scanner.exe with the exact argv scanner-bridge.ts uses (getScannerBinaryPath -> onyx-scanner.exe, exec-relative onyx-config.json), from pluginDir:
+LEG2_EXIT_CODE=0
+
+Leg 0 (gateway loads the plugin): bounded 'openclaw gateway run --allow-unconfigured' with the vOld plugin present, then the gateway log:
+--- full first 25 lines ---
+
+fixture re-check after gateway run (gateway migrates+deletes the legacy device.json):
+True
+
+=== addendum 2026-09-03T19:23:32Z: longer bounded gateway runs (gw3/gw4) ===
+gw3 (90s): the gateway MIGRATED the legacy device.json into SQLite and deleted it (same as macOS), then reached '[gateway] starting...' — fixture re-placed after (host-presence marker only).
+gw4 (75s): gateway fully up — '[gateway] http server listening (13 plugins: anthropic, browser, canvas, cua-computer, device-pair, file-transfer, geolocation, linux-node, memory-core, ollama, openai, talk-voice, xai; 39.3s)' — onyx-guard NOT loaded on the buggy base because openclaw.json has NO plugins.entries entry. Activation contract (proven on the mac, 71-mac-s3-drivability.txt): the vFix-shaped grant plugins.entries.onyx-guard.hooks.allowConversationAccess=true ALONE makes OpenClaw discover+enable onyx-guard from the global root (~/.openclaw/extensions). So the gateway-driven S3 chain becomes runnable exactly AFTER the vFix skip-path run adds the grant.
+fixture + config state re-verified below:
+device.json present: True
+--- openclaw.json (still grant-free) ---
+{
+  "gateway": {
+    "mode": "local"
+  },
+  "meta": {
+    "migrations": {
+      "modelPolicyAllowlist": true
+    },
+    "lastTouchedVersion": "2026.8.2"
+  }
+}
+--- plugin files still vOld (spot: index.ts + bridge) ---
+src\index.ts sha256=E13C9F32838E94694B4B7476306412800CB63D1F79C66FD0C41B9FBBAE680B14
+src\scanner-bridge.ts sha256=2D747AA1D921AA3C18BD8CCF8090A2F38E85AACD40D0A32FC4EAE324757E211B

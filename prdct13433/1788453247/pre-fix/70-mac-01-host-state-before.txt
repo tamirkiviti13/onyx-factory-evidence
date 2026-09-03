@@ -1,0 +1,27 @@
+=== PRDCT-13433 macOS lab host — pre-fix host state BEFORE the vBase skip-path run ===
+captured_at: 2026-09-03T19:10:16Z  instance: i-0b4a40ab2a55ca2b7  dedicated host: h-0b373cdd49ef9101d
+provenance: OpenClaw 2026.8.2 via npm (node 24.15.0 at /opt/node24), real gateway ran once (migrated+deleted the legacy device.json — re-placed after, host-presence fixture ONLY), openclaw.json recreated by 'openclaw config set gateway.mode local' AFTER the vOld full install (no grant), plugin state laid down by REALLY RUNNING /tmp/onyx-scanner-vold (0.0.1-vold-13bab571) — transcript: 70-mac-00-vold-install.txt
+--- plugin files sha256 + mtime (BEFORE) ---
+package.json  sha256=9b0466c00a81263e47aa0d461753d81b794772425f23e9f5a651252d2482d164  mtime=2026-09-03T19:09:45Z
+openclaw.plugin.json  sha256=8464f03a421d371eb73fb35b269a70237f95ad84d68099690c267398fa720c78  mtime=2026-09-03T19:09:45Z
+src/index.ts  sha256=e13c9f32838e94694b4b7476306412800cb63d1f79c66fd0c41b9fbbae680b14  mtime=2026-09-03T19:09:45Z
+src/scanner-bridge.ts  sha256=2d747aa1d921aa3c18bd8ccf8090a2f38e85aacd40d0a32fc4eae324757e211b  mtime=2026-09-03T19:09:45Z
+onyx/onyx-scanner  sha256=de31eac9a95ac8bb7c085fe7f6f2e129ff9e7231e38a3bad77a82a5cca6b5179  mtime=2026-09-03T19:09:45Z
+onyx/onyx-config.json  sha256=6334b61d09947cb0d0a18deb72a6837d2af452db98ab28c87f0c0b9664c600aa  mtime=2026-09-03T19:09:45Z
+--- grep counts: tool_result_persist / evaluateSync ---
+src/index.ts  tool_result_persist=0  evaluateSync=0
+src/scanner-bridge.ts  tool_result_persist=0  evaluateSync=0
+--- openclaw.json (grant must be ABSENT) ---
+{
+  "gateway": {
+    "mode": "local"
+  },
+  "meta": {
+    "migrations": {
+      "modelPolicyAllowlist": true
+    },
+    "lastTouchedVersion": "2026.8.2"
+  }
+}
+--- device.json fixture present ---
+-rw-r--r--  1 ec2-user  staff  383 Sep  3 19:09 /Users/ec2-user/.openclaw/identity/device.json

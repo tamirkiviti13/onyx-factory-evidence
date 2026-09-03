@@ -1,0 +1,93 @@
+C1 — real Windows skip-path re-install (vFix), before → run1 (EXIT 0) → after
+================================================================================
+Host: i-0776d26f4e79a657d, Windows Server 2022 Datacenter [Version 10.0.20348.5499]
+Device-row hostname: EC2AMAZ-I43CDS0   user: Administrator
+Fix build under test: onyx-scanner 0.0.3-vfix-7661b8c2  (PR #13011 HEAD 7661b8c2, read-only build)
+Argv: the IDENTICAL wrapper C:\onyx\run-install.ps1 (no --force, --mcp-guard-hooks=true --verbose),
+      tunnel endpoints :8080 (keys REDACTED below).
+NOTE: pre-fix half is setup's (evidence/pre-fix/60-windows-*). The state captured under
+      "BEFORE" here is exactly setup's untouched handoff state — this engineer run mutated it.
+
+=================== BEFORE (setup handoff pre-fix state; the buggy pre-#11638 shape) ===================
+HOST=EC2AMAZ-I43CDS0 USER=administrator
+VER= Microsoft Windows [Version 10.0.20348.5499]
+== 4 plugin files: sha256 + mtime ==
+package.json          sha=9b0466c00a81263e47aa0d461753d81b794772425f23e9f5a651252d2482d164  len=627   mtime=2026-09-03T19:05:23.8353358Z
+openclaw.plugin.json  sha=8464f03a421d371eb73fb35b269a70237f95ad84d68099690c267398fa720c78  len=268   mtime=2026-09-03T19:05:23.8368023Z
+src\index.ts          sha=e13c9f32838e94694b4b7476306412800cb63d1f79c66fd0c41b9fbbae680b14  len=4025  mtime=2026-09-03T19:05:23.8373218Z   (vOld bytes)
+src\scanner-bridge.ts sha=2d747aa1d921aa3c18bd8ccf8090a2f38e85aacd40d0a32fc4eae324757e211b  len=4585  mtime=2026-09-03T19:05:23.8373218Z   (vOld bytes)
+== on-host index.ts: enforcement markers (pre-fix expect 0/0) ==
+tool_result_persist count = 0
+evaluateSync count = 0
+== bundled scanner binary ==
+bin sha=b65df816ad0de288da356610a103114a6544291addcf84d1725c90c4383d6dd7 len=37467648
+bin --version: onyx-scanner version 0.0.2-vbase-6965aa72
+== onyx-config.json ==   (skip path DID refresh config → says mcp-guard-hooks:true, but index.ts has NO enforcement — the silent hole)
+{
+  "api-key": "<redacted:MCP_GATEWAY_DEV_KEY>",
+  "endpoint-url": "http://onyx-ai-firewall.onyxd.svc.cluster.local:8080",
+  "ingest-endpoint": "http://ingest-onyx.onyxd.svc.cluster.local:8080/mcp-scanner",
+  "timeout": "10s", "verbose": true, "block-prompts": "true",
+  "mcp-guard-hooks": true, "hooks-runtime-protection": true
+}
+== grant state (openclaw.json plugins.entries.onyx-guard) ==
+plugins.entries.onyx-guard ABSENT
+== device.json fixture presence ==
+device.json PRESENT len=383
+
+=================== vFix no-force skip-path install (run 1) — tail of full --verbose transcript ===================
+(scan phase enumerated 49 detectors; only openclaw detected — "no_session_sources"; full transcript trimmed to the decisive lines)
+2026-09-03T19:34:29.473138Z   INFO   Phase 2 start: scan project-level configs  {"username":"Administrator","home_dir":"C:\\Users\\Administrator","full_scan":false}
+2026-09-03T19:34:29.4733214Z  INFO   Built end-of-scan guard aggregate  {"guard_scan_complete":true,"guarded_agents":1}
+2026-09-03T19:34:29.4916188Z  DEBUG  payload sent to backend  {"payload_id":"scanner-summary-2774bfe1-8153-4d20-aee3-4e8dd3a3f00f","size_bytes":4682}
+2026-09-03T19:34:29.5115459Z  INFO   Scan run completed  {"payloads_sent":1,"users":1,"agents_detected_total":1,"scan_run_id":"d021f77f-431e-4b65-9cf8-ba5bb9397e58"}
+2026-09-03T19:34:29.5115459Z  DEBUG  post_scan_outcome  {"event":"post_scan_outcome","platform":"windows","caller":"post-operation (openclaw)","outcome":"success"}
+
+Administrator (C:\Users\Administrator)
+Total: 1 agents, 0 MCP servers
+┌──────────┬────────────────────┬────────────┬───────┬─────────────────┬─────────────────┬──────────────┬────────────────────┐
+│  Agent   │      Version       │ Onyx Hooks │ Scope │ MCP Server Name │ MCP Server Type │ Onyx Gateway │ MCP Server Command │
+├──────────┼────────────────────┼────────────┼───────┼─────────────────┼─────────────────┼──────────────┼────────────────────┤
+│ openclaw │ 2026.8.2 (0965053) │ Yes        │ -     │ -               │ -               │ -            │ -                  │
+└──────────┴────────────────────┴────────────┴───────┴─────────────────┴─────────────────┴──────────────┴────────────────────┘
+2026-09-03T19:34:29.5115459Z  INFO   OpenClaw install command completed successfully
+EXIT_CODE=0
+SSH_EXIT=0
+
+=================== AFTER (post vFix run 1) — the fix landed the enforcement code + grant on the skip path ===================
+HOST=EC2AMAZ-I43CDS0 USER=administrator
+== 4 plugin files: sha256 + mtime ==
+package.json          sha=9b0466c00a81263e47aa0d461753d81b794772425f23e9f5a651252d2482d164  len=627   mtime=2026-09-03T19:05:23.8353358Z   (UNCHANGED — vOld==vFix bytes, compare-before-write preserved mtime)
+openclaw.plugin.json  sha=8464f03a421d371eb73fb35b269a70237f95ad84d68099690c267398fa720c78  len=268   mtime=2026-09-03T19:05:23.8368023Z   (UNCHANGED — same)
+src\index.ts          sha=9bc737e8681c3b4043f091adc6dd62dd5a08fdfbff9f1c79d66596fa9dd6432f  len=9848  mtime=2026-09-03T19:34:24.9750222Z   (REWRITTEN e13c9f32→9bc737e8, vFix embed)
+src\scanner-bridge.ts sha=9c41b9010bc0f87b421f9fa3a8ff52e32a777babd9d4ee471c79ad315391fd53  len=7926  mtime=2026-09-03T19:34:24.9750222Z   (REWRITTEN 2d747aa1→9c41b901, vFix embed)
+== on-host index.ts: enforcement markers (now present) ==
+tool_result_persist count = 6      (was 0)
+evaluateSync count = 1             (was 0)
+== bundled scanner binary ==
+bin sha=5b3bbf06344cb0264caa0317b0c4486f4e10550f96a28a8f1c2820c7915c3dbb len=37474816
+bin --version: onyx-scanner version 0.0.3-vfix-7661b8c2   (refreshed vBase→vFix)
+== grant state (openclaw.json plugins.entries.onyx-guard) ==
+entry present: {"hooks":{"allowConversationAccess":true}}   (was ABSENT — grantConversationAccess now runs on the skip path)
+== device.json fixture presence ==
+device.json PRESENT len=383
+
+=================== STEADY-STATE (run 2, same wrapper again) — true no-op, EXIT 2 ===================
+decisive log lines (verbatim):
+  "Plugin already installed - scanner binary refreshed"
+  openclaw_conversation_access  {"op":"grant","outcome":"unchanged","platform":"windows",...,"pluginId":"onyx-guard"}
+  "Onyx guard plugin already installed. Use --force to overwrite."
+  "Skipped: OpenClaw plugin already installed (use --force to overwrite)"
+EXIT_CODE=2
+re-capture after steady-state: src\index.ts still 9bc737e8 mtime 19:34:24.9750222Z, src\scanner-bridge.ts still
+  9c41b901 mtime 19:34:24.9750222Z, package.json/openclaw.plugin.json still 9b0466c0/8464f03a mtime 19:05:23,
+  binary still vFix 5b3bbf06 → byte- AND mtime-identical to post-run1 → genuine no-op (grant already true
+  short-circuits → outcome=unchanged).
+
+--------------------------------------------------------------------------------
+VERDICT (C1, Windows): the pre-#11638 skip path — which setup proved refreshed ONLY the binary+config
+(evidence/pre-fix/60-windows-02/03) — now, under vFix, ALSO rewrites the two changed plugin files
+(index.ts markers 0→6, scanner-bridge.ts evaluateSync 0→1) and adds the allowConversationAccess grant,
+all on a no-force run, EXIT 0 (a real Modified). The two unchanged plugin files (package.json,
+openclaw.plugin.json) are byte- AND mtime-identical → compare-before-write did NOT touch them. Silent
+enforcement hole closed on real Windows.

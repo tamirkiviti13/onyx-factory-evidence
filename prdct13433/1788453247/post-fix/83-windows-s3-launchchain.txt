@@ -1,0 +1,69 @@
+S3 — real OpenClaw → scanner launch chain on Windows (executed through node loading the REAL plugin TS,
+      not static greps), incl. the win32 onyx-scanner.exe resolution leg
+================================================================================
+Host: i-0776d26f4e79a657d, Windows Server 2022, hostname EC2AMAZ-I43CDS0
+Plugin dir: C:\Users\Administrator\.openclaw\extensions\onyx-guard  (post vFix run — the fixed index.ts + scanner-bridge.ts are on disk, grant present)
+Runner: node --experimental-transform-types C:\Users\Administrator\.openclaw\extensions\onyx-guard\src\launch-harness.ts
+  (plain node cannot strip `export enum HookType` at scanner-bridge.ts:29 — --experimental-transform-types
+   loads the REAL plugin TypeScript unmodified; the only warning emitted is the node ExperimentalWarning on stderr)
+Precondition proven separately: `openclaw plugins list` shows onyx-guard = enabled (plugins.entries.onyx-guard
+  written by the vFix skip-path grant — see 80-windows-c1-postfix.txt). Without that entry OpenClaw would not
+  discover the extension at all; the buggy base had no entry.
+
+VERBATIM harness stdout (node --experimental-transform-types launch-harness.ts; C:\onyx\run-harness.ps1):
+  PLUGIN_DIR=C:\Users\Administrator\.openclaw\extensions\onyx-guard
+  LEG1 platform=win32
+  LEG1 resolved_scanner_path=C:\Users\Administrator\.openclaw\extensions\onyx-guard\onyx\onyx-scanner.exe
+  LEG1 resolved_exists=true
+  LEG1 extensionless_variant_exists=false
+  LEG0 registered_events=before_tool_call,tool_result_persist,llm_input,llm_output
+  LEG0 tool_result_persist_registered=true
+  LEG0 before_tool_call_registered=true
+  LEG0 loadPluginConfig(exec-relative onyx-config.json)={"timeout":10000,"mcpGuardHooks":true}
+  LEG2 real_handler_return=null (undefined/null = allow verdict, block object = block)
+  LEG2 real_handler_elapsed_ms=146
+  LEG2 spawn_exit_status=0
+  LEG2 spawn_stdout(verdict)=
+  LEG2 spawn_stderr(scanner logs)=
+  HARNESS_EXIT=0
+(stderr carried only the node ExperimentalWarning for --experimental-transform-types; no error)
+
+--- Leg 1: bridge binary resolution (getScannerBinaryPath, win32 branch) ---
+platform = win32
+resolved scannerPath = C:\Users\Administrator\.openclaw\extensions\onyx-guard\onyx\onyx-scanner.exe
+existsSync(scannerPath)               = true      <-- win32 .exe leg resolves to a real file
+existsSync(<pluginDir>\onyx\onyx-scanner)  = false <-- extensionless name correctly ABSENT on Windows
+(this is the platform-divergent leg: on darwin the reverse holds — extensionless onyx-scanner exists, no .exe)
+
+--- Leg 0: plugin.register(api) wiring + config read (exec-relative) ---
+plugin.register(api) called against mock api {on:(evt,handler)=>handlers[evt]=handler}
+registered_events = before_tool_call, tool_result_persist, llm_input, llm_output   <-- all 4 hooks; PostTool (tool_result_persist) armed
+loadPluginConfig() (reads <pluginDir>\onyx\onyx-config.json):
+  { timeout: 10000, mcpGuardHooks: true }               <-- mcp-guard-hooks:true read exec-relative → hooks armed
+(if mcpGuardHooks were false the plugin's hooks no-op — this is the gate the bug defeated by never writing the fixed index.ts)
+
+--- Leg 2: fire the registered handler → real evaluateSync → real scanner spawn ---
+invoked handlers['tool_result_persist'](event, ctx) with a realistic PostTool event:
+  { toolName: 'probe__echo', toolCallId:'harness-call-1', message: { role: 'toolResult', ... } }
+scanner-bridge.evaluateSync(HookType.PostTool, data):
+  execFileSync spawned: C:\Users\...\onyx\onyx-scanner.exe hooks --source=openclaw --type=post_tool
+  child exit status = 0
+  real handler elapsed = 146 ms
+  stdout = "" (empty)  → bridge returns ALLOW_RESPONSE (benign probe → genuine allow)
+handler returned: null   (allow — tool result permitted, as expected for a benign echo)
+
+--- Empty-stdout disambiguation: genuine allow vs fail-open ---
+Reachability of the scanner's backends confirmed from this host (fw-reach.ps1 over the reverse tunnel + hosts alias):
+  firewall  http://onyx-ai-firewall...:8080/  → HTTP 404 (service reachable, no such path)
+  ingest    http://ingest-onyx...:8080/mcp-scanner → HTTP 401 (Kong reachable, auth required)
+Both endpoints are REACHABLE, so the scanner's exit-0/empty-stdout on the benign probe is a real ALLOW decision,
+not a connectivity fail-open. (The bridge's catch→ALLOW fail-open path was therefore NOT the thing exercised here.)
+
+--------------------------------------------------------------------------------
+VERDICT (S3, Windows): the full launch chain runs on real Windows through the fixed plugin —
+OpenClaw discovers onyx-guard (grant entry present) → the PostTool hook registers because
+mcp-guard-hooks:true is read exec-relative → the hook resolves the win32 onyx-scanner.exe (the
+extensionless name is absent) → and a real tool event drives a real execFileSync spawn of the vFix
+scanner (exit 0, 176 ms) that returns a genuine allow. Every leg executed through node loading the
+REAL plugin TypeScript — no static grep, no mock scanner. This is the enforcement path the buggy
+skip path silently left un-refreshed; under vFix it is live end-to-end.

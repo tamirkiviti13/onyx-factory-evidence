@@ -1,0 +1,73 @@
+C1 — real macOS skip-path re-install (vFix), before → run1 (EXIT 0) → after → steady-state (EXIT 2)
+================================================================================
+Host: i-0b4a40ab2a55ca2b7, mac2-m2.metal (dedicated host h-0b373cdd49ef9101d)
+OS: macOS 14.8.9 (23J631), Darwin 23.6.0 arm64   hostname: ip-172-31-41-109.ec2.internal   user: ec2-user
+Fix build under test: onyx-scanner 0.0.3-vfix-7661b8c2  (PR #13011 HEAD 7661b8c2, read-only build)
+Wrapper: ~/run-install.sh /tmp/onyx-scanner-vfix  (install openclaw, NO --force, --mcp-guard-hooks=true --verbose)
+NOTE: pre-fix half is setup's (evidence/pre-fix/70-mac-*). The "BEFORE" block below is setup's untouched
+      handoff state — this engineer run mutated it. All keys REDACTED in this file.
+
+=================== BEFORE (setup handoff pre-fix state; the buggy pre-#11638 shape) ===================
+HOST=ip-172-31-41-109.ec2.internal USER=ec2-user
+== 4 plugin files: sha256 + len + mtime ==
+package.json             sha=9b0466c00a81263e47aa0d461753d81b794772425f23e9f5a651252d2482d164 len=627  mtime=2026-09-03T19:09:45
+openclaw.plugin.json     sha=8464f03a421d371eb73fb35b269a70237f95ad84d68099690c267398fa720c78 len=268  mtime=2026-09-03T19:09:45
+src/index.ts             sha=e13c9f32838e94694b4b7476306412800cb63d1f79c66fd0c41b9fbbae680b14 len=4025 mtime=2026-09-03T19:09:45   (vOld bytes)
+src/scanner-bridge.ts    sha=2d747aa1d921aa3c18bd8ccf8090a2f38e85aacd40d0a32fc4eae324757e211b len=4585 mtime=2026-09-03T19:09:45   (vOld bytes)
+== index.ts enforcement markers (pre-fix expect 0/0) ==
+tool_result_persist count = 0
+evaluateSync count = 0
+== bundled scanner binary ==
+bin sha=2cab1e26a8a590e8b706d5ad349201cb756bfa104b209f2004deab06d22748a0 len=36301698
+bin --version: onyx-scanner version 0.0.2-vbase-6965aa72
+== onyx-config.json ==   (skip path DID refresh config → mcp-guard-hooks:true, but index.ts has NO enforcement — the silent hole)
+{ "api-key":"<redacted:MCP_GATEWAY_DEV_KEY>", "endpoint-url":"http://onyx-ai-firewall.onyxd.svc.cluster.local:8080",
+  "ingest-endpoint":"http://ingest-onyx.onyxd.svc.cluster.local:8080/mcp-scanner", "timeout":"10s", "verbose":true,
+  "block-prompts":"true", "mcp-guard-hooks":true, "hooks-runtime-protection":true }
+== grant (openclaw.json plugins.entries.onyx-guard) ==
+onyx-guard entry: ABSENT
+== device.json ==
+device.json PRESENT len=383
+
+=================== vFix no-force skip-path install (run 1) ===================
+tail: "2026-09-03T19:54:46.17092Z  INFO  OpenClaw install command completed successfully"
+EXIT_CODE=0
+(post-op scan enumerated the host's stock OpenClaw MCP servers; install openclaw's post-op scan is NOT an
+ `openclaw gateway run` so it did NOT consume identity/device.json — confirmed PRESENT in AFTER below)
+
+=================== AFTER (post vFix run 1) — fix landed enforcement code + grant on the skip path ===================
+HOST=ip-172-31-41-109.ec2.internal USER=ec2-user
+== 4 plugin files: sha256 + len + mtime ==
+package.json             sha=9b0466c00a81263e47aa0d461753d81b794772425f23e9f5a651252d2482d164 len=627  mtime=2026-09-03T19:09:45   (UNCHANGED — vOld==vFix bytes, compare-before-write preserved mtime)
+openclaw.plugin.json     sha=8464f03a421d371eb73fb35b269a70237f95ad84d68099690c267398fa720c78 len=268  mtime=2026-09-03T19:09:45   (UNCHANGED — same)
+src/index.ts             sha=9bc737e8681c3b4043f091adc6dd62dd5a08fdfbff9f1c79d66596fa9dd6432f len=9848 mtime=2026-09-03T19:54:35   (REWRITTEN e13c9f32→9bc737e8, vFix embed)
+src/scanner-bridge.ts    sha=9c41b9010bc0f87b421f9fa3a8ff52e32a777babd9d4ee471c79ad315391fd53 len=7926 mtime=2026-09-03T19:54:35   (REWRITTEN 2d747aa1→9c41b901, vFix embed)
+== index.ts enforcement markers (now present) ==
+tool_result_persist count = 6      (was 0)
+evaluateSync count = 1             (was 0)
+== bundled scanner binary ==
+bin sha=f21d0915a985d2ae7e2128d4677af16b15d02220465ea291576f43b0e638ddea len=36318562
+bin --version: onyx-scanner version 0.0.3-vfix-7661b8c2   (refreshed vBase 2cab1e26 → vFix f21d0915)
+== grant (openclaw.json plugins.entries.onyx-guard) ==
+onyx-guard entry: {"hooks": {"allowConversationAccess": true}}   (was ABSENT — grantConversationAccess now runs on the skip path)
+== device.json ==
+device.json PRESENT len=383
+
+=================== STEADY-STATE (run 2, same wrapper again) — true no-op, EXIT 2 ===================
+decisive log lines (verbatim):
+  INFO  Plugin already installed - scanner binary refreshed to the running scanner  {"pluginDir":"/Users/ec2-user/.openclaw/extensions/onyx-guard"}
+  INFO  openclaw_conversation_access  {"event":"openclaw_conversation_access","op":"grant","outcome":"unchanged","platform":"darwin","configPath":"/Users/ec2-user/.openclaw/openclaw.json","pluginId":"onyx-guard"}
+  INFO  Onyx guard plugin already installed. Use --force to overwrite.  {"pluginDir":"/Users/ec2-user/.openclaw/extensions/onyx-guard"}
+  Skipped: OpenClaw plugin already installed (use --force to overwrite)
+EXIT_CODE=2
+re-capture after steady-state: index.ts still 9bc737e8 mtime 19:54:35, scanner-bridge.ts still 9c41b901 mtime 19:54:35,
+  package.json/openclaw.plugin.json still 9b0466c0/8464f03a mtime 19:09:45, binary still vFix f21d0915
+  → byte- AND mtime-identical to post-run1 → genuine no-op (grant already true short-circuits → outcome=unchanged).
+
+--------------------------------------------------------------------------------
+VERDICT (C1, macOS): identical to Windows. The pre-#11638 skip path (setup proved it refreshed only
+binary+config, evidence/pre-fix/70-mac-*) now, under vFix on a no-force run, ALSO rewrites the two changed
+plugin files (index.ts markers 0→6, scanner-bridge.ts evaluateSync 0→1) and adds the allowConversationAccess
+grant — EXIT 0 (real Modified). The two byte-identical plugin files are untouched (mtime preserved →
+compare-before-write). A second identical run is a true no-op → grant unchanged → Skipped → EXIT 2. Silent
+enforcement hole closed on real macOS.
