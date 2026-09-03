@@ -1,0 +1,60 @@
+C16 — OpenClaw agent-lane (before_tool_call) block render — what the user/model actually sees
+host: ip-10-10-6-140 (Linux)  user: octarget  captured_at: 2026-09-03T21:16:16Z
+scanner build: 0.0.3-vfix-7661b8c2   PR HEAD: 7661b8c2446fb226400d440181f9a40434280cf0
+policy: openclaw-guard-tool-block-probe (TOOL_EXECUTION BLOCK, regex tool.function=onyxguardtoolprobe), connected to asset 23 via the real CRUD front door (SSO); deleted after capture.
+
+================================================================================
+STEP 1 — REAL firewall verdict from the onyx-scanner binary (agent lane, --type=tool)
+   The tool lane carries an empty prompt + a ToolExecutionEvent (OUTPUT direction), so a
+   TOOL_EXECUTION rule on tool.function fires. This is a real /guard/evaluate call
+   (session + alert persisted, app_id=23), not /playground.
+--------------------------------------------------------------------------------
+$ printf '{"tool_name":"onyxguardtoolprobe","tool_params":{"command":"exfiltrate secrets"}}' \
+    | ./onyx/onyx-scanner hooks --source=openclaw --type=tool
+{"action":"block","block_reason":["Your request was blocked by Onyx AI Guard.\nViolated rules: onyx-guard-tool-block-probe\n\n[ONYX_VIOLATION_ID:b8c0bc94798b441faa4fe91ad6569811]"],"violated_rules":["onyx-guard-tool-block-probe"]}
+--------------------------------------------------------------------------------
+
+================================================================================
+STEP 2 — REAL plugin render through the loaded onyx-guard plugin (src/index.ts, UNCHANGED by
+   this diff). The plugin is loaded exactly as OpenClaw's gateway loads it
+   (node --experimental-transform-types), register() runs the real loadPluginConfig() +
+   createScannerBridge(); the ONLY substituted surface is OpenClaw's api.on() registration bus.
+   The before_tool_call handler calls the REAL scanner -> REAL firewall -> REAL block ->
+   index.ts composes the user/model-visible message.
+--------------------------------------------------------------------------------
+REGISTERED_HOOKS=["before_tool_call","tool_result_persist","llm_input","llm_output"]
+
+=== before_tool_call DECISION (object OpenClaw acts on) ===
+{
+  "block": true,
+  "blockReason": "Blocked by Onyx AI Guard\nYour request was blocked by Onyx AI Guard.\nViolated rules: onyx-guard-tool-block-probe\n\n[ONYX_VIOLATION_ID:7a0287a287584f2997b94f3be9fed2aa]\nViolated rules: onyx-guard-tool-block-probe"
+}
+
+=== USER/MODEL-VISIBLE SURFACE (blockReason, verbatim) ===
+Blocked by Onyx AI Guard
+Your request was blocked by Onyx AI Guard.
+Violated rules: onyx-guard-tool-block-probe
+
+[ONYX_VIOLATION_ID:7a0287a287584f2997b94f3be9fed2aa]
+Violated rules: onyx-guard-tool-block-probe
+--------------------------------------------------------------------------------
+   All four hooks register (before_tool_call, tool_result_persist, llm_input, llm_output) =>
+   mcpGuardHooks:true. The block object OpenClaw acts on is {block:true, blockReason:"..."};
+   OpenClaw surfaces blockReason to the user and to the model in place of running the tool.
+   Text composed at scanner/internal/installer/openclaw-plugin/src/index.ts (before_tool_call
+   branch, "Blocked by Onyx AI Guard" + block_reason + "Violated rules: ...").
+
+================================================================================
+STEP 3 — Contrast: a benign tool through the SAME real path => guard ALLOWS, nothing withheld
+   (this is the pre-fix experience: before the skip-path fix the guard plugin was not even
+    loaded — see post-fix/92 gateway plugin-list contrast — so no before_tool_call fired and
+    tool output flowed to the user unmodified).
+--------------------------------------------------------------------------------
+=== before_tool_call DECISION (benign tool) ===
+{
+  "action": "allow"
+}
+
+=== USER/MODEL-VISIBLE SURFACE ===
+(guard ALLOWED — tool executes, output NOT withheld; nothing is rendered to the user)
+--------------------------------------------------------------------------------
