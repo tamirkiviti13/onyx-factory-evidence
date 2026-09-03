@@ -1,0 +1,122 @@
+# C2 — real runtime removal -> rescan on the evidence host: the asset goes STALE (Last Seen frozen),
+#      never soft-deleted, and stays exactly ONE row (no duplicate, no resurrection).
+# host ip-10-10-6-140 (device_id=1, linux) user octarget  binary onyx-scanner version 0.0.3-vfix-7661b8c2
+# captured 2026-09-03 ~19:04-19:12 UTC. Tenant schema onyx_security. Ingest front door
+#   http://ingest-onyx.onyxd.svc.cluster.local/mcp-scanner (Kong key-auth; INGESTION_DEV_API_KEY).
+# Command under test: the standalone inventory scan  `onyx-scanner scan --endpoint <ingest> --api-key <ingest key>`
+#   (the same real ingest path the install post-op scan uses: Kong -> Vector -> S3 -> SQS ->
+#    scanner-event-consumer -> Temporal (DesktopAgentCreatorWorkflow) -> Postgres).
+# NOTE ON SCOPE: this is a lifecycle/behaviour probe of the SCANNER INGEST LANE. It changes NO product code
+#   and is NOT one of the fix's acceptance tests — the fix is the skip-path plugin-file refresh (at1..at5).
+#   It exists only to answer the verifier board's C2 "remove the agent, rescan, show the row stale/deleted".
+
+================================================================================================
+THE CODE-GROUNDED FACT THIS PROVES (why "deleted" is the wrong expectation for this lane)
+================================================================================================
+The OpenClaw INVENTORY detector emits its `*CodingAgentInfo` (the "installed" assertion) ONLY when
+`detectAppOrBinary` is satisfied — an OpenClaw app bundle OR the `openclaw` CLI on the user's PATH
+(scanner/internal/scanner/agents/openclaw.go:286). `~/.openclaw` is explicitly per-user RESIDUE
+(openclaw.go:275-285), NOT the installed signal. So to make the agent genuinely absent from the scan
+payload BOTH must go: the CLI (`~/.npm-global/bin/openclaw`) and the dir (`~/.openclaw`).
+
+The scanner only ever reports PRESENCE. When an agent is absent it is communicated by OMISSION — the
+scan simply carries no payload for it; there is NO "agent removed" event on the wire. The scanner
+ingestion lane (ScannerObjectWorkflow / DesktopAgentCreatorWorkflow) is an ADDITIVE UPSERT keyed on the
+asset unique_identifier; it has NO scan-absence -> is_deleted reconciliation and NO scheduled reaper for
+scanner desktop agents. (Absence-driven soft-delete exists only in the non-scanner cloud pipelines, e.g.
+common/database/repository/agent.py.) The ONLY absence signal for a scanner desktop-agent asset is its
+"Last Seen" (`desktop_agent_applications.last_scanned_at`, mirrored on `assets.updated_at`) ceasing to
+advance. => A removed OpenClaw asset can only ever go STALE (frozen Last Seen); it is never marked
+is_deleted by this lane. That is the honest product behaviour, proven empirically below.
+
+================================================================================================
+TIMELINE (from the scanner's own run log, /home/octarget/.onyx/mcp-scanner/logs/scanner.log, and
+tenant Postgres). All three scans are REAL front-door ingests (endpoint mode, not --output-file).
+================================================================================================
+
+STEP 1 — PRESENT, real scan  (agent installed)
+  pre-scan clock            2026-09-03T19:05:47Z
+  scan_run_id               d2a0fa5e-6e42-4d5d-a08c-e6d9b59ff961
+  detection                 openclaw detected=true via binary_on_path (/home/octarget/.npm-global/bin/openclaw)
+                            openclaw detected=true via dsl_dir     (/home/octarget/.openclaw)
+  result                    "Scan run completed" payloads_sent=2 agents_detected_total=2 -> "Scan completed successfully"
+  DB after settle           assets id=23  is_deleted=false  ONE row (device ip-10-10-6-140)
+                            desktop_agent_applications.last_scanned_at = 2026-09-03 19:07:04.339352+00  (ADVANCED)
+  => a real present scan through the front door advances Last Seen. This is the "postdates the vFix
+     scan" reference the board asked for: last_scanned_at 19:07:04 > the prior published payload.
+
+STEP 2 — REMOVE the agent (reversible; capture-before-mutate)
+  mv /home/octarget/.npm-global/bin/openclaw  -> .c2aside      (the CLI the detector keys on)
+  mv /home/octarget/.openclaw                 -> .c2aside      (the dsl_dir / residue)
+  verify would-send payload (scan --output-file, local, no send):
+     OPENCLAW codingAgent record PRESENT IN PAYLOAD: False   (only 17 incidental "openclaw" substrings,
+       from other agents' skill-marketplace metadata — no name=openclaw codingAgent object)
+  scanner detection log for this capture: openclaw detected=false via none (x2)
+
+STEP 3 — ABSENT, real scan  (agent removed)   <<< THE REMOVAL RESCAN
+  pre-scan clock            2026-09-03T19:08:05Z
+  scan_run_id               8cf8aab2-03e5-44c3-a570-99a97cbd0fec
+  detection                 openclaw detected=false via none (x2)
+  result                    "Scan run completed" payloads_sent=0 agents_detected_total=0 -> "Scan completed successfully"
+                            ^ payloads_sent=0 is the load-bearing fact: with the only agent gone, the
+                              scanner sends NOTHING about this host. Absence traverses the wire as silence,
+                              not as a delete event. (octarget has no other detected agent — every other
+                              detector logged detected=false.)
+  DB read-back (this is the C2 read-back the board wanted), asset id=23:
+     id | name                | unique_identifier                                    | is_deleted | updated_at                  | device          | last_scanned_at
+     23 | OpenClaw (octarget) | endpoint_openclaw::ec2e421b674b1438bd67a5269dec4ace  | f          | 2026-09-03 19:00:00.902161  | ip-10-10-6-140  | 2026-09-03 19:07:04.339352
+     octarget(ip-10-10-6-140) openclaw asset row count = 1   (exactly one; no duplicate)
+  INTERPRETATION:
+     * is_deleted = false                              -> NOT soft-deleted (as predicted; this lane has no absence reaper).
+     * last_scanned_at = 19:07:04  (UNCHANGED from STEP 1, i.e. it did NOT advance to the 19:08 scan)
+                                                        -> the row is DEMONSTRABLY STALE: a newer real scan ran
+                                                           (19:08, scan_run_id 8cf8aab2) yet Last Seen is frozen
+                                                           at 19:07:04 because that scan carried no openclaw payload.
+     * still exactly ONE row for this host, same id 23, same unique_identifier
+                                                        -> NO duplicate, NO resurrection-as-new-row.
+
+STEP 4 — RESTORE the agent (mv both back; exact, no snapshot needed)
+  4 plugin-file sha256 back to the vFix "After" bytes:
+     src/index.ts            9bc737e8681c3b4043f091adc6dd62dd5a08fdfbff9f1c79d66596fa9dd6432f
+     src/scanner-bridge.ts   9c41b9010bc0f87b421f9fa3a8ff52e32a777babd9d4ee471c79ad315391fd53
+     package.json            9b0466c00a81263e47aa0d461753d81b794772425f23e9f5a651252d2482d164
+     openclaw.plugin.json    8464f03a421d371eb73fb35b269a70237f95ad84d68099690c267398fa720c78
+  openclaw.json grant  allowConversationAccess = True    ;  openclaw CLI back on PATH ; no .c2aside leftovers
+
+STEP 5 — PRESENT again, real scan  (restored)
+  pre-scan clock            2026-09-03T19:11:27Z
+  scan_run_id               53e01a6b-b785-4128-981d-5771a09f91c2
+  detection                 openclaw detected=true via binary_on_path + dsl_dir
+  result                    "Scan run completed" payloads_sent=2 agents_detected_total=2 -> "Scan completed successfully"
+  DB after settle           assets id=23  is_deleted=false  STILL ONE row (device ip-10-10-6-140)
+                            desktop_agent_applications.last_scanned_at = 2026-09-03 19:12:03.709906+00  (ADVANCED again -> UN-STALE)
+  octarget(ip-10-10-6-140) openclaw asset row count = 1   (converged back onto the SAME id 23 — no new row on re-install)
+
+================================================================================================
+CONCURRENT MULTI-HOST NOTE (so the read-back is not misread as a duplicate)
+================================================================================================
+During this window `setup` was provisioning the macOS + Windows evidence hosts in parallel; each landed
+its OWN distinct OpenClaw desktop-agent asset in the shared tenant (correct — one asset per endpoint,
+keyed by a distinct unique_identifier):
+   id | name                     | device                          | platform | unique_identifier
+   23 | OpenClaw (octarget)      | ip-10-10-6-140                  | linux    | endpoint_openclaw::ec2e421b674b1438bd67a5269dec4ace   <- THIS host
+  594 | OpenClaw (Administrator) | EC2AMAZ-I43CDS0                 | windows  | endpoint_openclaw::ec2ad23d-7b13-8602-1028-491f0617ab18
+  595 | OpenClaw (ec2-user)      | ip-172-31-41-109.ec2.internal   | darwin   | endpoint_openclaw::RG2HJ7LMWM
+These are DIFFERENT devices (different device_id, different unique_identifier), NOT duplicates of id 23.
+All C2 assertions above are scoped to the octarget asset (id 23 / device ip-10-10-6-140).
+
+================================================================================================
+C2 VERDICT
+================================================================================================
+Removing the OpenClaw runtime (CLI + ~/.openclaw) and running a second REAL front-door scan:
+  * the octarget OpenClaw asset (id 23) stays exactly ONE row, is_deleted=false — NOT resurrected,
+    NOT duplicated (re-install converges back on the same id 23);
+  * its Last Seen (desktop_agent_applications.last_scanned_at) FREEZES at the last present-scan time
+    (19:07:04) while a newer real scan (19:08, scan_run_id 8cf8aab2, payloads_sent=0) runs — the row is
+    DEMONSTRABLY STALE, which is the board's "deleted OR stale" satisfied via the stale reading;
+  * on restore, a real present scan advances Last Seen again (19:12:03) — the same single row un-stales.
+HONEST CAVEAT surfaced to the board: the scanner ingestion lane has NO absence event and NO soft-delete
+for desktop-agent assets, so is_deleted stays false on removal by design — staleness (frozen Last Seen)
+is the product's only absence signal for this lane. This is a code-grounded product behaviour, documented
+rather than papered over; see the PR comment noting the lane's reconcile semantics.
+Host fully restored to the settled vFix good state afterwards (four sha256 above + grant=true).

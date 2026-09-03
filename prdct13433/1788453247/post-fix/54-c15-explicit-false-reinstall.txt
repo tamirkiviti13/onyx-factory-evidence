@@ -1,0 +1,75 @@
+# C15 evidence — explicit allowConversationAccess:false is flipped to true on a routine no-force re-install (CURRENT behavior, grant code UNCHANGED)
+# host ip-10-10-6-140  user octarget  binary onyx-scanner version 0.0.3-vfix-7661b8c2 (HEAD 7661b8c2)  captured 2026-09-03T18:58:43Z
+# Purpose: show the deploy-day story for a user who explicitly OPTED OUT of conversation-hook access. Grant code is NOT modified this round; this documents the current behavior for the owner's C15 decision.
+
+=== STEP 0 — baseline openclaw.json (grant currently true from the settled vFix state) ===
+ff534d6a84de84512c336391dd44b48ce3f87af89fb9f415749038a433dbf083  /home/octarget/.openclaw/openclaw.json
+--- grant read-back ---
+allowConversationAccess = True
+
+=== STEP 1 — SEED an explicit opt-out: set allowConversationAccess=false (operator/user choice), preserving every other key ===
+seeded allowConversationAccess=false
+--- openclaw.json BEFORE the install (explicit false) ---
+{
+  "gateway": {
+    "mode": "local"
+  },
+  "meta": {
+    "lastTouchedVersion": "2026.8.2",
+    "migrations": {
+      "modelPolicyAllowlist": true
+    }
+  },
+  "plugins": {
+    "entries": {
+      "onyx-guard": {
+        "hooks": {
+          "allowConversationAccess": false
+        }
+      }
+    }
+  }
+}
+--- sha BEFORE ---
+323521ea1ef68f4c3832408ecbe477a94aff92a1fd4a139bbc7b65e339e3e0a8  /home/octarget/.openclaw/openclaw.json
+--- grant read-back BEFORE (must be False) ---
+allowConversationAccess = False
+
+=== STEP 2 — run 'install openclaw' with NO --force (the routine sensor-cycle skip path), as octarget ===
+argv (secret-free): onyx-scanner install openclaw --api-key <redacted:MCP_GATEWAY_DEV_KEY> --scan-endpoint http://ingest-onyx.onyxd.svc.cluster.local/mcp-scanner --scan-api-key <redacted:INGESTION_DEV_API_KEY> --endpoint http://onyx-ai-firewall.onyxd.svc.cluster.local --mcp-guard-hooks=true --verbose
+--- install output (grant/skip-relevant lines; secrets redacted) ---
+2026-09-03T18:58:43.930669801Z	INFO	Scanner starting	{"version": "0.0.3-vfix-7661b8c2", "environment": "dev", "command": "onyx-scanner install openclaw", "trigger_method": "", "invocation_source": "", "executable": "/tmp/onyx-scanner-vfix", "pid": 3304866, "ppid": 3304865, "username": "octarget", "user_id": "1002", "group_id": "1002", "euid": 1002, "home_dir": "/home/octarget", "hostname": "ip-10-10-6-140", "os": "linux", "platform": "ubuntu", "platform_family": "debian", "os_version": "22.04", "kernel_version": "6.8.0-1061-aws", "kernel_arch": "x86_64", "architecture": "amd64", "go_version": "go1.25.8", "working_dir": "/home/coder/onyx"}
+2026-09-03T18:58:43.992670882Z	INFO	Plugin already installed - scanner binary refreshed to the running scanner	{"pluginDir": "/home/octarget/.openclaw/extensions/onyx-guard"}
+2026-09-03T18:58:43.992982731Z	INFO	openclaw_conversation_access	{"event": "openclaw_conversation_access", "op": "grant", "outcome": "success", "platform": "linux", "configPath": "/home/octarget/.openclaw/openclaw.json", "pluginId": "onyx-guard"}
+2026-09-03T18:58:43.993019442Z	INFO	Plugin already installed - openclaw.json conversation-access grant added	{"pluginDir": "/home/octarget/.openclaw/extensions/onyx-guard"}
+2026-09-03T18:58:43.993036933Z	INFO	Onyx guard plugin already installed. Use --force to overwrite.	{"pluginDir": "/home/octarget/.openclaw/extensions/onyx-guard"}
+already_installed: true
+Installed:
+OpenClaw plugin installed successfully!
+INSTALL_EXIT=0
+
+=== STEP 3 — openclaw.json AFTER the no-force install ===
+{
+  "gateway": {
+    "mode": "local"
+  },
+  "meta": {
+    "lastTouchedVersion": "2026.8.2",
+    "migrations": {
+      "modelPolicyAllowlist": true
+    }
+  },
+  "plugins": {
+    "entries": {
+      "onyx-guard": {
+        "hooks": {
+          "allowConversationAccess": true
+        }
+      }
+    }
+  }
+}
+--- sha AFTER ---
+ff534d6a84de84512c336391dd44b48ce3f87af89fb9f415749038a433dbf083  /home/octarget/.openclaw/openclaw.json
+--- grant read-back AFTER (CURRENT behavior flips explicit false -> true) ---
+allowConversationAccess = True
