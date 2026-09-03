@@ -1,0 +1,23 @@
+C16 — Firewall-verdict correlation for the OpenClaw block renders
+Host ip-10-10-6-140 | OpenClaw 2026.8.2 | MCP server asset 861 (http://10.10.6.140:9977/mcp)
+MCP SENSITIVE_DATA BLOCK policy id=23 -> asset 861 | TOOL_EXECUTION BLOCK policy -> asset 23
+==================================================================================
+
+## Real firewall block on the tool RESULT leg (post_tool) — scanner decision log
+   ~/.onyx/mcp-scanner/logs/scanner.log (onyx-scanner writes this; the plugin invokes onyx-scanner):
+1801:2026-09-03T22:36:48.563282859Z	INFO	MCP policy blocked server "onyxprobe" (mcp-guard-only hook)
+1834:2026-09-03T22:46:15.543434309Z	INFO	MCP policy blocked server "onyxprobe" (mcp-guard-only hook)
+1850:2026-09-03T22:51:07.410616623Z	INFO	MCP policy blocked server "onyxprobe" (mcp-guard-only hook)
+1875:2026-09-03T22:53:51.665757186Z	INFO	MCP policy blocked server "onyxprobe" (mcp-guard-only hook)
+1900:2026-09-03T22:58:38.510595456Z	INFO	MCP policy blocked server "onyxprobe" (mcp-guard-only hook)
+1908:2026-09-03T22:59:42.032949188Z	INFO	MCP policy blocked server "onyxprobe" (mcp-guard-only hook)
+
+## By-hand invocation of the SAME onyx-scanner binary the refreshed plugin calls (execFileSync
+   hooks --type=post_tool), proving deterministic action:block on the PII tool result — paired
+   (request leg first) AND unpaired both return block:
+   -- PAIRED response-leg stdout:
+{"action":"block","block_reason":["Your request was blocked by Onyx AI Guard.\nViolated rules: Sensitive Data\n\n[ONYX_VIOLATION_ID:ce611ac1c96245028008bf9766f8b96a]"]}
+
+## Gateway load line — refreshed onyx-guard plugin loaded with mcp-guard-hooks=true, ready:
+2026-09-03T22:53:13.527+00:00 [gateway] [plugins] OpenClaw can't verify where this plugin came from. Review it with 'openclaw plugins inspect onyx-guard'. Adding it to plugins.allow lets it load, but does not make it trusted. If it's an official plugin, reinstall it from its official npm package or its official ClawHub listing to enable trusted features. (plugin=onyx-guard, source=/home/octarget/.openclaw/extensions/onyx-guard/src/index.ts)
+2026-09-03T22:53:14.054+00:00 [gateway] ready
