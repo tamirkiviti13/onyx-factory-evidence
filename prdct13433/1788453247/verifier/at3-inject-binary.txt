@@ -1,0 +1,1 @@
+drwxrwxr-x 2 octarget octarget 4096 Sep  3 17:01 /home/octarget/.openclaw/extensions/onyx-guard/onyx/onyx-scanner

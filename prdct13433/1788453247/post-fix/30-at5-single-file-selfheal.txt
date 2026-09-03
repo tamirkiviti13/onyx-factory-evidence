@@ -1,0 +1,27 @@
+# at5 post-fix — single-file self-heal: ONE stale plugin file is refreshed, the rest untouched
+
+Precondition: exactly one plugin file (src/scanner-bridge.ts) stale (wrong bytes), writable;
+the other three already match vFix embedded bytes.
+
+Run: vFix install, no --force (skip path). EXIT_CODE=0.
+Exit 0 (not 2) is correct: a genuine refresh flips Modified, and the install aggregate
+clears the Skipped flag once anything was modified — so a self-heal reports success,
+a true no-op reports skip (exit 2, at2), a failed refresh reports error (exit 1, at3).
+
+## Before
+package.json  9b0466c00a81263e47aa0d461753d81b794772425f23e9f5a651252d2482d164  2026-09-03 14:09:30.770106539 +0000
+openclaw.plugin.json  8464f03a421d371eb73fb35b269a70237f95ad84d68099690c267398fa720c78  2026-09-03 14:09:30.770106539 +0000
+src/index.ts  9bc737e8681c3b4043f091adc6dd62dd5a08fdfbff9f1c79d66596fa9dd6432f  2026-09-03 15:14:29.701205256 +0000
+src/scanner-bridge.ts  7b8488809f451029f90dc45b12ca61d6fa875e3d87c286b6caf5d063605ed5a7  2026-09-03 15:28:32.203759570 +0000
+## After
+package.json  9b0466c00a81263e47aa0d461753d81b794772425f23e9f5a651252d2482d164  2026-09-03 14:09:30.770106539 +0000
+openclaw.plugin.json  8464f03a421d371eb73fb35b269a70237f95ad84d68099690c267398fa720c78  2026-09-03 14:09:30.770106539 +0000
+src/index.ts  9bc737e8681c3b4043f091adc6dd62dd5a08fdfbff9f1c79d66596fa9dd6432f  2026-09-03 15:14:29.701205256 +0000
+src/scanner-bridge.ts  9c41b9010bc0f87b421f9fa3a8ff52e32a777babd9d4ee471c79ad315391fd53  2026-09-03 15:29:26.467508100 +0000
+
+## Assertions
+- scanner-bridge.ts healed: 7b848880… (stale) -> 9c41b901… (vFix embedded), mtime bumped.
+- package.json / openclaw.plugin.json / index.ts: byte AND mtime IDENTICAL (compare-before-write
+  attempted no write — they already matched vFix).
+- transcript logs exactly ONE 'plugin file refreshed to the embedded version' (scanner-bridge.ts).
+- Backed by the 4 named per-file Go self-heal tests (RefreshesStale{PackageJson,PluginManifest,IndexTS,ScannerBridge}).

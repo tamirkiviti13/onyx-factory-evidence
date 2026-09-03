@@ -1,0 +1,20 @@
+-- BEFORE noop run --
+uid=1002 mode=644 mtime=1788444570 package.json
+uid=1002 mode=644 mtime=1788444570 openclaw.plugin.json
+uid=1002 mode=644 mtime=1788455406 src/index.ts
+uid=1002 mode=644 mtime=1788455406 src/scanner-bridge.ts
+uid=1002 mode=600 mtime=1788455406 onyx/onyx-config.json
+uid=1002 mode=600 mtime=1788455406 openclaw.json
+-- running IDENTICAL sudo (root) install again --
+EXIT_CODE=2  (expect 2)
+Skipped: OpenClaw plugin already installed (use --force to overwrite)
+2026-09-03T17:11:37.11257115Z	INFO	OpenClaw installation skipped (OpenClaw plugin already installed (use --force to overwrite))
+-- AFTER noop run (stat MUST be identical, binary excepted per convention) --
+uid=1002 mode=644 mtime=1788444570 package.json
+uid=1002 mode=644 mtime=1788444570 openclaw.plugin.json
+uid=1002 mode=644 mtime=1788455406 src/index.ts
+uid=1002 mode=644 mtime=1788455406 src/scanner-bridge.ts
+uid=1002 mode=600 mtime=1788455472 onyx/onyx-config.json
+uid=1002 mode=600 mtime=1788455406 openclaw.json
+-- root-owned files under octarget .openclaw after noop (MUST be 0) --
+0

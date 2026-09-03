@@ -1,0 +1,25 @@
+# at1 post-fix — DB read-back (tenant onyx_security), hostname=ip-10-10-6-140, captured 2026-09-03T15:15:40Z
+
+## device row:
+ id |      name      |          updated_at           
+----+----------------+-------------------------------
+  1 | ip-10-10-6-140 | 2026-09-03 14:10:05.506386+00
+(1 row)
+
+## device_applications (openclaw) for this device:
+## assets (OpenClaw desktop agent) for this device/host:
+ id |        name         |         type          |          updated_at           
+----+---------------------+-----------------------+-------------------------------
+ 23 | OpenClaw (octarget) | AssetTypeDesktopAgent | 2026-09-03 14:11:09.124679+00
+(1 row)
+
+
+## device_applications join (device -> asset) confirming the OpenClaw asset is linked to this host:
+ id |     device     |        asset        |         type          |          updated_at           
+----+----------------+---------------------+-----------------------+-------------------------------
+  1 | ip-10-10-6-140 | OpenClaw (octarget) | AssetTypeDesktopAgent | 2026-09-03 14:10:05.554472+00
+(1 row)
+
+NOTE: the OpenClaw agent asset persists across the post-fix scan (end-to-end ingest pipeline healthy).
+      The plugin-file refresh + grant are host-side artifacts (the bug); their proof is the on-disk
+      state (03/04) and the install transcript (02) — the DB/UI confirm the agent still lands cleanly.

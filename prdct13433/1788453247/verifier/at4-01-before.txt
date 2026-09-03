@@ -1,0 +1,33 @@
+### at4-01 BEFORE (ls -lnR extensions + openclaw.json stat + sibling record) ###
+-- ls -lnR of extensions (numeric uid/gid) --
+/home/octarget/.openclaw/extensions:
+total 8
+drwxr-xr-x 4 1002 1002 4096 Sep  3 14:09 onyx-guard
+drwxrwxr-x 2 1002 1002 4096 Jun 15  2021 other-vendor
+
+/home/octarget/.openclaw/extensions/onyx-guard:
+total 16
+drwxr-xr-x 2 1002 1002 4096 Sep  3 14:12 onyx
+-rw-r--r-- 1 1002 1002  268 Sep  3 14:09 openclaw.plugin.json
+-rw-r--r-- 1 1002 1002  627 Sep  3 14:09 package.json
+drwxr-xr-x 2 1002 1002 4096 Sep  3 14:09 src
+
+/home/octarget/.openclaw/extensions/onyx-guard/onyx:
+total 36660
+-rw------- 1 1002 1002      329 Sep  3 14:12 onyx-config.json
+-rwxr-xr-x 1 1002 1002 37533880 Sep  3 14:11 onyx-scanner
+
+/home/octarget/.openclaw/extensions/onyx-guard/src:
+total 12
+-rw-r--r-- 1 1002 1002 4025 Sep  3 14:09 index.ts
+-rw-r--r-- 1 1002 1002 4585 Sep  3 14:09 scanner-bridge.ts
+
+/home/octarget/.openclaw/extensions/other-vendor:
+total 4
+-rw-rw-r-- 1 1002 1002 49 Jun 15  2021 marker.txt
+-- openclaw.json stat --
+uid=1002 gid=1002 mode=600 mtime=1788444597 /home/octarget/.openclaw/openclaw.json
+-- SIBLING record (owner/mtime/sha256) --
+uid=1002 gid=1002 mode=775 mtime=1623758400 /home/octarget/.openclaw/extensions/other-vendor
+uid=1002 gid=1002 mode=664 mtime=1623758400 /home/octarget/.openclaw/extensions/other-vendor/marker.txt
+sibling marker sha256: fafd8cbffe40c991304b67a0f1cdc61a49a03c73510e616ff36de65fb3a88d8b

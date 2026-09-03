@@ -1,0 +1,9 @@
+### at4-04 target-user access (octarget reads config + execs bundled binary) ###
+-- octarget reads onyx-config.json (0600, own file) --
+{
+  "api-key": "<redacted:MCP_GATEWAY_DEV_KEY>",
+  "endpoint-url": "http://onyx-ai-firewall.onyxd.svc.cluster.local", ...[read OK rc=0]
+-- octarget execs the bundled binary --
+onyx-scanner version 0.0.3-vfix-7661b8c2
+exec --version rc=0
+exec --help rc=0 (0 = binary is executable by octarget)

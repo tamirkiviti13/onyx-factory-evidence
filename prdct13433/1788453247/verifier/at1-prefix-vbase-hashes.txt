@@ -1,0 +1,6 @@
+9b0466c00a81263e  package.json
+8464f03a421d371e  openclaw.plugin.json
+e13c9f32838e9469  src/index.ts
+2d747aa1d921aa3c  src/scanner-bridge.ts
+tool_result_persist=0  evaluateSync=0
+grant = ABSENT

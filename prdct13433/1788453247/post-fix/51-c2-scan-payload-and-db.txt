@@ -1,0 +1,42 @@
+=== C2 — everything discovered reaches the product correctly (real vFix scan from ip-10-10-6-140) ===
+captured_at: 2026-09-03T18:21:25Z   binary: onyx-scanner version 0.0.3-vfix-7661b8c2
+
+### 1. Real post-op scan upload (from the no--force vFix install transcript) ###
+2026-09-03T18:20:03Z INFO Scan run completed {"payloads_sent": 2, "users": 1, "agents_detected_total": 2, "mcp_servers_total": 0, "scan_run_id": "37cac2de-d7db-44e9-8020-4b69339786e8"}
+  (the same scanner code path with --output-file dumps the exact uploaded payloads locally; curated identity extract below — full 485KB JSONL retained on-box, config fingerprints/digests omitted)
+
+### 2. The uploaded OpenClaw scan payload (curated, secret-free identity fields) ###
+{
+  "envelope": {
+    "type": "request",
+    "method": "scan",
+    "source_type": "mcp-scanner",
+    "sessionId": "14ceb74b-fe0f-4381-af6d-bcd85eacf20e"
+  },
+  "codingAgent": {
+    "configPath": "/home/octarget/.openclaw/openclaw.json",
+    "configExists": true,
+    "configModifiedAt": "2026-09-03T17:28:28.012881296Z",
+    "name": "openclaw",
+    "version": "2026.8.2",
+    "type": "desktop",
+    "isGuarded": true,
+    "protects_all_mcps": true,
+    "tools_count": 31,
+    "plugins_count": 61
+  }
+}
+
+### 3. Tenant-DB asset row after the scan landed (real Kong -> Vector -> S3 -> SQS -> Temporal -> Postgres) ###
+schema onyx_security @ postgres-rw.onyxd.svc.cluster.local
+ id |        name         |                  unique_identifier                  |         type          |      sub_type       | status | is_deleted | version  | app_definition_id |          updated_at           
+----+---------------------+-----------------------------------------------------+-----------------------+---------------------+--------+------------+----------+-------------------+-------------------------------
+ 23 | OpenClaw (octarget) | endpoint_openclaw::ec2e421b674b1438bd67a5269dec4ace | AssetTypeDesktopAgent | AssetSubTypeAIAgent |        | f          | 2026.8.2 | endpoint_openclaw | 2026-09-03 14:11:09.124679+00
+(1 row)
+
+--- device_applications join (device row + no duplicate) ---
+ device_id |     device     | asset_id | total_rows_for_asset 
+-----------+----------------+----------+----------------------
+         1 | ip-10-10-6-140 |       23 |                    1
+(1 row)
+

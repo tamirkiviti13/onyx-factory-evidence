@@ -1,0 +1,53 @@
+# at4-01  BEFORE (RUN-1 preconditions): stale vOld plugin, grant absent, sibling recorded
+## engineer post-fix run; binary under test = /tmp/onyx-scanner-vfix (onyx-scanner version 0.0.3-vfix-7661b8c2)
+
+== ls -lnR extensions (numeric uid/gid) ==
+/home/octarget/.openclaw/extensions:
+total 8
+drwxr-xr-x 4 1002 1002 4096 Sep  3 14:09 onyx-guard
+drwxrwxr-x 2 1002 1002 4096 Jun 15  2021 other-vendor
+
+/home/octarget/.openclaw/extensions/onyx-guard:
+total 16
+drwxr-xr-x 2 1002 1002 4096 Sep  3 17:27 onyx
+-rw-r--r-- 1 1002 1002  268 Sep  3 17:28 openclaw.plugin.json
+-rw-r--r-- 1 1002 1002  627 Sep  3 17:28 package.json
+drwxr-xr-x 2 1002 1002 4096 Sep  3 14:09 src
+
+/home/octarget/.openclaw/extensions/onyx-guard/onyx:
+total 36676
+-rw------- 1 1002 1002      329 Sep  3 17:27 onyx-config.json
+-rwxr-xr-x 1 1002 1002 37544095 Sep  3 17:27 onyx-scanner
+
+/home/octarget/.openclaw/extensions/onyx-guard/src:
+total 12
+-rw-r--r-- 1 1002 1002 4025 Sep  3 17:28 index.ts
+-rw-r--r-- 1 1002 1002 4585 Sep  3 17:28 scanner-bridge.ts
+
+/home/octarget/.openclaw/extensions/other-vendor:
+total 4
+-rw-rw-r-- 1 1002 1002 49 Jun 15  2021 marker.txt
+
+== 4 plugin-file sizes + sha256 (expect vOld: index=e13c9f32.. bridge=2d747aa1..) ==
+  src/index.ts                 4025  e13c9f32838e94694b4b7476306412800cb63d1f79c66fd0c41b9fbbae680b14
+  src/scanner-bridge.ts        4585  2d747aa1d921aa3c18bd8ccf8090a2f38e85aacd40d0a32fc4eae324757e211b
+  package.json                  627  9b0466c00a81263e47aa0d461753d81b794772425f23e9f5a651252d2482d164
+  openclaw.plugin.json          268  8464f03a421d371eb73fb35b269a70237f95ad84d68099690c267398fa720c78
+== plugin-file mtimes ==
+  src/index.ts             mtime=1788456507
+  src/scanner-bridge.ts    mtime=1788456507
+  package.json             mtime=1788456507
+  openclaw.plugin.json     mtime=1788456507
+
+== onyx-config.json stat ==
+  /home/octarget/.openclaw/extensions/onyx-guard/onyx/onyx-config.json uid=1002 gid=1002 mode=600 mtime=1788456459
+== openclaw.json stat + grant (expect grant absent = None) ==
+  /home/octarget/.openclaw/openclaw.json uid=1002 gid=1002 mode=600
+  allowConversationAccess = None
+
+== SIBLING fixture (must be byte/mtime/owner-untouched by the run) ==
+  /home/octarget/.openclaw/extensions/other-vendor/marker.txt uid=1002 gid=1002 mode=664 mtime=1623758400
+  sha256=fafd8cbffe40c991304b67a0f1cdc61a49a03c73510e616ff36de65fb3a88d8b
+
+== root-owned files under onyx-guard + openclaw.json BEFORE (informational) ==
+  (count above)

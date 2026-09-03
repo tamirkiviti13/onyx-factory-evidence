@@ -1,0 +1,10 @@
+# at4-04  TARGET-USER access after the root install
+## octarget (uid 1002) must be able to read its own 0600 onyx-config.json and exec the binary
+
+== octarget reads onyx-config.json (0600, was root-created then chowned) ==
+  read rc=0
+  (rc=0 proves the 0600 config is owned by octarget, not root)
+
+== octarget execs the installed scanner --version ==
+onyx-scanner version 0.0.3-vfix-7661b8c2
+  exec rc=0

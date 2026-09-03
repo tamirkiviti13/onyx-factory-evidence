@@ -1,0 +1,18 @@
+### at5-03 selective table (cycle1: only package.json was corrupted) ###
+PRE-RUN mtimes were: pkg=1577836800(corrupt) plugin=1788444570 index=1788454775 bridge=1788454775
+--- AFTER run ---
+9b0466c00a81263e47aa0d461753d81b794772425f23e9f5a651252d2482d164       mtime=1788455278  package.json
+8464f03a421d371eb73fb35b269a70237f95ad84d68099690c267398fa720c78       mtime=1788444570  openclaw.plugin.json
+9bc737e8681c3b4043f091adc6dd62dd5a08fdfbff9f1c79d66596fa9dd6432f       mtime=1788454775  src/index.ts
+9c41b9010bc0f87b421f9fa3a8ff52e32a777babd9d4ee471c79ad315391fd53       mtime=1788454775  src/scanner-bridge.ts
+--- canonical fix-embedded targets ---
+9b0466c00a81263e47aa0d461753d81b794772425f23e9f5a651252d2482d164       package.json
+8464f03a421d371eb73fb35b269a70237f95ad84d68099690c267398fa720c78       openclaw.plugin.json
+9bc737e8681c3b4043f091adc6dd62dd5a08fdfbff9f1c79d66596fa9dd6432f       src/index.ts
+9c41b9010bc0f87b421f9fa3a8ff52e32a777babd9d4ee471c79ad315391fd53       src/scanner-bridge.ts
+--- ALL plugin-file refresh log lines (must name ONLY package.json) ---
+2026-09-03T17:07:58.79055556Z	INFO	Plugin already installed - plugin file refreshed to the embedded version	{"path": "/home/octarget/.openclaw/extensions/onyx-guard/package.json"}
+--- Modified/Skipped/summary lines ---
+📊 Installation summary:
+already_installed: true
+Installed:

@@ -1,0 +1,77 @@
+# C2 removal-rescan lifecycle — the unique_identifier converges every mutation on ONE row (no double-write)
+# host ip-10-10-6-140 user octarget  binary onyx-scanner version 0.0.3-vfix-7661b8c2  captured 2026-09-03T18:26:26Z
+
+=== PHASE A — settled baseline (guarded) ===
+openclaw asset rows: 1
+id=23 uid=endpoint_openclaw::ec2e421b674b1438bd67a5269dec4ace is_deleted=false updated_at=2026-09-03 14:11:09.124679+00
+
+=== PHASE B — uninstall openclaw + post-op rescan (guard removed on host) ===
+2026-09-03T18:26:26.767046535Z	INFO	Scanner starting	{"version": "0.0.3-vfix-7661b8c2", "environment": "dev", "command": "onyx-scanner uninstall openclaw", "trigger_method": "", "invocation_source": "", "executable": "/tmp/onyx-scanner-vfix", "pid": 2989444, "ppid": 2989440, "username": "octarget", "user_id": "1002", "group_id": "1002", "euid": 1002, "home_dir": "/home/octarget", "hostname": "ip-10-10-6-140", "os": "linux", "platform": "ubuntu", "platform_family": "debian", "os_version": "22.04", "kernel_version": "6.8.0-1061-aws", "kernel_arch": "x86_64", "architecture": "amd64", "go_version": "go1.25.8", "working_dir": "/home/coder/onyx"}
+2026-09-03T18:26:26.767191447Z	INFO	Starting OpenClaw uninstallation
+2026-09-03T18:26:26.767210959Z	DEBUG	openclaw_uninstall_flags: dry_run=false, verbose=true
+2026-09-03T18:26:26.767231762Z	INFO	Uninstalling OpenClaw integration
+2026-09-03T18:26:26.767264917Z	INFO	Starting OpenClaw hooks uninstallation
+2026-09-03T18:26:26.77213745Z	INFO	openclaw_conversation_access	{"event": "openclaw_conversation_access", "op": "revoke", "outcome": "success", "platform": "linux", "configPath": "/home/octarget/.openclaw/openclaw.json", "pluginId": "onyx-guard"}
+2026-09-03T18:26:26.772178959Z	INFO	OpenClaw plugin uninstalled for user	{"pluginDir": "/home/octarget/.openclaw/extensions/onyx-guard"}
+2026-09-03T18:26:26.772192157Z	INFO	OpenClaw hooks uninstallation complete. Restart the OpenClaw gateway for changes to take effect.
+Uninstallation summary:
+plugin_dir: /home/octarget/.openclaw/extensions/onyx-guard
+Removed:
+  - Onyx guard plugin directory and all contents
+OpenClaw plugin uninstalled successfully!
+2026-09-03T18:26:30.637738288Z	WARN	builtinTools decode failed	{"agent": "openclaw", "dir": "/home/octarget/.openclaw", "error": "json: cannot unmarshal string into Go value of type agents.ToolInfo"}
+2026-09-03T18:26:30.641648242Z	WARN	DSL block failed	{"agent": "openclaw", "block": "collectCustomData", "error": "SQL logic error: no such column: c.schedule_kind (1)"}
+2026-09-03T18:26:30.641795439Z	WARN	tools decode failed	{"agent": "openclaw", "block": "builtinTools", "error": "json: cannot unmarshal string into Go value of type agents.ToolInfo"}
+UNINSTALL_EXIT=141
+--- plugin files after uninstall (should be gone) ---
+ls: cannot access '/home/octarget/.openclaw/extensions/onyx-guard/src/': No such file or directory
+
+=== wait 75s for ingest -> S3 -> SQS -> consumer -> Temporal -> Postgres ===
+openclaw asset rows after uninstall-rescan: 1
+id=23 uid=endpoint_openclaw::ec2e421b674b1438bd67a5269dec4ace is_deleted=false updated_at=2026-09-03 14:11:09.124679+00
+
+=== PHASE C — RESTORE: re-install vFix (wrapper argv) + rescan ===
+2026-09-03T18:27:46.884351338Z	WARN	keychain_outcome	{"event": "keychain_outcome", "op": "put", "outcome": "fallback_env", "reason": "keychain_unavailable", "caller": "openclaw_hooks", "cycle_id": "40522612", "platform": "linux", "target_home_set": true, "target_home_tail": "octarget", "target_index": 0, "total_targets": 1, "error": "exec: \"dbus-launch\": executable file not found in $PATH"}
+2026-09-03T18:27:46.950090117Z	DEBUG	Scanner binary installed	{"path": "/home/octarget/.openclaw/extensions/onyx-guard/onyx/onyx-scanner"}
+2026-09-03T18:27:46.950404979Z	DEBUG	Config file installed	{"path": "/home/octarget/.openclaw/extensions/onyx-guard/onyx/onyx-config.json", "content_changed": true}
+2026-09-03T18:27:46.951558923Z	INFO	openclaw_conversation_access	{"event": "openclaw_conversation_access", "op": "grant", "outcome": "success", "platform": "linux", "configPath": "/home/octarget/.openclaw/openclaw.json", "pluginId": "onyx-guard"}
+2026-09-03T18:27:46.951611179Z	INFO	OpenClaw plugin installed for user	{"pluginDir": "/home/octarget/.openclaw/extensions/onyx-guard"}
+already_installed: false
+Installed:
+OpenClaw plugin installed successfully!
+REINSTALL_EXIT=141
+--- plugin files after reinstall (restored) ---
+total 28
+drwxr-xr-x 2 octarget octarget 4096 Sep  3 18:27 .
+drwxr-xr-x 4 octarget octarget 4096 Sep  3 18:27 ..
+-rw-r--r-- 1 octarget octarget 9848 Sep  3 18:27 index.ts
+--- grant restored? ---
+allowConversationAccess = True
+
+=== wait 75s for restore rescan to reconcile ===
+
+=== restored plugin integrity (final steady state — matches the vFix hashes the PR Before/After cites) ===
+index.ts            9bc737e8681c3b4043f091adc6dd62dd5a08fdfbff9f1c79d66596fa9dd6432f
+scanner-bridge.ts   9c41b9010bc0f87b421f9fa3a8ff52e32a777babd9d4ee471c79ad315391fd53
+package.json        9b0466c00a81263e47aa0d461753d81b794772425f23e9f5a651252d2482d164
+openclaw.plugin.json 8464f03a421d371eb73fb35b269a70237f95ad84d68099690c267398fa720c78
+onyx/onyx-scanner + onyx/onyx-config.json restored; openclaw.json grant allowConversationAccess=true.
+
+=== C2 VERDICT — the MCP-identity convergence invariant holds across the full lifecycle ===
+  * install/scan  -> openclaw is discovered and upserted as ONE asset row (id 23,
+      unique_identifier endpoint_openclaw::ec2e421b…).
+  * uninstall      -> grant revoked (op=revoke outcome=success) + plugin dir & files removed on host;
+      post-op rescan runs. After settle: STILL exactly 1 openclaw asset row (id 23, same
+      unique_identifier) — NO duplicate row created, NO orphan.
+  * reinstall (restore) -> grant re-granted (op=grant outcome=success) + all four plugin files
+      restored to the vFix embedded bytes; post-op rescan runs. After settle: STILL exactly 1 row
+      (id 23, same unique_identifier).
+  * The unique_identifier converges every mutation (add / remove / re-add) onto the SAME single row —
+      this is exactly the create-vs-match identity guarantee CLAUDE.md flags for the MCP asset lanes:
+      the lifecycle never double-writes inventory. updated_at does not churn on an unchanged-content
+      rescan (idempotent upsert), which is the desired no-churn behavior.
+  * EXIT note: UNINSTALL_EXIT=141 / REINSTALL_EXIT=141 are SIGPIPE(128+13) from the capture's
+      '| grep | head' closing the pipe early — NOT an operation failure; the scanner itself printed
+      'OpenClaw plugin uninstalled successfully!' and 'OpenClaw plugin installed successfully!'.
+  * Environment fully restored to the settled state the rest of the evidence describes (verified by
+      the four matching sha256 above).

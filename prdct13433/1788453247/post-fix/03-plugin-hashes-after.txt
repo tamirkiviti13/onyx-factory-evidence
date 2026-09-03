@@ -1,0 +1,22 @@
+# at1 post-fix — host state AFTER the vFix run
+captured_at: 2026-09-03T15:14:54Z
+
+## 4 plugin file sha256 (AFTER):
+package.json  9b0466c00a81263e47aa0d461753d81b794772425f23e9f5a651252d2482d164
+openclaw.plugin.json  8464f03a421d371eb73fb35b269a70237f95ad84d68099690c267398fa720c78
+src/index.ts  9bc737e8681c3b4043f091adc6dd62dd5a08fdfbff9f1c79d66596fa9dd6432f
+src/scanner-bridge.ts  9c41b9010bc0f87b421f9fa3a8ff52e32a777babd9d4ee471c79ad315391fd53
+
+## EXPECT: index.ts=9bc737e8  scanner-bridge.ts=9c41b901  package.json=9b0466c0(unchanged)  openclaw.plugin.json=8464f03a(unchanged)
+
+## bundled binary sha (AFTER — expect vFix 28210ddd):
+28210ddd631d3da843b161e0a86ac413e080df7d267394e9b3b06133476f1f6e
+## bundled binary version (AFTER):
+Error: unknown command "version" for "onyx-scanner"
+
+## unchanged-file mtimes AFTER (must equal 14:09:30.770106539):
+  package.json  mtime=2026-09-03 14:09:30.770106539 +0000
+  openclaw.plugin.json  mtime=2026-09-03 14:09:30.770106539 +0000
+## refreshed-file mtimes AFTER (should be new, ~15:14):
+  src/index.ts  mtime=2026-09-03 15:14:29.701205256 +0000
+  src/scanner-bridge.ts  mtime=2026-09-03 15:14:29.701205256 +0000

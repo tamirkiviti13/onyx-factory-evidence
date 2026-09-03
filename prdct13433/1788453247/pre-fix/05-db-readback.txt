@@ -1,0 +1,21 @@
+=== at1 pre-fix: tenant-schema DB read-back (post-op scan landed through the real Kong key-auth ingest -> Vector -> S3 -> SQS -> scanner-event-consumer -> Temporal -> Postgres) ===
+captured_at: 2026-09-03T14:13:11Z
+tenant schema: onyx_security · pg: postgres-rw.onyxd.svc.cluster.local
+
+--- devices row for THIS hostname (ip-10-10-6-140) ---
+ id |      name      |          created_at           |          updated_at           
+----+----------------+-------------------------------+-------------------------------
+  1 | ip-10-10-6-140 | 2026-09-03 14:10:05.506386+00 | 2026-09-03 14:10:05.506386+00
+(1 row)
+
+
+--- openclaw desktop-agent asset via device_applications (the post-op scan's product) ---
+ device_id | asset_id |     asset_name      |         type          |          created_at           |          updated_at           
+-----------+----------+---------------------+-----------------------+-------------------------------+-------------------------------
+         1 |       23 | OpenClaw (octarget) | AssetTypeDesktopAgent | 2026-09-03 14:10:05.554472+00 | 2026-09-03 14:11:09.124679+00
+(1 row)
+
+
+--- ingest front-door negative (Kong key-auth): unregistered key -> 401, registered -> 200 ---
+POST http://ingest-onyx.onyxd.svc.cluster.local/mcp-scanner  apikey=<unregistered> -> HTTP 401
+POST http://ingest-onyx.onyxd.svc.cluster.local/mcp-scanner  apikey=<registered INGESTION_DEV_API_KEY> -> HTTP 200

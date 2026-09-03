@@ -1,0 +1,42 @@
+# at4-03  AFTER RUN 1 — chown scoping asserted
+## every written artifact must be octarget-owned (uid 1002); 0 root-owned; sibling untouched
+
+== ls -lnR onyx-guard (every node uid/gid must read 1002) ==
+/home/octarget/.openclaw/extensions/onyx-guard:
+total 16
+drwxr-xr-x 2 1002 1002 4096 Sep  3 17:28 onyx
+-rw-r--r-- 1 1002 1002  268 Sep  3 17:28 openclaw.plugin.json
+-rw-r--r-- 1 1002 1002  627 Sep  3 17:28 package.json
+drwxr-xr-x 2 1002 1002 4096 Sep  3 14:09 src
+
+/home/octarget/.openclaw/extensions/onyx-guard/onyx:
+total 36676
+-rw------- 1 1002 1002      329 Sep  3 17:28 onyx-config.json
+-rwxr-xr-x 1 1002 1002 37544095 Sep  3 17:28 onyx-scanner
+
+/home/octarget/.openclaw/extensions/onyx-guard/src:
+total 20
+-rw-r--r-- 1 1002 1002 9848 Sep  3 17:28 index.ts
+-rw-r--r-- 1 1002 1002 7926 Sep  3 17:28 scanner-bridge.ts
+
+== 4 plugin-file sha256 (expect vFix: index=9bc737e8.. bridge=9c41b901.. ; pkg/plugin.json unchanged) ==
+  src/index.ts                 9848  9bc737e8681c3b4043f091adc6dd62dd5a08fdfbff9f1c79d66596fa9dd6432f
+  src/scanner-bridge.ts        7926  9c41b9010bc0f87b421f9fa3a8ff52e32a777babd9d4ee471c79ad315391fd53
+  package.json                  627  9b0466c00a81263e47aa0d461753d81b794772425f23e9f5a651252d2482d164
+  openclaw.plugin.json          268  8464f03a421d371eb73fb35b269a70237f95ad84d68099690c267398fa720c78
+
+== onyx-config.json (must be uid 1002, mode 0600 — user-readable after chown) ==
+  /home/octarget/.openclaw/extensions/onyx-guard/onyx/onyx-config.json uid=1002 gid=1002 mode=600 mtime=1788456508
+
+== openclaw.json + grant (expect grant now TRUE, uid 1002) ==
+  /home/octarget/.openclaw/openclaw.json uid=1002 gid=1002 mode=600
+  allowConversationAccess = True
+
+== ROOT-OWNED files under onyx-guard + openclaw.json (MUST BE EMPTY = 0) ==
+  ROOT_OWNED_COUNT=0   (expect 0 — chownTree fixed the atomically re-streamed root-created binary inode)
+
+== SIBLING fixture AFTER (must be byte/mtime/owner IDENTICAL to at4-01) ==
+  /home/octarget/.openclaw/extensions/other-vendor/marker.txt uid=1002 gid=1002 mode=664 mtime=1623758400
+  sha256=fafd8cbffe40c991304b67a0f1cdc61a49a03c73510e616ff36de65fb3a88d8b
+
+RUN1_EXIT_CODE=0

@@ -1,0 +1,37 @@
+=== at1 pre-fix: state AFTER the vBase no---force install — the four plugin files UNCHANGED, binary + config refreshed ===
+captured_at: 2026-09-03T14:11:01Z
+
+--- four plugin files: sha256 + mtime (compare to 01-host-state-before.txt — byte-identical, mtimes from the vOld install) ---
+9b0466c00a81263e47aa0d461753d81b794772425f23e9f5a651252d2482d164  package.json  mtime=2026-09-03 14:09:30.770106539 +0000
+8464f03a421d371eb73fb35b269a70237f95ad84d68099690c267398fa720c78  openclaw.plugin.json  mtime=2026-09-03 14:09:30.770106539 +0000
+e13c9f32838e94694b4b7476306412800cb63d1f79c66fd0c41b9fbbae680b14  src/index.ts  mtime=2026-09-03 14:09:30.770106539 +0000
+2d747aa1d921aa3c18bd8ccf8090a2f38e85aacd40d0a32fc4eae324757e211b  src/scanner-bridge.ts  mtime=2026-09-03 14:09:30.770106539 +0000
+
+--- response-leg grep counts still 0/0 (the enforcement hole persists after the run) ---
+grep -c tool_result_persist src/index.ts -> 0
+grep -c evaluateSync src/scanner-bridge.ts -> 0
+
+--- bundled binary WAS refreshed to vBase (the looks-healthy half) ---
+expected vBase sha256: 58029e20f2178ff993ba8348ceced3cadfaf743c27c47cfc82c87f70cbbdc899
+expected vOld  sha256: 1c1705deb7f2039e7f6096e616e1ede2d018f7a8e62fd8c10c5c34f2f1ce32e7
+58029e20f2178ff993ba8348ceced3cadfaf743c27c47cfc82c87f70cbbdc899  /home/octarget/.openclaw/extensions/onyx-guard/onyx/onyx-scanner
+onyx-scanner version 0.0.2-vbase-6965aa72
+
+--- onyx-config.json refreshed, mcp-guard-hooks: true ---
+/home/octarget/.openclaw/extensions/onyx-guard/onyx/onyx-config.json mtime=2026-09-03 14:10:37.467568004 +0000
+{
+  "api-key": "<redacted:MCP_GATEWAY_DEV_KEY>",
+  "endpoint-url": "http://onyx-ai-firewall.onyxd.svc.cluster.local",
+  "ingest-endpoint": "http://ingest-onyx.onyxd.svc.cluster.local/mcp-scanner",
+  "timeout": "10s",
+  "verbose": true,
+  "block-prompts": "true",
+  "mcp-guard-hooks": true,
+  "hooks-runtime-protection": true
+}
+--- embedded-source comparison (why "unchanged" is the DEFECT, not idempotency) ---
+installed file == vOld(13bab571e1)-embedded, while the vBase(6965aa7292) build RAN with different embedded bytes available:
+package.json:         vOld 9b0466c00a81263e47aa0d461753d81b794772425f23e9f5a651252d2482d164 == vBase (file unchanged upstream)
+openclaw.plugin.json: vOld 8464f03a421d371eb73fb35b269a70237f95ad84d68099690c267398fa720c78 == vBase (file unchanged upstream)
+src/index.ts:         vOld e13c9f32838e94694b4b7476306412800cb63d1f79c66fd0c41b9fbbae680b14  vs vBase-embedded 9bc737e8681c3b4043f091adc6dd62dd5a08fdfbff9f1c79d66596fa9dd6432f (DIFFERENT — the response-leg registration never delivered)
+src/scanner-bridge.ts: vOld 2d747aa1d921aa3c18bd8ccf8090a2f38e85aacd40d0a32fc4eae324757e211b vs vBase-embedded 9c41b9010bc0f87b421f9fa3a8ff52e32a777babd9d4ee471c79ad315391fd53 (DIFFERENT — evaluateSync never delivered)

@@ -1,0 +1,27 @@
+# at1 post-fix — host state BEFORE the vFix run (must equal the frozen pre-fix fixture)
+captured_at: 2026-09-03T15:14:13Z
+vFix binary:  sha256=28210ddd631d3da843b161e0a86ac413e080df7d267394e9b3b06133476f1f6e
+
+## 4 plugin files (expect vOld bytes):
+package.json  9b0466c00a81263e47aa0d461753d81b794772425f23e9f5a651252d2482d164
+openclaw.plugin.json  8464f03a421d371eb73fb35b269a70237f95ad84d68099690c267398fa720c78
+src/index.ts  e13c9f32838e94694b4b7476306412800cb63d1f79c66fd0c41b9fbbae680b14
+src/scanner-bridge.ts  2d747aa1d921aa3c18bd8ccf8090a2f38e85aacd40d0a32fc4eae324757e211b
+
+## bundled binary sha (expect vBase 58029e20):
+58029e20f2178ff993ba8348ceced3cadfaf743c27c47cfc82c87f70cbbdc899
+## grant present? (expect 0):
+0
+## openclaw.json mtime before:
+2026-09-03 14:09:57.975479103 +0000
+
+## EXPECTED post-fix deltas:
+  src/index.ts        -> 9bc737e8... (vFix embed)
+  src/scanner-bridge.ts-> 9c41b901... (vFix embed)
+  package.json/openclaw.plugin.json -> UNCHANGED (vFix embed == vOld)
+  grant               -> ADDED
+  binary              -> vFix 28210ddd (re-streamed, off Modified)
+  exit code           -> 0 (Modified), NOT 2
+pre-run mtimes of the two files that MUST stay untouched:
+  package.json  mtime=2026-09-03 14:09:30.770106539 +0000
+  openclaw.plugin.json  mtime=2026-09-03 14:09:30.770106539 +0000

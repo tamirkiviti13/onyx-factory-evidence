@@ -1,0 +1,19 @@
+=== at1 pre-fix: openclaw.json after the vBase no---force run — STILL no allowConversationAccess grant ===
+captured_at: 2026-09-03T14:11:15Z
+/home/octarget/.openclaw/openclaw.json mtime=2026-09-03 14:09:57.975479103 +0000 mode=600 owner=octarget
+{
+  "gateway": {
+    "mode": "local"
+  },
+  "meta": {
+    "migrations": {
+      "modelPolicyAllowlist": true
+    },
+    "lastTouchedVersion": "2026.8.2"
+  }
+}
+
+--- python read-back ---
+plugins.entries keys: []
+plugins.entries.onyx-guard.hooks.allowConversationAccess = None
+ASSERT OK: grant ABSENT on the frozen base after the no---force run

@@ -1,0 +1,46 @@
+=== RUN   TestOpenClawInstallScannerBinary_ReplacesWithNewInode
+--- PASS: TestOpenClawInstallScannerBinary_ReplacesWithNewInode (0.44s)
+=== RUN   TestOpenClawHooksInstall_SkipPathReportsAConfigChangeAsModified
+=== RUN   TestOpenClawHooksInstall_SkipPathReportsAConfigChangeAsModified/an_identical_re-run_is_a_true_no-op
+=== RUN   TestOpenClawHooksInstall_SkipPathReportsAConfigChangeAsModified/a_re-run_that_flips_the_setting_reports_a_modification
+--- PASS: TestOpenClawHooksInstall_SkipPathReportsAConfigChangeAsModified (0.20s)
+    --- PASS: TestOpenClawHooksInstall_SkipPathReportsAConfigChangeAsModified/an_identical_re-run_is_a_true_no-op (0.07s)
+    --- PASS: TestOpenClawHooksInstall_SkipPathReportsAConfigChangeAsModified/a_re-run_that_flips_the_setting_reports_a_modification (0.07s)
+=== RUN   TestInstallForHomeDir_NoOpenClawConfig_StillInstallsPluginFiles
+--- PASS: TestInstallForHomeDir_NoOpenClawConfig_StillInstallsPluginFiles (0.23s)
+=== RUN   TestOpenClawHooksInstaller_AgentName
+--- PASS: TestOpenClawHooksInstaller_AgentName (0.00s)
+=== RUN   TestOpenClawHooksInstaller_ImplementsInterface
+--- PASS: TestOpenClawHooksInstaller_ImplementsInterface (0.00s)
+=== RUN   TestOpenClawEmbeddedPluginFiles
+=== RUN   TestOpenClawEmbeddedPluginFiles/package.json_is_valid_JSON
+=== RUN   TestOpenClawEmbeddedPluginFiles/plugin_manifest_is_valid_JSON
+=== RUN   TestOpenClawEmbeddedPluginFiles/index.ts_contains_expected_content
+=== RUN   TestOpenClawEmbeddedPluginFiles/scanner-bridge.ts_contains_expected_content
+--- PASS: TestOpenClawEmbeddedPluginFiles (0.00s)
+    --- PASS: TestOpenClawEmbeddedPluginFiles/package.json_is_valid_JSON (0.00s)
+    --- PASS: TestOpenClawEmbeddedPluginFiles/plugin_manifest_is_valid_JSON (0.00s)
+    --- PASS: TestOpenClawEmbeddedPluginFiles/index.ts_contains_expected_content (0.00s)
+    --- PASS: TestOpenClawEmbeddedPluginFiles/scanner-bridge.ts_contains_expected_content (0.00s)
+=== RUN   TestOpenClawOnyxConfig_MarshalJSON
+=== RUN   TestOpenClawOnyxConfig_MarshalJSON/default_config
+=== RUN   TestOpenClawOnyxConfig_MarshalJSON/verbose_config
+=== RUN   TestOpenClawOnyxConfig_MarshalJSON/custom_timeout
+=== RUN   TestOpenClawOnyxConfig_MarshalJSON/empty_timeout
+--- PASS: TestOpenClawOnyxConfig_MarshalJSON (0.00s)
+    --- PASS: TestOpenClawOnyxConfig_MarshalJSON/default_config (0.00s)
+    --- PASS: TestOpenClawOnyxConfig_MarshalJSON/verbose_config (0.00s)
+    --- PASS: TestOpenClawOnyxConfig_MarshalJSON/custom_timeout (0.00s)
+    --- PASS: TestOpenClawOnyxConfig_MarshalJSON/empty_timeout (0.00s)
+=== RUN   TestOpenClawInstallConfigFile_PersistsHooksRuntimeProtection
+=== RUN   TestOpenClawInstallConfigFile_PersistsHooksRuntimeProtection/enabled_persists_true
+=== RUN   TestOpenClawInstallConfigFile_PersistsHooksRuntimeProtection/disabled_persists_literal_false
+--- PASS: TestOpenClawInstallConfigFile_PersistsHooksRuntimeProtection (0.00s)
+    --- PASS: TestOpenClawInstallConfigFile_PersistsHooksRuntimeProtection/enabled_persists_true (0.00s)
+    --- PASS: TestOpenClawInstallConfigFile_PersistsHooksRuntimeProtection/disabled_persists_literal_false (0.00s)
+=== RUN   TestOpenClawInstallConfigFile_HooksRuntimeProtectionNotSticky
+--- PASS: TestOpenClawInstallConfigFile_HooksRuntimeProtectionNotSticky (0.00s)
+=== RUN   TestOpenClawPluginSource_ToolResultPersistIsGuardGatedAndEnforces
+--- PASS: TestOpenClawPluginSource_ToolResultPersistIsGuardGatedAndEnforces (0.00s)
+PASS
+ok  	onyx-scanner/internal/installer	1.929s

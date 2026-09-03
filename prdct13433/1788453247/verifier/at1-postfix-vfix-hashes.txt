@@ -1,0 +1,7 @@
+9b0466c00a81263e  package.json
+8464f03a421d371e  openclaw.plugin.json
+9bc737e8681c3b40  src/index.ts
+9c41b9010bc0f87b  src/scanner-bridge.ts
+tool_result_persist=6  evaluateSync=1
+bundled binary: onyx-scanner version 0.0.3-vfix-7661b8c2
+grant = True

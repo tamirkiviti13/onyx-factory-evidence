@@ -1,0 +1,45 @@
+=== S3 launch-chain (Linux) — OpenClaw loads refreshed plugin -> scanner-bridge spawns bundled binary ===
+captured_at: 2026-09-03T18:17:52Z
+host: ip-10-10-6-140  |  vFix binary at plugin path:
+-rwxr-xr-x 1 octarget octarget 37544095 Sep  3 17:28 /home/octarget/.openclaw/extensions/onyx-guard/onyx/onyx-scanner
+
+### LEG 0 (static, on the REFRESHED on-host plugin): index.ts registers the response-leg hook ###
+120:  register(api: OpenClawPluginApi) {
+190:      api.on("tool_result_persist", (event: ToolResultPersistEvent, ctx: AgentContext) => {
+214:        const verdict = scanner.evaluateSync(HookType.PostTool, data);
+
+### LEG 1 (static): scanner-bridge builds BOTH spawn legs (exec shell + execFileSync), .exe on win32 ###
+108:function getScannerBinaryPath(pluginDir: string): string {
+109:  const binaryName = platform === "win32" ? "onyx-scanner.exe" : "onyx-scanner";
+119:      const scannerPath = getScannerBinaryPath(pluginDir);
+121:        `"${scannerPath}" hooks --source=openclaw --type=${hookType}`,
+180:        const stdout = execFileSync(
+181:          getScannerBinaryPath(pluginDir),
+
+### LEG 2 (LIVE): drive the exact spawn the refreshed bridge issues, as octarget, from pluginDir ###
+cmd: (cwd=/home/octarget/.openclaw/extensions/onyx-guard) ./onyx/onyx-scanner hooks --source=openclaw --type=post_tool  < PostToolHookData
+payload: {"openclaw_version":"2026.8.2","session_id":"launchchain-proof","run_id":"r1","tool_call_id":"tc1","mcp_call_id":"tc1","tool_name":"context7__get-library-docs","tool_params":{},"result":[{"type":"text","text":"benign documentation lookup result"}],"error":null}
+--- stdout/exit ---
+exit=0
+
+### LEG 2b: confirm config discovered exec-relative (NOT fail-open) + evaluate reaches firewall ###
+exec-relative config path the binary resolves:
+-rw------- 1 octarget octarget 329 Sep  3 17:28 /home/octarget/.openclaw/extensions/onyx-guard/onyx/onyx-config.json
+config endpoint/keys (redacted):
+{
+  "api-key": "<redacted:MCP_GATEWAY_DEV_KEY>",
+  "endpoint-url": "http://onyx-ai-firewall.onyxd.svc.cluster.local",
+  "ingest-endpoint": "http://ingest-onyx.onyxd.svc.cluster.local/mcp-scanner",
+  "timeout": "10s",
+  "verbose": true,
+  "block-prompts": "true",
+  "mcp-guard-hooks": true,
+  "hooks-runtime-protection": true
+}
+--- VERBOSE spawn (stderr shows config-found + evaluate POST to firewall) ---
+exit=0
+
+### NOTE on LEG 2 semantics ###
+- config IS discovered exec-relative (onyx-config.json present next to the binary; endpoint-url -> real onyx-ai-firewall, mcp-guard-hooks/hooks-runtime-protection true), so this is NOT the config-absent fail-open path.
+- exit 0 + empty stdout == ALLOW_RESPONSE (the bridge treats empty/no-substitution as allow). A `block` verdict prints an EvaluateResponse JSON to stdout to substitute the tool output.
+- A BLOCK on the response leg requires a PAIRED before_tool_call request event persisted for the same tool_call_id (index.ts comment: "the backend recovers the tool name from the persisted request event"); producing that pairing requires a live model-backed OpenClaw agent session, which is out of scope for this single headless box (research report §6). What S3 asks for on this OS — the refreshed index.ts registering tool_result_persist and scanner-bridge spawning the bundled binary — is shown statically on the on-host refreshed bytes (LEG 0/1) and dynamically by the spawn target executing under the target user with real config (LEG 2/2b).

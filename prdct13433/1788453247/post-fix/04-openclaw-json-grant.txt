@@ -1,0 +1,17 @@
+# at1 post-fix — openclaw.json conversation-access grant (was ABSENT pre-fix)
+captured_at: 2026-09-03T15:15:09Z
+
+## grant occurrences (expect >=1):
+1
+
+## the onyx-guard plugin entry:
+{
+  "hooks": {
+    "allowConversationAccess": true
+  }
+}
+allowConversationAccess == True
+other plugin entries: []
+
+## openclaw.json mtime AFTER at1 (grant write bumped it — expected):
+2026-09-03 15:14:29.701205256 +0000

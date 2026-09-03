@@ -1,0 +1,5 @@
+=== at5 step0: current 4-file snapshot (settled state) ===
+9b0466c00a81263e47aa0d461753d81b794772425f23e9f5a651252d2482d164  mtime=1788444570  package.json
+8464f03a421d371eb73fb35b269a70237f95ad84d68099690c267398fa720c78  mtime=1788444570  openclaw.plugin.json
+9bc737e8681c3b4043f091adc6dd62dd5a08fdfbff9f1c79d66596fa9dd6432f  mtime=1788454775  src/index.ts
+9c41b9010bc0f87b421f9fa3a8ff52e32a777babd9d4ee471c79ad315391fd53  mtime=1788454775  src/scanner-bridge.ts

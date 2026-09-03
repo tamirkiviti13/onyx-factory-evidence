@@ -1,0 +1,9 @@
+EXIT_CODE=2   (expect 2)
+already_installed: true
+Skipped: OpenClaw plugin already installed (use --force to overwrite)
+2026-09-03T17:08:46.170055833Z	INFO	OpenClaw installation skipped (OpenClaw plugin already installed (use --force to overwrite))
+--- final snapshot (must be byte+mtime stable vs after-cycle2) ---
+9b0466c00a81263e47aa0d461753d81b794772425f23e9f5a651252d2482d164       mtime=1788455278  package.json
+8464f03a421d371eb73fb35b269a70237f95ad84d68099690c267398fa720c78       mtime=1788444570  openclaw.plugin.json
+9bc737e8681c3b4043f091adc6dd62dd5a08fdfbff9f1c79d66596fa9dd6432f       mtime=1788455315  src/index.ts
+9c41b9010bc0f87b421f9fa3a8ff52e32a777babd9d4ee471c79ad315391fd53       mtime=1788454775  src/scanner-bridge.ts

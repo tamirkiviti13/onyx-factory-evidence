@@ -1,0 +1,31 @@
+# at2 post-fix — steady-state second install is a clean, true no-op (exit 2)
+
+Ran the vFix binary a SECOND time (identical argv, NO --force) against the steady
+state the at1 post-fix install left behind. Expected: exit 2 (Skipped) AND a true
+no-op — compare-before-write must rewrite nothing (bytes + mtimes preserved).
+
+EXIT_CODE=2  (skip path: 'OpenClaw installation skipped (... use --force to overwrite)')
+
+## Baseline (state left by at1 post-fix install)
+=== at2 baseline: steady state left by at1 post-fix install ===
+package.json  9b0466c00a81263e47aa0d461753d81b794772425f23e9f5a651252d2482d164  2026-09-03 14:09:30.770106539 +0000
+openclaw.plugin.json  8464f03a421d371eb73fb35b269a70237f95ad84d68099690c267398fa720c78  2026-09-03 14:09:30.770106539 +0000
+src/index.ts  9bc737e8681c3b4043f091adc6dd62dd5a08fdfbff9f1c79d66596fa9dd6432f  2026-09-03 15:14:29.701205256 +0000
+src/scanner-bridge.ts  9c41b9010bc0f87b421f9fa3a8ff52e32a777babd9d4ee471c79ad315391fd53  2026-09-03 15:14:29.701205256 +0000
+openclaw.json: ff534d6a84de84512c336391dd44b48ce3f87af89fb9f415749038a433dbf083  2026-09-03 15:14:29.701205256 +0000
+binary: 28210ddd631d3da843b161e0a86ac413e080df7d267394e9b3b06133476f1f6e
+
+## After the second (skip-path) install
+=== at2 after: state after the second (skip-path) install ===
+package.json  9b0466c00a81263e47aa0d461753d81b794772425f23e9f5a651252d2482d164  2026-09-03 14:09:30.770106539 +0000
+openclaw.plugin.json  8464f03a421d371eb73fb35b269a70237f95ad84d68099690c267398fa720c78  2026-09-03 14:09:30.770106539 +0000
+src/index.ts  9bc737e8681c3b4043f091adc6dd62dd5a08fdfbff9f1c79d66596fa9dd6432f  2026-09-03 15:14:29.701205256 +0000
+src/scanner-bridge.ts  9c41b9010bc0f87b421f9fa3a8ff52e32a777babd9d4ee471c79ad315391fd53  2026-09-03 15:14:29.701205256 +0000
+openclaw.json: ff534d6a84de84512c336391dd44b48ce3f87af89fb9f415749038a433dbf083  2026-09-03 15:14:29.701205256 +0000
+binary: 28210ddd631d3da843b161e0a86ac413e080df7d267394e9b3b06133476f1f6e
+
+## Result: byte-for-byte AND mtime-for-mtime IDENTICAL
+diff(before, after) == empty  => nothing was rewritten on the skip path.
+openclaw.json mtime unchanged (15:14:29.701205256) => grant re-check wrote nothing
+(the compare-before-write idempotency the skip path depends on to avoid churning the
+user's config every cycle).

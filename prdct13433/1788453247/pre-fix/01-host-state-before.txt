@@ -1,0 +1,50 @@
+=== PRDCT-13433 at1 pre-fix: host state BEFORE the base-build no---force install ===
+captured_at: 2026-09-03T14:10:23Z
+host: ip-10-10-6-140 / target user: octarget (uid 1002), home /home/octarget
+
+--- provenance of this state ---
+OpenClaw: real npm package openclaw@2026.8.2 installed globally for octarget (prefix ~/.npm-global); real gateway ran once (state/openclaw.sqlite present).
+Stale plugin: laid down by REALLY RUNNING the full install of the scanner built at f53d645793^ (= 13bab571e1018805fdad1bf5bad7d0c223ab44b0, pre-#11638), version 0.0.1-vold-13bab571, sha256:
+1c1705deb7f2039e7f6096e616e1ede2d018f7a8e62fd8c10c5c34f2f1ce32e7  /tmp/onyx-scanner-vold
+openclaw.json was created AFTER that install (via real 'openclaw config set gateway.mode local') so the grantConversationAccess gap is genuine.
+identity/device.json: legacy-path presence marker (env fixture, documented — OpenClaw 2026.8.2 stores device identity in sqlite and only READS the legacy identity/device.json path; the shipped scanner contract IsOpenClawInstalled stats exactly this path). Never an artifact under test.
+
+--- per-file sha256 + mtime of the four plugin files (from the vOld install) ---
+9b0466c00a81263e47aa0d461753d81b794772425f23e9f5a651252d2482d164  package.json  mtime=2026-09-03 14:09:30.770106539 +0000  
+8464f03a421d371eb73fb35b269a70237f95ad84d68099690c267398fa720c78  openclaw.plugin.json  mtime=2026-09-03 14:09:30.770106539 +0000  
+e13c9f32838e94694b4b7476306412800cb63d1f79c66fd0c41b9fbbae680b14  src/index.ts  mtime=2026-09-03 14:09:30.770106539 +0000  
+2d747aa1d921aa3c18bd8ccf8090a2f38e85aacd40d0a32fc4eae324757e211b  src/scanner-bridge.ts  mtime=2026-09-03 14:09:30.770106539 +0000  
+
+--- bundled binary + onyx-config.json (vOld state) ---
+1c1705deb7f2039e7f6096e616e1ede2d018f7a8e62fd8c10c5c34f2f1ce32e7  onyx/onyx-scanner
+e0a0934d0fd337ab9c35e73f41dc7b2cad3f4cd2df63c54c2b901c0523af2cd6  onyx/onyx-config.json
+onyx/onyx-config.json mode=600 owner=octarget mtime=2026-09-03 14:09:30.854104602 +0000
+
+--- response-leg grep counts (the enforcement hole) ---
+grep -c tool_result_persist src/index.ts -> 0
+grep -c evaluateSync src/scanner-bridge.ts -> 0
+
+--- onyx-config.json content (mcp-guard-hooks true — the looks-healthy deception) ---
+{
+  "api-key": "<redacted:MCP_GATEWAY_DEV_KEY>",
+  "endpoint-url": "http://onyx-ai-firewall.onyxd.svc.cluster.local",
+  "timeout": "10s",
+  "verbose": true,
+  "block-prompts": "true",
+  "mcp-guard-hooks": true
+}
+--- openclaw.json: present, NO plugins.entries.onyx-guard.hooks.allowConversationAccess grant ---
+{
+  "gateway": {
+    "mode": "local"
+  },
+  "meta": {
+    "migrations": {
+      "modelPolicyAllowlist": true
+    },
+    "lastTouchedVersion": "2026.8.2"
+  }
+}
+
+--- python read-back: grant key absent ---
+allowConversationAccess present: False

@@ -1,0 +1,25 @@
+# at3 post-fix — a skip-path refresh FAILURE now surfaces as exit 1 (no longer masked as clean skip)
+
+## Injection
+One plugin file (src/scanner-bridge.ts) was made STALE (content differs from vFix so
+compare-before-write attempts a refresh) AND unwritable to the install user
+(root:root, 0444 — models an MDM-locked or permission-denied refresh target).
+  octarget can read=yes  can write=no
+
+## Result (vFix, no --force)
+EXIT_CODE=1
+Log surfaced the failure instead of hiding it behind the skip:
+  WARN  Plugin already installed - failed to refresh plugin file
+        {path: .../src/scanner-bridge.ts, error: open ...: permission denied}
+  ERROR error: failed to refresh plugin file .../src/scanner-bridge.ts: ... permission denied
+  Error: installation completed with 1 error(s)
+
+## Contrast with the pre-fix (bug) behavior — same injection class
+PRE-FIX  (vBase, evidence/pre-fix/20-injected-failure-transcript.txt):
+  a refresh failure was swallowed → 'OpenClaw installation skipped (... use --force)' → EXIT 2
+POST-FIX (vFix): the failure is surfaced → 'installation completed with 1 error(s)' → EXIT 1
+
+This is the fix's core guarantee: result.Errors is evaluated BEFORE result.Skipped in
+cmd/openclaw_install.go RunE, so a genuine refresh failure can never be reported as a
+clean exit-2 skip. Backed by the named afero-seam/RetryOp Go tests (both skip AND
+full-install paths) — see at3 automated coverage.

@@ -1,0 +1,29 @@
+=== RUN   TestCheckPluginInstallation
+=== RUN   TestCheckPluginInstallation/no_files_exist_(fresh_state)
+=== RUN   TestCheckPluginInstallation/all_files_exist_(complete_install)
+=== RUN   TestCheckPluginInstallation/only_index.ts_exists
+=== RUN   TestCheckPluginInstallation/only_binary_exists
+=== RUN   TestCheckPluginInstallation/all_plugin_files_but_no_binary_or_config
+=== RUN   TestCheckPluginInstallation/everything_except_config
+=== RUN   TestCheckPluginInstallation/only_package.json_and_manifest_exist
+--- PASS: TestCheckPluginInstallation (0.01s)
+=== RUN   TestInstall_AlreadyInstalled_NoForce_CurrentPlugin_StaysNoOp
+--- PASS: TestInstall_AlreadyInstalled_NoForce_CurrentPlugin_StaysNoOp (0.07s)
+=== RUN   TestInstall_AlreadyInstalled_RefreshesStalePackageJson
+--- PASS: TestInstall_AlreadyInstalled_RefreshesStalePackageJson (0.08s)
+=== RUN   TestInstall_AlreadyInstalled_RefreshesStalePluginManifest
+--- PASS: TestInstall_AlreadyInstalled_RefreshesStalePluginManifest (0.07s)
+=== RUN   TestInstall_AlreadyInstalled_RefreshesStaleIndexTS
+--- PASS: TestInstall_AlreadyInstalled_RefreshesStaleIndexTS (0.07s)
+=== RUN   TestInstall_AlreadyInstalled_RefreshesStaleScannerBridge
+--- PASS: TestInstall_AlreadyInstalled_RefreshesStaleScannerBridge (0.21s)
+=== RUN   TestInstall_AlreadyInstalled_RefreshFailureSurfacesError
+--- PASS: TestInstall_AlreadyInstalled_RefreshFailureSurfacesError (0.70s)
+=== RUN   TestInstall_AlreadyInstalled_TwoSoftFailuresStillNoHardError
+--- PASS: TestInstall_AlreadyInstalled_TwoSoftFailuresStillNoHardError (0.88s)
+=== RUN   TestInstall_AlreadyInstalled_RefreshRetriesTransientFailure
+--- PASS: TestInstall_AlreadyInstalled_RefreshRetriesTransientFailure (0.28s)
+=== RUN   TestInstall_AlreadyInstalled_GrantsConversationAccessOnSkipPath
+--- PASS: TestInstall_AlreadyInstalled_GrantsConversationAccessOnSkipPath (0.09s)
+PASS
+ok  	onyx-scanner/internal/installer	3.780s

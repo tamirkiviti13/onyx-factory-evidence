@@ -1,0 +1,23 @@
+### at5 cycle2: corrupt ONLY src/index.ts ###
+--- BEFORE corruption ---
+9b0466c00a81263e47aa0d461753d81b794772425f23e9f5a651252d2482d164       mtime=1788455278  package.json
+8464f03a421d371eb73fb35b269a70237f95ad84d68099690c267398fa720c78       mtime=1788444570  openclaw.plugin.json
+9bc737e8681c3b4043f091adc6dd62dd5a08fdfbff9f1c79d66596fa9dd6432f       mtime=1788454775  src/index.ts
+9c41b9010bc0f87b421f9fa3a8ff52e32a777babd9d4ee471c79ad315391fd53       mtime=1788454775  src/scanner-bridge.ts
+--- AFTER corruption (index.ts sha+mtime changed) ---
+9b0466c00a81263e47aa0d461753d81b794772425f23e9f5a651252d2482d164       mtime=1788455278  package.json
+8464f03a421d371eb73fb35b269a70237f95ad84d68099690c267398fa720c78       mtime=1788444570  openclaw.plugin.json
+ef9ca4f58e82e499ce2292c916a11cb48e0a1be1b02e5fbc7792289cb132ecd6       mtime=1577836800  src/index.ts
+9c41b9010bc0f87b421f9fa3a8ff52e32a777babd9d4ee471c79ad315391fd53       mtime=1788454775  src/scanner-bridge.ts
+--- run exit: EXIT_CODE=0 ---
+--- refresh log lines (must name ONLY src/index.ts) ---
+2026-09-03T17:08:35.923202387Z	INFO	Plugin already installed - plugin file refreshed to the embedded version	{"path": "/home/octarget/.openclaw/extensions/onyx-guard/src/index.ts"}
+📊 Installation summary:
+already_installed: true
+Installed:
+--- AFTER run snapshot ---
+9b0466c00a81263e47aa0d461753d81b794772425f23e9f5a651252d2482d164       mtime=1788455278  package.json
+8464f03a421d371eb73fb35b269a70237f95ad84d68099690c267398fa720c78       mtime=1788444570  openclaw.plugin.json
+9bc737e8681c3b4043f091adc6dd62dd5a08fdfbff9f1c79d66596fa9dd6432f       mtime=1788455315  src/index.ts
+9c41b9010bc0f87b421f9fa3a8ff52e32a777babd9d4ee471c79ad315391fd53       mtime=1788454775  src/scanner-bridge.ts
+--- canonical targets: pkg=9b0466 plugin=8464f0 index=9bc737 bridge=9c41b9 ---

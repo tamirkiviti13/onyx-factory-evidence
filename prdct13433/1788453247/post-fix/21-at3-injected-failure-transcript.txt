@@ -1,0 +1,344 @@
+2026-09-03T15:28:32.265129097Z	INFO	Scanner starting	{"version": "0.0.3-vfix-7661b8c2", "environment": "dev", "command": "onyx-scanner install openclaw", "trigger_method": "", "invocation_source": "", "executable": "/tmp/onyx-scanner-vfix", "pid": 1259546, "ppid": 1259545, "username": "octarget", "user_id": "1002", "group_id": "1002", "euid": 1002, "home_dir": "/home/octarget", "hostname": "ip-10-10-6-140", "os": "linux", "platform": "ubuntu", "platform_family": "debian", "os_version": "22.04", "kernel_version": "6.8.0-1061-aws", "kernel_arch": "x86_64", "architecture": "amd64", "go_version": "go1.25.8", "working_dir": "/home/coder/onyx/scanner"}
+2026-09-03T15:28:32.265311233Z	INFO	Starting OpenClaw installation
+2026-09-03T15:28:32.265334436Z	DEBUG	openclaw_install_flags: dry_run=false, verbose=true, force=false, endpoint=http://onyx-ai-firewall.onyxd.svc.cluster.local
+2026-09-03T15:28:32.266095157Z	INFO	install_context	{"event": "install_context", "cycle_id": "df11e012", "caller": "openclaw_hooks", "platform": "linux", "parent_process_name": "run-install.sh", "parent_pid": 1259545, "euid": 1002, "is_privileged_context": false, "active_console_sessions": 0}
+2026-09-03T15:28:32.266128347Z	INFO	Installing OpenClaw integration
+2026-09-03T15:28:32.266140557Z	INFO	Starting OpenClaw hooks installation
+2026-09-03T15:28:32.266185344Z	WARN	keychain_outcome	{"event": "keychain_outcome", "op": "put", "outcome": "fallback_env", "reason": "keychain_unavailable", "caller": "openclaw_hooks", "cycle_id": "df11e012", "platform": "linux", "target_home_set": true, "target_home_tail": "octarget", "target_index": 0, "total_targets": 1, "error": "exec: \"dbus-launch\": executable file not found in $PATH"}
+2026-09-03T15:28:32.419420364Z	DEBUG	Scanner binary installed	{"path": "/home/octarget/.openclaw/extensions/onyx-guard/onyx/onyx-scanner"}
+2026-09-03T15:28:32.419477679Z	INFO	Plugin already installed - scanner binary refreshed to the running scanner	{"pluginDir": "/home/octarget/.openclaw/extensions/onyx-guard"}
+2026-09-03T15:28:32.419635167Z	DEBUG	Config file installed	{"path": "/home/octarget/.openclaw/extensions/onyx-guard/onyx/onyx-config.json", "content_changed": false}
+2026-09-03T15:28:32.820362001Z	WARN	Plugin already installed - failed to refresh plugin file	{"path": "/home/octarget/.openclaw/extensions/onyx-guard/src/scanner-bridge.ts", "error": "open /home/octarget/.openclaw/extensions/onyx-guard/src/scanner-bridge.ts: permission denied"}
+2026-09-03T15:28:32.820508037Z	INFO	openclaw_conversation_access	{"event": "openclaw_conversation_access", "op": "grant", "outcome": "unchanged", "platform": "linux", "configPath": "/home/octarget/.openclaw/openclaw.json", "pluginId": "onyx-guard"}
+2026-09-03T15:28:32.820530741Z	INFO	Onyx guard plugin already installed. Use --force to overwrite.	{"pluginDir": "/home/octarget/.openclaw/extensions/onyx-guard"}
+📊 Installation summary:
+plugin_dir: /home/octarget/.openclaw/extensions/onyx-guard
+already_installed: true
+Skipped: OpenClaw plugin already installed (use --force to overwrite)
+Encountered errors during installation:
+2026-09-03T15:28:32.820546563Z	WARN	Encountered errors during installation:
+   error: failed to refresh plugin file /home/octarget/.openclaw/extensions/onyx-guard/src/scanner-bridge.ts: open /home/octarget/.openclaw/extensions/onyx-guard/src/scanner-bridge.ts: permission denied
+2026-09-03T15:28:32.820559892Z	ERROR	error: failed to refresh plugin file /home/octarget/.openclaw/extensions/onyx-guard/src/scanner-bridge.ts: open /home/octarget/.openclaw/extensions/onyx-guard/src/scanner-bridge.ts: permission denied
+2026-09-03T15:28:32.846076328Z	DEBUG	post_scan_started	{"event": "post_scan_started", "platform": "linux", "caller": "post-operation (openclaw)", "endpoint": "http://ingest-onyx.onyxd.svc.cluster.local/mcp-scanner"}
+2026-09-03T15:28:32.847270439Z	DEBUG	Scan run starting	{"scan_run_id": "b3e15c33-0fe9-4da7-877e-24a2933c6c41", "timestamp": "2026-09-03T15:28:32.846145762Z", "full_scan": false, "dry_run": false, "project_walk_timeout": "0s", "session_lookback_window": "0s"}
+2026-09-03T15:28:32.847324567Z	DEBUG	Step start: enumerate user contexts	{"scan_run_id": "b3e15c33-0fe9-4da7-877e-24a2933c6c41", "include_other_users": true}
+2026-09-03T15:28:32.847347986Z	DEBUG	Step done: enumerate user contexts	{"scan_run_id": "b3e15c33-0fe9-4da7-877e-24a2933c6c41", "users_found": 1, "usernames": ["octarget"], "include_other_users": true, "duration_ms": 0}
+2026-09-03T15:28:32.847366991Z	INFO	Scanning users	{"users": 1, "scan_run_id": "b3e15c33-0fe9-4da7-877e-24a2933c6c41"}
+2026-09-03T15:28:32.888868737Z	INFO	email_source_resolved	{"event": "email_source_resolved", "outcome": "not_found", "candidate_count": 0, "email_sources": [], "platform": "linux", "target_home_tail": "octarget", "cycle_id": "b3e15c33-0fe9-4da7-877e-24a2933c6c41", "scan_run_id": "b3e15c33-0fe9-4da7-877e-24a2933c6c41", "target_index": 0, "total_targets": 1}
+2026-09-03T15:28:32.888944774Z	INFO	email_candidates_resolved	{"event": "email_candidates_resolved", "outcome": "not_found", "candidate_count": 0, "email_sources": [], "platform": "linux", "target_home_tail": "octarget", "cycle_id": "b3e15c33-0fe9-4da7-877e-24a2933c6c41", "scan_run_id": "b3e15c33-0fe9-4da7-877e-24a2933c6c41", "target_index": 0, "total_targets": 1}
+2026-09-03T15:28:32.888974342Z	INFO	app_identity_resolved	{"event": "app_identity_resolved", "outcome": "not_found", "candidate_count": 0, "email_sources": [], "browsers_read": [], "platform": "linux", "target_home_tail": "octarget", "cycle_id": "b3e15c33-0fe9-4da7-877e-24a2933c6c41", "scan_run_id": "b3e15c33-0fe9-4da7-877e-24a2933c6c41", "target_index": 0, "total_targets": 1}
+2026-09-03T15:28:32.889004377Z	DEBUG	Step start: scan user	{"username": "octarget", "home_dir": "/home/octarget", "scan_run_id": "b3e15c33-0fe9-4da7-877e-24a2933c6c41"}
+2026-09-03T15:28:32.889111102Z	WARN	detector name collisions between FS and DSL	{"collisions": ["openclaw", "opencode"]}
+2026-09-03T15:28:32.889172143Z	DEBUG	Scanning agents for user	{"username": "octarget", "home_dir": "/home/octarget"}
+2026-09-03T15:28:32.889188433Z	DEBUG	Phase 1 start: scan static/desktop agents	{"username": "octarget", "detectors_count": 89}
+2026-09-03T15:28:32.939372635Z	DEBUG	MCP config path missing	{"detector": "cursor", "username": "octarget", "path": "/home/octarget/.cursor/mcp.json"}
+2026-09-03T15:28:32.939540793Z	INFO	agent_detection	{"event": "agent_detection", "platform": "linux", "agent": "cursor", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "octarget"}
+2026-09-03T15:28:32.939567804Z	DEBUG	Detector scanned	{"detector": "cursor", "username": "octarget", "outcome": "not_installed", "paths_checked": ["/home/octarget/.cursor/mcp.json"], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T15:28:32.989901467Z	DEBUG	MCP config path missing	{"detector": "claude", "username": "octarget", "path": "/home/octarget/.config/Claude/claude_desktop_config.json"}
+2026-09-03T15:28:32.989997171Z	INFO	agent_detection	{"event": "agent_detection", "platform": "linux", "agent": "claude", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "octarget"}
+2026-09-03T15:28:32.990018611Z	DEBUG	Detector scanned	{"detector": "claude", "username": "octarget", "outcome": "not_installed", "paths_checked": ["/home/octarget/.config/Claude/claude_desktop_config.json"], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T15:28:33.040280675Z	DEBUG	MCP config path missing	{"detector": "claude-cowork", "username": "octarget", "path": "/home/octarget/.config/Claude/claude_desktop_config.json"}
+2026-09-03T15:28:33.040377779Z	DEBUG	Detector scanned	{"detector": "claude-cowork", "username": "octarget", "outcome": "not_installed", "paths_checked": ["/home/octarget/.config/Claude/claude_desktop_config.json"], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T15:28:33.090636207Z	DEBUG	MCP config path missing	{"detector": "copilot", "username": "octarget", "path": "/home/octarget/.config/Code/User/mcp.json"}
+2026-09-03T15:28:33.091043431Z	DEBUG	Detector scanned	{"detector": "copilot", "username": "octarget", "outcome": "not_installed", "paths_checked": ["/home/octarget/.config/Code/User/mcp.json"], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T15:28:33.141296323Z	DEBUG	MCP config path missing	{"detector": "copilot-cli", "username": "octarget", "path": "/home/octarget/.copilot/mcp-config.json"}
+2026-09-03T15:28:33.141426025Z	INFO	agent_detection	{"event": "agent_detection", "platform": "linux", "agent": "copilot-cli", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "octarget"}
+2026-09-03T15:28:33.141451983Z	DEBUG	Detector scanned	{"detector": "copilot-cli", "username": "octarget", "outcome": "not_installed", "paths_checked": ["/home/octarget/.copilot/mcp-config.json"], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T15:28:33.191773192Z	INFO	agent_detection	{"event": "agent_detection", "platform": "linux", "agent": "code-puppy", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "octarget"}
+2026-09-03T15:28:33.191857142Z	DEBUG	Detector scanned	{"detector": "code-puppy", "username": "octarget", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T15:28:33.242081857Z	DEBUG	MCP config path missing	{"detector": "snowflake_coco", "username": "octarget", "path": "/home/octarget/.snowflake/cortex/mcp.json"}
+2026-09-03T15:28:33.242276757Z	INFO	agent_detection	{"event": "agent_detection", "platform": "linux", "agent": "snowflake_coco", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "octarget"}
+2026-09-03T15:28:33.242313289Z	DEBUG	Detector scanned	{"detector": "snowflake_coco", "username": "octarget", "outcome": "not_installed", "paths_checked": ["/home/octarget/.snowflake/cortex/mcp.json"], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T15:28:33.292533198Z	DEBUG	MCP config path missing	{"detector": "wibey", "username": "octarget", "path": "/home/octarget/.wibey/.mcp.json"}
+2026-09-03T15:28:33.292605025Z	DEBUG	MCP config path missing	{"detector": "wibey", "username": "octarget", "path": "/home/octarget/.wibey/wibey-vscode/mcp.json"}
+2026-09-03T15:28:33.292619442Z	DEBUG	MCP config path missing	{"detector": "wibey", "username": "octarget", "path": "/home/octarget/.wibey/wibey-jetbrains/mcp.json"}
+2026-09-03T15:28:33.292655585Z	INFO	agent_detection	{"event": "agent_detection", "platform": "linux", "agent": "wibey", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "octarget"}
+2026-09-03T15:28:33.292678242Z	DEBUG	Detector scanned	{"detector": "wibey", "username": "octarget", "outcome": "not_installed", "paths_checked": ["/home/octarget/.wibey/.mcp.json", "/home/octarget/.wibey/wibey-vscode/mcp.json", "/home/octarget/.wibey/wibey-jetbrains/mcp.json"], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T15:28:33.342886822Z	DEBUG	MCP config path missing	{"detector": "windsurf", "username": "octarget", "path": "/home/octarget/.codeium/windsurf/mcp_config.json"}
+2026-09-03T15:28:33.343069531Z	INFO	agent_detection	{"event": "agent_detection", "platform": "linux", "agent": "windsurf", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "octarget"}
+2026-09-03T15:28:33.343103282Z	DEBUG	Detector scanned	{"detector": "windsurf", "username": "octarget", "outcome": "not_installed", "paths_checked": ["/home/octarget/.codeium/windsurf/mcp_config.json"], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T15:28:33.393373658Z	DEBUG	MCP config path missing	{"detector": "junie", "username": "octarget", "path": "/home/octarget/.junie/mcp/mcp.json"}
+2026-09-03T15:28:33.394265516Z	INFO	agent_detection	{"event": "agent_detection", "platform": "linux", "agent": "junie", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "octarget"}
+2026-09-03T15:28:33.394311781Z	DEBUG	Detector scanned	{"detector": "junie", "username": "octarget", "outcome": "not_installed", "paths_checked": ["/home/octarget/.junie/mcp/mcp.json"], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T15:28:33.44455285Z	DEBUG	MCP config path missing	{"detector": "gemini_cli", "username": "octarget", "path": "/home/octarget/.gemini/settings.json"}
+2026-09-03T15:28:33.444671302Z	INFO	agent_detection	{"event": "agent_detection", "platform": "linux", "agent": "gemini_cli", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "octarget"}
+2026-09-03T15:28:33.444694616Z	DEBUG	Detector scanned	{"detector": "gemini_cli", "username": "octarget", "outcome": "not_installed", "paths_checked": ["/home/octarget/.gemini/settings.json"], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T15:28:33.494903478Z	DEBUG	MCP config path missing	{"detector": "opencode", "username": "octarget", "path": "/home/octarget/.config/opencode/opencode.json"}
+2026-09-03T15:28:33.494968261Z	DEBUG	MCP config path missing	{"detector": "opencode", "username": "octarget", "path": "/home/octarget/.config/opencode/opencode.jsonc"}
+2026-09-03T15:28:33.494993098Z	DEBUG	MCP config path missing	{"detector": "opencode", "username": "octarget", "path": "/etc/opencode/opencode.json"}
+2026-09-03T15:28:33.495014529Z	DEBUG	MCP config path missing	{"detector": "opencode", "username": "octarget", "path": "/etc/opencode/opencode.jsonc"}
+2026-09-03T15:28:33.495096358Z	INFO	agent_detection	{"event": "agent_detection", "platform": "linux", "agent": "opencode", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "octarget"}
+2026-09-03T15:28:33.495121907Z	DEBUG	Detector scanned	{"detector": "opencode", "username": "octarget", "outcome": "not_installed", "paths_checked": ["/home/octarget/.config/opencode/opencode.json", "/home/octarget/.config/opencode/opencode.jsonc", "/etc/opencode/opencode.json", "/etc/opencode/opencode.jsonc"], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T15:28:33.546097938Z	INFO	agent_detection	{"event": "agent_detection", "platform": "linux", "agent": "jetbrains-ide", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "octarget"}
+2026-09-03T15:28:33.546156867Z	DEBUG	Detector scanned	{"detector": "jetbrains-ide", "username": "octarget", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T15:28:33.596399114Z	DEBUG	MCP config path missing	{"detector": "jetbrains-copilot", "username": "octarget", "path": "/home/octarget/.config/github-copilot/intellij/mcp.json"}
+2026-09-03T15:28:33.597753484Z	INFO	agent_detection	{"event": "agent_detection", "platform": "linux", "agent": "jetbrains-copilot", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "octarget"}
+2026-09-03T15:28:33.597812617Z	DEBUG	Detector scanned	{"detector": "jetbrains-copilot", "username": "octarget", "outcome": "not_installed", "paths_checked": ["/home/octarget/.config/github-copilot/intellij/mcp.json"], "instances": [], "mcp_servers_total": 0, "duration_ms": 1}
+2026-09-03T15:28:33.648046606Z	DEBUG	MCP config path missing	{"detector": "amp", "username": "octarget", "path": "/home/octarget/.config/amp/settings.json"}
+2026-09-03T15:28:33.648126615Z	DEBUG	MCP config path missing	{"detector": "amp", "username": "octarget", "path": "/home/octarget/.amp/settings.json"}
+2026-09-03T15:28:33.648227038Z	INFO	agent_detection	{"event": "agent_detection", "platform": "linux", "agent": "amp", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "octarget"}
+2026-09-03T15:28:33.648289847Z	DEBUG	Detector scanned	{"detector": "amp", "username": "octarget", "outcome": "not_installed", "paths_checked": ["/home/octarget/.config/amp/settings.json", "/home/octarget/.amp/settings.json"], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T15:28:33.698508421Z	DEBUG	MCP config path missing	{"detector": "vscode-amp", "username": "octarget", "path": "/home/octarget/.config/Code/User/settings.json"}
+2026-09-03T15:28:33.698777101Z	INFO	agent_detection	{"event": "agent_detection", "platform": "linux", "agent": "vscode-amp", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "octarget"}
+2026-09-03T15:28:33.69880784Z	DEBUG	Detector scanned	{"detector": "vscode-amp", "username": "octarget", "outcome": "not_installed", "paths_checked": ["/home/octarget/.config/Code/User/settings.json"], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T15:28:33.74902367Z	DEBUG	MCP config path missing	{"detector": "vscode-continue", "username": "octarget", "path": "/home/octarget/.continue/config.yaml"}
+2026-09-03T15:28:33.749086042Z	DEBUG	MCP config path missing	{"detector": "vscode-continue", "username": "octarget", "path": "/home/octarget/.continue/config.json"}
+2026-09-03T15:28:33.749350909Z	INFO	agent_detection	{"event": "agent_detection", "platform": "linux", "agent": "vscode-continue", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "octarget"}
+2026-09-03T15:28:33.749389428Z	DEBUG	Detector scanned	{"detector": "vscode-continue", "username": "octarget", "outcome": "not_installed", "paths_checked": ["/home/octarget/.continue/config.yaml", "/home/octarget/.continue/config.json"], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T15:28:33.799822018Z	DEBUG	MCP config path missing	{"detector": "crush", "username": "octarget", "path": "/home/octarget/.config/crush/crush.json"}
+2026-09-03T15:28:33.799890776Z	DEBUG	MCP config path missing	{"detector": "crush", "username": "octarget", "path": "/home/octarget/.crush/crush.json"}
+2026-09-03T15:28:33.799958129Z	INFO	agent_detection	{"event": "agent_detection", "platform": "linux", "agent": "crush", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "octarget"}
+2026-09-03T15:28:33.799979302Z	DEBUG	Detector scanned	{"detector": "crush", "username": "octarget", "outcome": "not_installed", "paths_checked": ["/home/octarget/.config/crush/crush.json", "/home/octarget/.crush/crush.json"], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T15:28:33.850206728Z	DEBUG	MCP config path exists	{"detector": "openclaw", "username": "octarget", "path": "/home/octarget/.openclaw/openclaw.json"}
+2026-09-03T15:28:33.850384913Z	INFO	agent_detection	{"event": "agent_detection", "platform": "linux", "agent": "openclaw", "detected": true, "evidence_type": "binary_on_path", "evidence_path": "/home/octarget/.npm-global/bin/openclaw", "username": "octarget"}
+2026-09-03T15:28:33.862301606Z	DEBUG	Detector scanned	{"detector": "openclaw", "username": "octarget", "outcome": "config_parsed", "paths_checked": ["/home/octarget/.openclaw/openclaw.json"], "instances": [{"path":"/home/octarget/.openclaw/openclaw.json","config_exists":true,"mcp_servers":0}], "mcp_servers_total": 0, "duration_ms": 12}
+2026-09-03T15:28:33.912605741Z	DEBUG	MCP config path missing	{"detector": "kiro", "username": "octarget", "path": "/home/octarget/.kiro/settings/mcp.json"}
+2026-09-03T15:28:33.912768819Z	INFO	agent_detection	{"event": "agent_detection", "platform": "linux", "agent": "kiro", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "octarget"}
+2026-09-03T15:28:33.912801365Z	DEBUG	Detector scanned	{"detector": "kiro", "username": "octarget", "outcome": "not_installed", "paths_checked": ["/home/octarget/.kiro/settings/mcp.json"], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T15:28:33.963043507Z	INFO	agent_detection	{"event": "agent_detection", "platform": "linux", "agent": "chatgpt", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "octarget"}
+2026-09-03T15:28:33.963151069Z	DEBUG	Detector scanned	{"detector": "chatgpt", "username": "octarget", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T15:28:34.013387244Z	DEBUG	Detector scanned	{"detector": "notion", "username": "octarget", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T15:28:34.063679813Z	DEBUG	Detector scanned	{"detector": "perplexity", "username": "octarget", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T15:28:34.11397894Z	DEBUG	Detector scanned	{"detector": "superhuman", "username": "octarget", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T15:28:34.164294499Z	DEBUG	Detector scanned	{"detector": "replit", "username": "octarget", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T15:28:34.214623975Z	DEBUG	Detector scanned	{"detector": "granola", "username": "octarget", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T15:28:34.264874164Z	DEBUG	Detector scanned	{"detector": "superwhisper", "username": "octarget", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T15:28:34.315184618Z	DEBUG	Detector scanned	{"detector": "clickup-brain", "username": "octarget", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T15:28:34.365470889Z	DEBUG	Detector scanned	{"detector": "genspark", "username": "octarget", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T15:28:34.415772787Z	DEBUG	Detector scanned	{"detector": "postman", "username": "octarget", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T15:28:34.466041159Z	DEBUG	Detector scanned	{"detector": "krisp", "username": "octarget", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T15:28:34.516288159Z	DEBUG	Detector scanned	{"detector": "scribe", "username": "octarget", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T15:28:34.566592295Z	DEBUG	Detector scanned	{"detector": "manus", "username": "octarget", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T15:28:34.616849035Z	DEBUG	Detector scanned	{"detector": "zoom", "username": "octarget", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T15:28:34.667124812Z	DEBUG	Detector scanned	{"detector": "figma", "username": "octarget", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T15:28:34.717446255Z	DEBUG	Detector scanned	{"detector": "gemini_desktop", "username": "octarget", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T15:28:34.767742475Z	DEBUG	Detector scanned	{"detector": "box_drive", "username": "octarget", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T15:28:34.817993442Z	DEBUG	Detector scanned	{"detector": "tableau", "username": "octarget", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T15:28:34.868285346Z	DEBUG	Detector scanned	{"detector": "microsoft_copilot", "username": "octarget", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T15:28:34.9185279Z	DEBUG	Detector scanned	{"detector": "github_copilot", "username": "octarget", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T15:28:34.968835613Z	DEBUG	Detector scanned	{"detector": "onyx-browser-extension", "username": "octarget", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T15:28:35.01910454Z	DEBUG	Detector scanned	{"detector": "microsoft_scout", "username": "octarget", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T15:28:35.069507895Z	INFO	agent_detection	{"event": "agent_detection", "platform": "linux", "agent": "ollama", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "octarget"}
+2026-09-03T15:28:35.069613588Z	DEBUG	Detector scanned	{"detector": "ollama", "username": "octarget", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T15:28:35.119834694Z	DEBUG	MCP config path missing	{"detector": "antigravity_desktop", "username": "octarget", "path": "/home/octarget/.gemini/config/mcp_config.json"}
+2026-09-03T15:28:35.1199856Z	INFO	agent_detection	{"event": "agent_detection", "platform": "linux", "agent": "antigravity_desktop", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "octarget"}
+2026-09-03T15:28:35.120025774Z	DEBUG	Detector scanned	{"detector": "antigravity_desktop", "username": "octarget", "outcome": "not_installed", "paths_checked": ["/home/octarget/.gemini/config/mcp_config.json"], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T15:28:35.170278761Z	DEBUG	MCP config path missing	{"detector": "antigravity-cli", "username": "octarget", "path": "/home/octarget/.gemini/config/mcp_config.json"}
+2026-09-03T15:28:35.170347952Z	DEBUG	MCP config path missing	{"detector": "antigravity-cli", "username": "octarget", "path": "/home/octarget/.gemini/antigravity-cli/mcp_config.json"}
+2026-09-03T15:28:35.170423435Z	INFO	agent_detection	{"event": "agent_detection", "platform": "linux", "agent": "antigravity-cli", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "octarget"}
+2026-09-03T15:28:35.170448438Z	DEBUG	Detector scanned	{"detector": "antigravity-cli", "username": "octarget", "outcome": "not_installed", "paths_checked": ["/home/octarget/.gemini/config/mcp_config.json", "/home/octarget/.gemini/antigravity-cli/mcp_config.json"], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T15:28:35.220653855Z	DEBUG	MCP config path missing	{"detector": "antigravity-ide", "username": "octarget", "path": "/home/octarget/.gemini/config/mcp_config.json"}
+2026-09-03T15:28:35.220768371Z	DEBUG	MCP config path missing	{"detector": "antigravity-ide", "username": "octarget", "path": "/home/octarget/.gemini/antigravity-ide/mcp_config.json"}
+2026-09-03T15:28:35.220846199Z	INFO	agent_detection	{"event": "agent_detection", "platform": "linux", "agent": "antigravity-ide", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "octarget"}
+2026-09-03T15:28:35.220866215Z	DEBUG	Detector scanned	{"detector": "antigravity-ide", "username": "octarget", "outcome": "not_installed", "paths_checked": ["/home/octarget/.gemini/config/mcp_config.json", "/home/octarget/.gemini/antigravity-ide/mcp_config.json"], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T15:28:35.271104252Z	DEBUG	MCP config path missing	{"detector": "claude-code", "username": "octarget", "path": "/home/octarget/.claude.json"}
+2026-09-03T15:28:35.271166151Z	DEBUG	MCP config path missing	{"detector": "claude-code", "username": "octarget", "path": "/home/octarget/.claude/settings.json"}
+2026-09-03T15:28:35.271185179Z	DEBUG	MCP config path missing	{"detector": "claude-code", "username": "octarget", "path": "/home/octarget/.claude/settings.local.json"}
+2026-09-03T15:28:35.271197956Z	DEBUG	MCP config path missing	{"detector": "claude-code", "username": "octarget", "path": "/home/octarget/.config/claude/settings.json"}
+2026-09-03T15:28:35.271211216Z	DEBUG	MCP config path missing	{"detector": "claude-code", "username": "octarget", "path": "/home/octarget/.config/claude/settings.local.json"}
+2026-09-03T15:28:35.271223295Z	DEBUG	MCP config path missing	{"detector": "claude-code", "username": "octarget", "path": "/etc/claude-code/managed-mcp.json"}
+2026-09-03T15:28:35.271235836Z	DEBUG	MCP config path missing	{"detector": "claude-code", "username": "octarget", "path": "/etc/claude-code/managed-settings.json"}
+2026-09-03T15:28:35.27137913Z	INFO	agent_detection	{"event": "agent_detection", "platform": "linux", "agent": "claude-code", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "octarget"}
+2026-09-03T15:28:35.271408812Z	DEBUG	Detector scanned	{"detector": "claude-code", "username": "octarget", "outcome": "not_installed", "paths_checked": ["/home/octarget/.claude.json", "/home/octarget/.claude/settings.json", "/home/octarget/.claude/settings.local.json", "/home/octarget/.config/claude/settings.json", "/home/octarget/.config/claude/settings.local.json", "/etc/claude-code/managed-mcp.json", "/etc/claude-code/managed-settings.json"], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T15:28:35.321626325Z	DEBUG	MCP config path missing	{"detector": "codex", "username": "octarget", "path": "/home/octarget/.codex/config.toml"}
+2026-09-03T15:28:35.32176935Z	INFO	agent_detection	{"event": "agent_detection", "platform": "linux", "agent": "codex", "detected": false, "evidence_type": "none", "evidence_path": "", "username": "octarget"}
+2026-09-03T15:28:35.321794442Z	DEBUG	Detector scanned	{"detector": "codex", "username": "octarget", "outcome": "not_installed", "paths_checked": ["/home/octarget/.codex/config.toml"], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T15:28:35.372003812Z	DEBUG	Detector scanned	{"detector": "aider", "username": "octarget", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T15:28:35.422337396Z	DEBUG	Detector scanned	{"detector": "amazon-q-developer-cli", "username": "octarget", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T15:28:35.47272691Z	DEBUG	Detector scanned	{"detector": "claude-engineer", "username": "octarget", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T15:28:35.587676047Z	DEBUG	Detector scanned	{"detector": "claw-code", "username": "octarget", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 64}
+2026-09-03T15:28:35.638156613Z	DEBUG	Detector scanned	{"detector": "cline", "username": "octarget", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T15:28:35.688525591Z	DEBUG	Detector scanned	{"detector": "devika", "username": "octarget", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T15:28:35.738939114Z	DEBUG	Detector scanned	{"detector": "fastclaw", "username": "octarget", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T15:28:35.789287038Z	DEBUG	Detector scanned	{"detector": "freeclaw", "username": "octarget", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T15:28:35.839578525Z	DEBUG	Detector scanned	{"detector": "goclaw", "username": "octarget", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T15:28:35.889885413Z	DEBUG	Detector scanned	{"detector": "goose", "username": "octarget", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T15:28:35.940185852Z	DEBUG	Detector scanned	{"detector": "gpt-pilot", "username": "octarget", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T15:28:35.990515392Z	DEBUG	Detector scanned	{"detector": "gptme", "username": "octarget", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T15:28:36.040844844Z	DEBUG	Detector scanned	{"detector": "hermes-agent", "username": "octarget", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T15:28:36.091156864Z	DEBUG	Detector scanned	{"detector": "ironclaw", "username": "octarget", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T15:28:36.141481576Z	DEBUG	Detector scanned	{"detector": "khoj", "username": "octarget", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T15:28:36.191759386Z	DEBUG	Detector scanned	{"detector": "kimi-cli", "username": "octarget", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T15:28:36.242059419Z	DEBUG	Detector scanned	{"detector": "mini-swe-agent", "username": "octarget", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T15:28:36.292326615Z	DEBUG	Detector scanned	{"detector": "nanobot", "username": "octarget", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T15:28:36.342624872Z	DEBUG	Detector scanned	{"detector": "nebula", "username": "octarget", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T15:28:36.392929367Z	DEBUG	Detector scanned	{"detector": "nullclaw", "username": "octarget", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T15:28:36.443210322Z	DEBUG	Detector scanned	{"detector": "open-codex", "username": "octarget", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T15:28:36.493529603Z	DEBUG	Detector scanned	{"detector": "open-interpreter", "username": "octarget", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T15:28:36.543826366Z	DEBUG	Detector scanned	{"detector": "open-swe", "username": "octarget", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T15:28:36.594125639Z	DEBUG	Detector scanned	{"detector": "open-webui", "username": "octarget", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T15:28:36.644394997Z	DEBUG	Detector scanned	{"detector": "openagent", "username": "octarget", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T15:28:36.695217021Z	INFO	agent_detection	{"event": "agent_detection", "platform": "linux", "agent": "openclaw", "detected": true, "evidence_type": "dsl_dir", "evidence_path": "/home/octarget/.openclaw", "username": "octarget"}
+2026-09-03T15:28:36.695379567Z	WARN	builtinTools decode failed	{"agent": "openclaw", "dir": "/home/octarget/.openclaw", "error": "json: cannot unmarshal string into Go value of type agents.ToolInfo"}
+2026-09-03T15:28:36.699079155Z	WARN	DSL block failed	{"agent": "openclaw", "block": "collectCustomData", "error": "SQL logic error: no such column: c.schedule_kind (1)"}
+2026-09-03T15:28:36.699286906Z	WARN	tools decode failed	{"agent": "openclaw", "block": "builtinTools", "error": "json: cannot unmarshal string into Go value of type agents.ToolInfo"}
+2026-09-03T15:28:36.699387396Z	DEBUG	Detector scanned	{"detector": "openclaw", "username": "octarget", "outcome": "config_parsed", "paths_checked": [], "instances": [{"path":"/home/octarget/.openclaw","config_exists":true,"mcp_servers":0}], "mcp_servers_total": 0, "duration_ms": 4}
+2026-09-03T15:28:36.749650712Z	DEBUG	Detector scanned	{"detector": "opencode", "username": "octarget", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T15:28:36.799948138Z	DEBUG	Detector scanned	{"detector": "openhuman", "username": "octarget", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T15:28:36.850271338Z	DEBUG	Detector scanned	{"detector": "OpenManus", "username": "octarget", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T15:28:36.900553927Z	DEBUG	Detector scanned	{"detector": "picoclaw", "username": "octarget", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T15:28:36.950821119Z	DEBUG	Detector scanned	{"detector": "QClaw", "username": "octarget", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T15:28:37.001143233Z	DEBUG	Detector scanned	{"detector": "qwen-code", "username": "octarget", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T15:28:37.051406585Z	DEBUG	Detector scanned	{"detector": "QwenPaw", "username": "octarget", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T15:28:37.102520102Z	DEBUG	Detector scanned	{"detector": "RA.Aid", "username": "octarget", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T15:28:37.152863577Z	DEBUG	Detector scanned	{"detector": "refact-lsp", "username": "octarget", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T15:28:37.203210628Z	DEBUG	Detector scanned	{"detector": "Roo-Code", "username": "octarget", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T15:28:37.253545278Z	DEBUG	Detector scanned	{"detector": "SWE-agent", "username": "octarget", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T15:28:37.303858148Z	DEBUG	Detector scanned	{"detector": "tinyclaw", "username": "octarget", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T15:28:37.354146333Z	DEBUG	Detector scanned	{"detector": "trae-agent", "username": "octarget", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T15:28:37.404515068Z	DEBUG	Detector scanned	{"detector": "trustclaw", "username": "octarget", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T15:28:37.454788392Z	DEBUG	Detector scanned	{"detector": "zeroclaw", "username": "octarget", "outcome": "not_installed", "paths_checked": [], "instances": [], "mcp_servers_total": 0, "duration_ms": 0}
+2026-09-03T15:28:37.454862182Z	DEBUG	Phase 1 done: scan static/desktop agents	{"username": "octarget", "agents_detected": 2, "agent_names": ["openclaw", "openclaw"], "duration_ms": 4565}
+2026-09-03T15:28:37.454879801Z	DEBUG	Preparing to send static payload for agent	{"agent": "openclaw", "username": "octarget", "config_path": "/home/octarget/.openclaw/openclaw.json", "mcp_servers_count": 0}
+2026-09-03T15:28:37.752989719Z	DEBUG	Creating payload	{"agent": "openclaw", "username": "octarget"}
+2026-09-03T15:28:37.784419931Z	DEBUG	payload sent to backend	{"payload_id": "scanner-agent-openclaw-44638e63-468b-4014-9f97-b6bd9f26506e", "size_bytes": 213414}
+2026-09-03T15:28:37.784971815Z	DEBUG	Preparing to send static payload for agent	{"agent": "openclaw", "username": "octarget", "config_path": "/home/octarget/.openclaw", "mcp_servers_count": 0}
+2026-09-03T15:28:37.785369082Z	DEBUG	Creating payload	{"agent": "openclaw", "username": "octarget"}
+2026-09-03T15:28:37.788722006Z	DEBUG	payload sent to backend	{"payload_id": "scanner-agent-openclaw-6abc43f1-534f-479b-adfa-a9c266ba3216", "size_bytes": 796}
+2026-09-03T15:28:37.788816434Z	DEBUG	Step start: collect session events	{"username": "octarget", "lookback_window": "0s", "detectors_considered": 89, "detectors_with_sessions": [], "detectors_skipped_not_detected": ["cursor", "claude", "claude-cowork", "copilot", "copilot-cli", "code-puppy", "snowflake_coco", "wibey", "windsurf", "junie", "gemini_cli", "opencode", "jetbrains-ide", "jetbrains-copilot", "amp", "vscode-amp", "vscode-continue", "crush", "kiro", "chatgpt", "notion", "perplexity", "superhuman", "replit", "granola", "superwhisper", "clickup-brain", "genspark", "postman", "krisp", "scribe", "manus", "zoom", "figma", "gemini_desktop", "box_drive", "tableau", "microsoft_copilot", "github_copilot", "onyx-browser-extension", "microsoft_scout", "ollama", "antigravity_desktop", "antigravity-cli", "antigravity-ide", "claude-code", "codex", "aider", "amazon-q-developer-cli", "claude-engineer", "claw-code", "cline", "devika", "fastclaw", "freeclaw", "goclaw", "goose", "gpt-pilot", "gptme", "hermes-agent", "ironclaw", "khoj", "kimi-cli", "mini-swe-agent", "nanobot", "nebula", "nullclaw", "open-codex", "open-interpreter", "open-swe", "open-webui", "openagent", "opencode", "openhuman", "OpenManus", "picoclaw", "QClaw", "qwen-code", "QwenPaw", "RA.Aid", "refact-lsp", "Roo-Code", "SWE-agent", "tinyclaw", "trae-agent", "trustclaw", "zeroclaw"], "detectors_skipped_no_sources": ["openclaw", "openclaw"]}
+2026-09-03T15:28:37.788946672Z	DEBUG	Session substep skipped	{"agent": "cursor", "username": "octarget", "reason": "no_detected_agent"}
+2026-09-03T15:28:37.788968607Z	DEBUG	Session substep skipped	{"agent": "claude", "username": "octarget", "reason": "no_detected_agent"}
+2026-09-03T15:28:37.788983747Z	DEBUG	Session substep skipped	{"agent": "claude-cowork", "username": "octarget", "reason": "no_detected_agent"}
+2026-09-03T15:28:37.788998241Z	DEBUG	Session substep skipped	{"agent": "copilot", "username": "octarget", "reason": "no_detected_agent"}
+2026-09-03T15:28:37.789019986Z	DEBUG	Session substep skipped	{"agent": "copilot-cli", "username": "octarget", "reason": "no_detected_agent"}
+2026-09-03T15:28:37.789037873Z	DEBUG	Session substep skipped	{"agent": "code-puppy", "username": "octarget", "reason": "no_detected_agent"}
+2026-09-03T15:28:37.789056066Z	DEBUG	Session substep skipped	{"agent": "snowflake_coco", "username": "octarget", "reason": "no_detected_agent"}
+2026-09-03T15:28:37.789074447Z	DEBUG	Session substep skipped	{"agent": "wibey", "username": "octarget", "reason": "no_detected_agent"}
+2026-09-03T15:28:37.789095273Z	DEBUG	Session substep skipped	{"agent": "windsurf", "username": "octarget", "reason": "no_detected_agent"}
+2026-09-03T15:28:37.789115007Z	DEBUG	Session substep skipped	{"agent": "junie", "username": "octarget", "reason": "no_detected_agent"}
+2026-09-03T15:28:37.789131729Z	DEBUG	Session substep skipped	{"agent": "gemini_cli", "username": "octarget", "reason": "no_detected_agent"}
+2026-09-03T15:28:37.789150142Z	DEBUG	Session substep skipped	{"agent": "opencode", "username": "octarget", "reason": "no_detected_agent"}
+2026-09-03T15:28:37.789168231Z	DEBUG	Session substep skipped	{"agent": "jetbrains-ide", "username": "octarget", "reason": "no_detected_agent"}
+2026-09-03T15:28:37.789184324Z	DEBUG	Session substep skipped	{"agent": "jetbrains-copilot", "username": "octarget", "reason": "no_detected_agent"}
+2026-09-03T15:28:37.789196153Z	DEBUG	Session substep skipped	{"agent": "amp", "username": "octarget", "reason": "no_detected_agent"}
+2026-09-03T15:28:37.789206657Z	DEBUG	Session substep skipped	{"agent": "vscode-amp", "username": "octarget", "reason": "no_detected_agent"}
+2026-09-03T15:28:37.789218713Z	DEBUG	Session substep skipped	{"agent": "vscode-continue", "username": "octarget", "reason": "no_detected_agent"}
+2026-09-03T15:28:37.789234243Z	DEBUG	Session substep skipped	{"agent": "crush", "username": "octarget", "reason": "no_detected_agent"}
+2026-09-03T15:28:37.789280184Z	DEBUG	Session substep skipped	{"agent": "openclaw", "username": "octarget", "reason": "no_session_sources"}
+2026-09-03T15:28:37.789301577Z	DEBUG	Session substep skipped	{"agent": "kiro", "username": "octarget", "reason": "no_detected_agent"}
+2026-09-03T15:28:37.789319222Z	DEBUG	Session substep skipped	{"agent": "chatgpt", "username": "octarget", "reason": "no_detected_agent"}
+2026-09-03T15:28:37.789337826Z	DEBUG	Session substep skipped	{"agent": "notion", "username": "octarget", "reason": "no_detected_agent"}
+2026-09-03T15:28:37.789360411Z	DEBUG	Session substep skipped	{"agent": "perplexity", "username": "octarget", "reason": "no_detected_agent"}
+2026-09-03T15:28:37.789377931Z	DEBUG	Session substep skipped	{"agent": "superhuman", "username": "octarget", "reason": "no_detected_agent"}
+2026-09-03T15:28:37.789396103Z	DEBUG	Session substep skipped	{"agent": "replit", "username": "octarget", "reason": "no_detected_agent"}
+2026-09-03T15:28:37.789412226Z	DEBUG	Session substep skipped	{"agent": "granola", "username": "octarget", "reason": "no_detected_agent"}
+2026-09-03T15:28:37.790285962Z	DEBUG	Session substep skipped	{"agent": "superwhisper", "username": "octarget", "reason": "no_detected_agent"}
+2026-09-03T15:28:37.790312503Z	DEBUG	Session substep skipped	{"agent": "clickup-brain", "username": "octarget", "reason": "no_detected_agent"}
+2026-09-03T15:28:37.790337268Z	DEBUG	Session substep skipped	{"agent": "genspark", "username": "octarget", "reason": "no_detected_agent"}
+2026-09-03T15:28:37.790355578Z	DEBUG	Session substep skipped	{"agent": "postman", "username": "octarget", "reason": "no_detected_agent"}
+2026-09-03T15:28:37.790372508Z	DEBUG	Session substep skipped	{"agent": "krisp", "username": "octarget", "reason": "no_detected_agent"}
+2026-09-03T15:28:37.790388327Z	DEBUG	Session substep skipped	{"agent": "scribe", "username": "octarget", "reason": "no_detected_agent"}
+2026-09-03T15:28:37.790405043Z	DEBUG	Session substep skipped	{"agent": "manus", "username": "octarget", "reason": "no_detected_agent"}
+2026-09-03T15:28:37.790422683Z	DEBUG	Session substep skipped	{"agent": "zoom", "username": "octarget", "reason": "no_detected_agent"}
+2026-09-03T15:28:37.790439297Z	DEBUG	Session substep skipped	{"agent": "figma", "username": "octarget", "reason": "no_detected_agent"}
+2026-09-03T15:28:37.790455554Z	DEBUG	Session substep skipped	{"agent": "gemini_desktop", "username": "octarget", "reason": "no_detected_agent"}
+2026-09-03T15:28:37.790471486Z	DEBUG	Session substep skipped	{"agent": "box_drive", "username": "octarget", "reason": "no_detected_agent"}
+2026-09-03T15:28:37.790488307Z	DEBUG	Session substep skipped	{"agent": "tableau", "username": "octarget", "reason": "no_detected_agent"}
+2026-09-03T15:28:37.790505701Z	DEBUG	Session substep skipped	{"agent": "microsoft_copilot", "username": "octarget", "reason": "no_detected_agent"}
+2026-09-03T15:28:37.790523543Z	DEBUG	Session substep skipped	{"agent": "github_copilot", "username": "octarget", "reason": "no_detected_agent"}
+2026-09-03T15:28:37.790542594Z	DEBUG	Session substep skipped	{"agent": "onyx-browser-extension", "username": "octarget", "reason": "no_detected_agent"}
+2026-09-03T15:28:37.790560707Z	DEBUG	Session substep skipped	{"agent": "microsoft_scout", "username": "octarget", "reason": "no_detected_agent"}
+2026-09-03T15:28:37.790583871Z	DEBUG	Session substep skipped	{"agent": "ollama", "username": "octarget", "reason": "no_detected_agent"}
+2026-09-03T15:28:37.790598647Z	DEBUG	Session substep skipped	{"agent": "antigravity_desktop", "username": "octarget", "reason": "no_detected_agent"}
+2026-09-03T15:28:37.790615307Z	DEBUG	Session substep skipped	{"agent": "antigravity-cli", "username": "octarget", "reason": "no_detected_agent"}
+2026-09-03T15:28:37.790633968Z	DEBUG	Session substep skipped	{"agent": "antigravity-ide", "username": "octarget", "reason": "no_detected_agent"}
+2026-09-03T15:28:37.790651657Z	DEBUG	Session substep skipped	{"agent": "claude-code", "username": "octarget", "reason": "no_detected_agent"}
+2026-09-03T15:28:37.790669967Z	DEBUG	Session substep skipped	{"agent": "codex", "username": "octarget", "reason": "no_detected_agent"}
+2026-09-03T15:28:37.790687475Z	DEBUG	Session substep skipped	{"agent": "aider", "username": "octarget", "reason": "no_detected_agent"}
+2026-09-03T15:28:37.790705065Z	DEBUG	Session substep skipped	{"agent": "amazon-q-developer-cli", "username": "octarget", "reason": "no_detected_agent"}
+2026-09-03T15:28:37.790723536Z	DEBUG	Session substep skipped	{"agent": "claude-engineer", "username": "octarget", "reason": "no_detected_agent"}
+2026-09-03T15:28:37.790745006Z	DEBUG	Session substep skipped	{"agent": "claw-code", "username": "octarget", "reason": "no_detected_agent"}
+2026-09-03T15:28:37.790763336Z	DEBUG	Session substep skipped	{"agent": "cline", "username": "octarget", "reason": "no_detected_agent"}
+2026-09-03T15:28:37.790779382Z	DEBUG	Session substep skipped	{"agent": "devika", "username": "octarget", "reason": "no_detected_agent"}
+2026-09-03T15:28:37.790796647Z	DEBUG	Session substep skipped	{"agent": "fastclaw", "username": "octarget", "reason": "no_detected_agent"}
+2026-09-03T15:28:37.790814219Z	DEBUG	Session substep skipped	{"agent": "freeclaw", "username": "octarget", "reason": "no_detected_agent"}
+2026-09-03T15:28:37.790832042Z	DEBUG	Session substep skipped	{"agent": "goclaw", "username": "octarget", "reason": "no_detected_agent"}
+2026-09-03T15:28:37.790852271Z	DEBUG	Session substep skipped	{"agent": "goose", "username": "octarget", "reason": "no_detected_agent"}
+2026-09-03T15:28:37.790873472Z	DEBUG	Session substep skipped	{"agent": "gpt-pilot", "username": "octarget", "reason": "no_detected_agent"}
+2026-09-03T15:28:37.790890724Z	DEBUG	Session substep skipped	{"agent": "gptme", "username": "octarget", "reason": "no_detected_agent"}
+2026-09-03T15:28:37.79090802Z	DEBUG	Session substep skipped	{"agent": "hermes-agent", "username": "octarget", "reason": "no_detected_agent"}
+2026-09-03T15:28:37.790926349Z	DEBUG	Session substep skipped	{"agent": "ironclaw", "username": "octarget", "reason": "no_detected_agent"}
+2026-09-03T15:28:37.790943005Z	DEBUG	Session substep skipped	{"agent": "khoj", "username": "octarget", "reason": "no_detected_agent"}
+2026-09-03T15:28:37.790962819Z	DEBUG	Session substep skipped	{"agent": "kimi-cli", "username": "octarget", "reason": "no_detected_agent"}
+2026-09-03T15:28:37.790979685Z	DEBUG	Session substep skipped	{"agent": "mini-swe-agent", "username": "octarget", "reason": "no_detected_agent"}
+2026-09-03T15:28:37.790997194Z	DEBUG	Session substep skipped	{"agent": "nanobot", "username": "octarget", "reason": "no_detected_agent"}
+2026-09-03T15:28:37.79101448Z	DEBUG	Session substep skipped	{"agent": "nebula", "username": "octarget", "reason": "no_detected_agent"}
+2026-09-03T15:28:37.791032426Z	DEBUG	Session substep skipped	{"agent": "nullclaw", "username": "octarget", "reason": "no_detected_agent"}
+2026-09-03T15:28:37.791050793Z	DEBUG	Session substep skipped	{"agent": "open-codex", "username": "octarget", "reason": "no_detected_agent"}
+2026-09-03T15:28:37.791068164Z	DEBUG	Session substep skipped	{"agent": "open-interpreter", "username": "octarget", "reason": "no_detected_agent"}
+2026-09-03T15:28:37.791086911Z	DEBUG	Session substep skipped	{"agent": "open-swe", "username": "octarget", "reason": "no_detected_agent"}
+2026-09-03T15:28:37.791104854Z	DEBUG	Session substep skipped	{"agent": "open-webui", "username": "octarget", "reason": "no_detected_agent"}
+2026-09-03T15:28:37.791122479Z	DEBUG	Session substep skipped	{"agent": "openagent", "username": "octarget", "reason": "no_detected_agent"}
+2026-09-03T15:28:37.791139859Z	DEBUG	Session substep skipped	{"agent": "openclaw", "username": "octarget", "reason": "no_session_sources"}
+2026-09-03T15:28:37.791157819Z	DEBUG	Session substep skipped	{"agent": "opencode", "username": "octarget", "reason": "no_detected_agent"}
+2026-09-03T15:28:37.791174881Z	DEBUG	Session substep skipped	{"agent": "openhuman", "username": "octarget", "reason": "no_detected_agent"}
+2026-09-03T15:28:37.791191998Z	DEBUG	Session substep skipped	{"agent": "OpenManus", "username": "octarget", "reason": "no_detected_agent"}
+2026-09-03T15:28:37.791209873Z	DEBUG	Session substep skipped	{"agent": "picoclaw", "username": "octarget", "reason": "no_detected_agent"}
+2026-09-03T15:28:37.791226122Z	DEBUG	Session substep skipped	{"agent": "QClaw", "username": "octarget", "reason": "no_detected_agent"}
+2026-09-03T15:28:37.791241688Z	DEBUG	Session substep skipped	{"agent": "qwen-code", "username": "octarget", "reason": "no_detected_agent"}
+2026-09-03T15:28:37.791279285Z	DEBUG	Session substep skipped	{"agent": "QwenPaw", "username": "octarget", "reason": "no_detected_agent"}
+2026-09-03T15:28:37.79130194Z	DEBUG	Session substep skipped	{"agent": "RA.Aid", "username": "octarget", "reason": "no_detected_agent"}
+2026-09-03T15:28:37.791318839Z	DEBUG	Session substep skipped	{"agent": "refact-lsp", "username": "octarget", "reason": "no_detected_agent"}
+2026-09-03T15:28:37.791335963Z	DEBUG	Session substep skipped	{"agent": "Roo-Code", "username": "octarget", "reason": "no_detected_agent"}
+2026-09-03T15:28:37.79135566Z	DEBUG	Session substep skipped	{"agent": "SWE-agent", "username": "octarget", "reason": "no_detected_agent"}
+2026-09-03T15:28:37.791373467Z	DEBUG	Session substep skipped	{"agent": "tinyclaw", "username": "octarget", "reason": "no_detected_agent"}
+2026-09-03T15:28:37.791390571Z	DEBUG	Session substep skipped	{"agent": "trae-agent", "username": "octarget", "reason": "no_detected_agent"}
+2026-09-03T15:28:37.791409825Z	DEBUG	Session substep skipped	{"agent": "trustclaw", "username": "octarget", "reason": "no_detected_agent"}
+2026-09-03T15:28:37.791430607Z	DEBUG	Session substep skipped	{"agent": "zeroclaw", "username": "octarget", "reason": "no_detected_agent"}
+2026-09-03T15:28:37.791448287Z	DEBUG	Step done: collect session events	{"username": "octarget", "session_files_examined": 0, "conversations_sent": 0, "chunks_sent": 0, "agents_with_sessions_sent": 0, "duration_ms": 2}
+2026-09-03T15:28:37.791473238Z	INFO	Phase 2 start: scan project-level configs	{"username": "octarget", "home_dir": "/home/octarget", "full_scan": false, "skip_home_walk_for_root": false, "project_walk_timeout": "0s"}
+2026-09-03T15:28:37.791501202Z	DEBUG	Step done: scan user	{"username": "octarget", "home_dir": "/home/octarget", "payloads_sent": 2, "duration_ms": 4902, "scan_run_id": "b3e15c33-0fe9-4da7-877e-24a2933c6c41"}
+2026-09-03T15:28:37.791524776Z	DEBUG	Step start: send scan summary	{"scan_run_id": "b3e15c33-0fe9-4da7-877e-24a2933c6c41"}
+2026-09-03T15:28:37.791615717Z	WARN	detector name collisions between FS and DSL	{"collisions": ["openclaw", "opencode"]}
+2026-09-03T15:28:37.791638Z	INFO	Built end-of-scan guard aggregate	{"scan_run_id": "b3e15c33-0fe9-4da7-877e-24a2933c6c41", "guard_scan_complete": false, "guarded_agents": 1}
+2026-09-03T15:28:37.837729776Z	DEBUG	payload sent to backend	{"payload_id": "scanner-summary-2424c4fa-edca-4b2b-912a-383599f9ec77", "size_bytes": 214255}
+2026-09-03T15:28:37.837802162Z	DEBUG	Step done: send scan summary	{"scan_run_id": "b3e15c33-0fe9-4da7-877e-24a2933c6c41", "duration_ms": 46}
+2026-09-03T15:28:37.837821669Z	DEBUG	Step start: send scan logs	{"scan_run_id": "b3e15c33-0fe9-4da7-877e-24a2933c6c41"}
+2026-09-03T15:28:37.84673312Z	DEBUG	payload sent to backend	{"payload_id": "scanner-logs-b3e15c33-0fe9-4da7-877e-24a2933c6c41", "size_bytes": 57147}
+2026-09-03T15:28:37.846841155Z	DEBUG	Step done: send scan logs	{"scan_run_id": "b3e15c33-0fe9-4da7-877e-24a2933c6c41", "duration_ms": 9}
+2026-09-03T15:28:37.846856873Z	INFO	Scan run completed	{"payloads_sent": 2, "users": 1, "agents_detected_total": 2, "mcp_servers_total": 0, "projects_total": 0, "skills_total": 0, "duration_ms": 4945, "scan_run_id": "b3e15c33-0fe9-4da7-877e-24a2933c6c41"}
+2026-09-03T15:28:37.84687438Z	DEBUG	post_scan_outcome	{"event": "post_scan_outcome", "platform": "linux", "caller": "post-operation (openclaw)", "outcome": "success"}
+
+octarget (/home/octarget)
+
+Total: 2 agents, 0 MCP servers
+
+┌──────────┬──────────┬────────────┬───────┬─────────────────┬─────────────────┬──────────────┬────────────────────┐
+│  Agent   │ Version  │ Onyx Hooks │ Scope │ MCP Server Name │ MCP Server Type │ Onyx Gateway │ MCP Server Command │
+├──────────┼──────────┼────────────┼───────┼─────────────────┼─────────────────┼──────────────┼────────────────────┤
+│ openclaw │ 2026.8.2 │ Yes        │ -     │ -               │ -               │ -            │ -                  │
+├──────────┼──────────┼────────────┼───────┼─────────────────┼─────────────────┼──────────────┼────────────────────┤
+│          │          │            │ -     │ -               │ -               │ -            │ -                  │
+└──────────┴──────────┴────────────┴───────┴─────────────────┴─────────────────┴──────────────┴────────────────────┘
+
+Error: installation completed with 1 error(s)
+Usage:
+  onyx-scanner install openclaw [flags]
+
+Flags:
+      --api-key string                        API key for authentication (required). Env - ONYX_API_KEY
+      --block-prompts string                  Enable hard block mode instead of replacement (true/false, default: true) (default "true")
+      --docker-daemon-timeout duration        Timeout for the Docker daemon reachability probe / ContainerList (env: ONYX_DOCKER_DAEMON_TIMEOUT); a stuck daemon is skipped after this instead of hanging (default 30s)
+      --dry-run                               Show what would be changed without applying modifications
+      --endpoint string                       Custom endpoint URL (default: https://ai-guard.onyx.security). Env - ONYX_AI_GUARD_ENDPOINT
+      --force                                 Force overwrite of existing plugin installation
+      --guard-reachability-gate               Skip the guard integration when the AI Guard is unreachable from this context (env: ONYX_GUARD_REACHABILITY_GATE; set automatically for in-container installs)
+      --guard-reachability-timeout duration   Probe deadline for the guard-reachability gate, e.g. 2s (default 4s; env: ONYX_GUARD_REACHABILITY_TIMEOUT)
+  -h, --help                                  help for openclaw
+      --hooks-runtime-protection              Run the hook's content evaluation (tool/content rules + usage events) on each tool call. Turn off to run MCP sanctioning only — use when the agent is also protected by the base-url firewall, so content is evaluated and recorded exactly once. Gates the hooks lane ONLY: it does not affect --mcp-guard-hooks sanctioning, and it does not disable the base-url firewall (default true)
+      --mcp-guard-hooks                       Enable the MCP guard hooks: the agent's tool-call hooks hard-block unsanctioned MCP servers (default: true). Disable with --mcp-guard-hooks=false, ONYX_MCP_GUARD_HOOKS=0 (or false), or DISABLE_MCP_GW=1, which skips all MCP protection and overrides an explicit --mcp-guard-hooks=true. Neither env var can turn the guard on once the flag has disabled it. (default true)
+      --scan-api-key string                   API key for post-operation scan (optional)
+      --scan-dockers                          Also apply this operation inside running Docker containers (env: ONYX_SCAN_DOCKERS) (default true)
+      --scan-endpoint string                  Ingest endpoint for post-operation scan (optional)
+      --scanner-api-url string                Base URL of the scanner-api service used by the MCP probe cache (e.g. https://api.<tenant>). Empty disables the cache.
+      --scanner-base-url string               Base URL for downloading per-container scanner binaries (env: SCANNER_BASE_URL)
+      --scanner-download-key string           Path/token for the scanner download URL (env: ONYX_SCANNER_DOWNLOAD_KEY); defaults to --api-key
+  -v, --verbose                               Enable verbose output
+
+Global Flags:
+      --dsl-enabled      Detect claude-code and the Codex CLI with the DSL envelope instead of the native Go detectors (env: ONYX_SCANNER_DSL_ENABLED; default legacy Go; an explicit flag beats the env)
+      --log-dir string   Directory to store log files (default "~/.onyx/mcp-scanner/logs")
+  -q, --quiet            Don't print logs to console
+      --skip-certs       Skip SSL certificate verification (env: ONYX_SKIP_CERTS)
+
+installation completed with 1 error(s)

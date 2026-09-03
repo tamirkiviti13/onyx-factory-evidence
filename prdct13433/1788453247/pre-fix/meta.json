@@ -1,0 +1,7 @@
+{
+  "git_sha": "6965aa7292324f519966616e64959f4ea1238d61",
+  "captured_at": "2026-09-03T14:21:07Z",
+  "note": "git_sha = the frozen buggy base the pre-fix capture ran against (origin/main at capture time; scanner/ untouched between it and current origin/main 2d8050d91c). vBase binary 0.0.2-vbase-6965aa72 sha256 58029e20f2178ff993ba8348ceced3cadfaf743c27c47cfc82c87f70cbbdc899; stale host state laid down by the vOld build at f53d645793^ = 13bab571e1018805fdad1bf5bad7d0c223ab44b0, binary 0.0.1-vold-13bab571 sha256 1c1705deb7f2039e7f6096e616e1ede2d018f7a8e62fd8c10c5c34f2f1ce32e7",
+  "host": "ip-10-10-6-140",
+  "target_user": "octarget"
+}

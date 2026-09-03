@@ -1,0 +1,16 @@
+### at1-05 (my independent DB read-back + Kong negative) ###
+-- DB rows for this hostname (devices -> device_applications -> assets) --
+devices|1
+device_apps|8
+assets_openclaw|1
+-- the OpenClaw asset row(s) --
+
+-- Kong NEGATIVE: unregistered key (expect 401) --
+unregistered-key HTTP=401 (expect 401)
+{"error": "Authentication required"}
+-- Kong POSITIVE: registered key (expect 200/2xx) --
+registered-key HTTP=200 (expect 2xx)
+
+-- OpenClaw asset detail (correct columns) --
+OpenClaw (octarget)|
+-- device app names for this host --
