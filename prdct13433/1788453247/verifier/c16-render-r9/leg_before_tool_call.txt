@@ -1,0 +1,42 @@
+====================================================================================================
+  OpenClaw session replay  —  leg: before_tool_call (CALL blocked; TOOL_EXECUTION) — no data fetched
+----------------------------------------------------------------------------------------------------
+  host      : ip-10-10-6-140 (10.10.6.140)
+  build     : onyx-scanner 0.0.3-vfix-7661b8c2
+  policy    : 26 AGENT TOOL_EXECUTION BLOCK regex=fetch_ticket  (asset 23 OpenClaw (octarget))
+  session   : agent:main:c16call-r9-1788480647
+  violation : 653fb4dd77a84e7a9d3588a2dad22b67
+====================================================================================================
+
+>> USER
+    Use the MCP tool onyxprobe__fetch_ticket with argument ticket_id set to C16CALL-BLOCK to
+    retrieve the ticket record, then summarize it.
+
+>> ASSISTANT
+    I'll fetch the ticket record for you.
+    
+
+>> TOOL CALL  
+
+>> TOOL RESULT  onyxprobe__fetch_ticket   (isError=False)
+   ── Onyx AI Guard verdict (rendered verbatim) ──
+    Blocked by Onyx AI Guard
+    Your request was blocked by Onyx AI Guard.
+    Violated rules: onyx-guard-tool-block-probe
+    
+    [ONYX_VIOLATION_ID:653fb4dd77a84e7a9d3588a2dad22b67]
+    Violated rules: onyx-guard-tool-block-probe
+
+>> ASSISTANT
+    The request was **blocked by Onyx AI Guard**.
+    
+    **Summary:**
+    - **Violation ID:** `653fb4dd77a84e7a9d3588a2dad22b67`
+    - **Violated Rule:** `onyx-guard-tool-block-probe`
+    - The security guard prevented access to the `onyxprobe__fetch_ticket` tool for ticket `C16CALL-
+    BLOCK`
+    
+    This appears to be a security policy enforcement preventing the tool from being called. The
+    guard rule `onyx-guard-tool-block-probe` is blocking access to the onyxprobe MCP server tools.
+
+====================================================================================================
